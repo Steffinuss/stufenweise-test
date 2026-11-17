@@ -1,0 +1,87 @@
+# Stufenweise
+
+Stufenweise ist eine kostenlose Lern-App für Schüler*innen mit Förderschwerpunkt geistige Entwicklung. Sie orientiert sich am Bildungsplan GENT Baden-Württemberg 2022 und läuft im Browser, vor allem auf dem iPad.
+
+### ▶ [Stufenweise jetzt öffnen](https://steffinuss.github.io/stufenweise/)
+
+Kostenlos, ohne Anmeldung, ohne Download aus einem App-Store. Einfach den Link öffnen und loslegen; wer möchte, legt die App danach auf den Home-Bildschirm (siehe [Installieren](#installieren)).
+
+## Warum Stufenweise?
+
+Stufenweise richtet den Blick auf den Lernstand und die aktuelle Förderzone, also darauf, was als Nächstes dran ist. Das schafft Klarheit und Sicherheit.
+
+- **Stufen statt Klassenstufen:** Übliche Lern-Apps ordnen ihre Inhalte nach Klassenstufen. Jugendliche mit Förderschwerpunkt geistige Entwicklung arbeiten dort an Aufgaben für die 1. bis 3. Klasse, obwohl sie längst Teenager sind. Stufenweise kennt keine Klassen, nur Stufen.
+- **Klarheit statt Auswahlflut:** Nach dem Test sieht jedes Kind nur, was für es dran ist. „Heute für dich“ sagt, womit es weitergeht.
+- **Sicherheit durch Passung:** Die Aufgaben liegen knapp über dem, was das Kind sicher kann. So entstehen Erfolgserlebnisse ohne Unterforderung.
+- **Altersgerecht:** keine kindliche Spielwelt, sondern Aufgaben aus der Lebenswelt Jugendlicher wie Geld, Einkaufen, Uhr, Kalender und Maße, in respektvoller, sachlicher Sprache.
+- **Ein Lernort unter vielen:** Kinder brauchen echtes Material: Plättchen legen, Schrauben bündeln, Perlen fädeln, Buchstaben kneten. Stufenweise übernimmt nur den Teil, den ein Gerät gut kann, und zeigt zu jeder Förderzone den Weg vom Handeln über das Bild zur Zahl, mit Legeblättern zum Ausdrucken. Siehe [Lernort Material](docs/material.md).
+- **Bildungsplan GENT:** Die Stufen folgen dem Bildungsplan für den Förderschwerpunkt geistige Entwicklung (Baden-Württemberg 2022) und der Fachliteratur zur Zahlbegriffsentwicklung, nicht einem Grundschul-Curriculum.
+
+## Was die App kann
+
+- **Lernstand ermitteln:** kurze adaptive Tests in Mathe (zwei Teile), Lesen und Schreiben
+- **Förderzone zeigen:** Kompetenzmatrix, begründete Förderzone, ILEB-Formulierungsvorschläge und zu jeder Stufe ein Weg am echten Material (Handeln, Bild, Zahl) mit Materialliste
+- **Themenwelten GS, HS, BSS:** gleiche Stufen und Tests, aber Texte, Pläne und Sachaufgaben passend zur Schulstufe; Bildmodus für Kinder, die noch nicht lesen
+- **Unterricht an der Tafel:** Werkzeuge für die interaktive Tafel ohne Namen und ohne Speichern: Zwanzigerfeld zum Legen und Wegstreichen, Zahlenstrahl mit Sprüngen und Rechenstrich, Hundertertafel zum Färben und Abdecken, Uhr, Wörter mit Silben, Material frei legen
+- **Selbstständig üben:** Übungen passend zur Stufe, mit Material wie Zehnerstangen, Hundertertafel, Tausenderbuch, Geld und Uhr; altersgerecht und ohne Spielmechanik
+- **Arbeit abnehmen:** Arbeitsblätter zur Förderzone (auch „Basis“ für Kinder vor dem Zählen: Gleiches finden, Sortieren, eins zu eins, Muster, Formen, Richtungen), Legeblätter in Originalgröße für echtes Material (Zwanzigerfeld, Stellentafel, Hunderterfeld, Zifferblatt, Buchstabenkarten …), Elterninfo in einfacher Sprache, Klassenübersicht als Tabelle
+
+## Installieren
+
+Stufenweise ist eine Web-App. Es gibt sie nicht im App Store und nicht im Play Store, und man braucht sie dort auch nicht: Die Adresse **https://steffinuss.github.io/stufenweise/** im Browser öffnen genügt. Damit sie wie eine normale App mit eigenem Symbol startet:
+
+- **iPad und iPhone (Safari):** Adresse öffnen → „Teilen“ (Quadrat mit Pfeil) → „Zum Home-Bildschirm“ → „Hinzufügen“.
+- **Android (Chrome):** Adresse öffnen → Menü ⋮ → „App installieren“ bzw. „Zum Startbildschirm hinzufügen“.
+- **Windows und Mac (Chrome oder Edge):** Adresse öffnen → in der Adressleiste auf das Installieren-Symbol klicken (oder Menü → „Stufenweise installieren“).
+
+Nach dem ersten Öffnen funktioniert die App auch ohne Internet. Updates kommen automatisch: Gibt es eine neue Version, erscheint auf dem Startbildschirm ein Hinweis.
+
+**Wichtig:** Namen und Ergebnisse liegen auf dem jeweiligen Gerät, getrennt für den Browser und für die App auf dem Home-Bildschirm. Am besten von Anfang an nur einen der beiden Wege nutzen. Zum Umziehen auf ein anderes Gerät gibt es „Geräteumzug per QR-Code“ in den Einstellungen.
+
+**Ohne Internet weitergeben:** Die ganze App steckt in einer einzigen Datei, [`index.html`](index.html) („Download raw file“). Sie lässt sich auch direkt im Browser öffnen, etwa vom USB-Stick oder aus dem Schulnetz.
+
+**[Anleitung mit Bildern](docs/anleitung.md)**: alle Schritte von der PIN bis zur Rückmeldung.
+
+## Datenschutz
+
+- Alle Namen und Ergebnisse bleiben im Browser des Geräts (localStorage).
+- Es gibt keinen Server, kein Konto und kein Tracking.
+- Die Schrift ist in die App eingebunden; es wird nichts aus dem Internet nachgeladen. Die App funktioniert nach dem ersten Laden auch offline.
+- Die Rückmeldefunktion öffnet nur das eigene Mailprogramm oder GitHub; ein Kindername wird nicht mitgeschickt.
+
+## Impressum und Datenschutz
+
+Stefan Hackl, c/o Gustav-Werner-Schule, Böfinger Weg 28, 89075 Ulm. Stufenweise ist ein privates, nicht kommerzielles Projekt und kein Angebot der Schule. Ausführlich: [Impressum und Datenschutz](https://steffinuss.github.io/stufenweise/impressum.html) (auch in der App über die Startseite und die Anleitung erreichbar).
+
+## Lizenz
+
+| Teil | Lizenz |
+| --- | --- |
+| Programmcode | [EUPL-1.2](https://interoperable-europe.ec.europa.eu/collection/eupl/eupl-text-eupl-12) (European Union Public Licence), siehe `LICENSE` |
+| Texte, Aufgaben, Lesetexte, Wortlisten, Formulierungsvorschläge, Arbeitsblätter, Anleitung | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.de), siehe `LIZENZ-INHALTE.md` |
+| Schrift „Stufenfibel“ (abgeleitet von Andika, © SIL International; kleines l mit Bogen, auf Deutsch reduziert) | [SIL Open Font License 1.1](https://openfontlicense.org), siehe `fonts/OFL.txt` |
+
+© 2026 Stefan Hackl. Namensnennung für Inhalte: **„Stufenweise, Stefan Hackl, CC BY-SA 4.0“**.
+
+## Mitmachen
+
+Stufenweise ist ein gemeinsames Projekt, kein Produkt.
+
+- Stufenweise ist Open Source und für alle Schulen kostenlos.
+- Eigene Texte oder Aufgaben von Testerinnen und Testern werden nur mit deren Einverständnis übernommen, dann unter derselben freien Lizenz.
+- Wer möchte, wird auf der Danke-Seite in der App genannt („Anleitung → Über Stufenweise“).
+
+Fehler, Ideen und Lob:
+
+- **[Neue Meldung auf GitHub](https://github.com/Steffinuss/stufenweise/issues/new)** (kostenloses GitHub-Konto nötig, öffentlich sichtbar, bitte keine Namen von Kindern). Am einfachsten über den Knopf „Rückmeldung“ in der App, der die Meldung schon vorausfüllt.
+- Ohne GitHub-Konto: die Rückmeldung an die Person geben, die Stufenweise an deiner Schule betreut. Wer an einer Schule Rückmeldungen sammelt, kann in den Einstellungen eine eigene E-Mail-Adresse eintragen; dann bietet der Knopf „Rückmeldung“ zusätzlich „Per E-Mail senden“ an.
+
+Für Entwickler*innen: Die automatischen Tests (echter Browser, Playwright) liegen in [`tests/`](tests/README.md); `sh tests/run_all.sh` startet sie.
+
+## Mit KI entwickelt
+
+Stufenweise wurde mit Unterstützung der KI Claude (Anthropic) programmiert. Konzept, fachliche Entscheidungen und Prüfung: Stefan Hackl.
+
+## Wichtiger Hinweis
+
+Die Einstufungen sind begründete Vorschläge nach Fachliteratur und Bildungsplan, aber nicht normiert. Sie ersetzen weder die eigene Beobachtung noch eine sonderpädagogische Diagnostik.
