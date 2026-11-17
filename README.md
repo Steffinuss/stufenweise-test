@@ -1,3 +1,5 @@
+> **Testversion von Stufenweise** – Stand aus [Steffinuss/stufenweise](https://github.com/Steffinuss/stufenweise), Zweig `entwicklung` (3abe7ae). Nicht für den Unterricht. Hier nicht direkt arbeiten.
+
 # Stufenweise
 
 Stufenweise ist eine kostenlose Lern-App für Schüler*innen mit Förderschwerpunkt geistige Entwicklung. Sie orientiert sich am Bildungsplan GENT Baden-Württemberg 2022 und läuft im Browser, vor allem auf dem iPad.
