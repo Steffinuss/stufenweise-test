@@ -4,7 +4,7 @@ Geplante Entwicklungsaufgaben für Stufenweise. Begonnenes steht in `IN_PROGRESS
 
 Regeln (Stand 17.11.2026): Der Funktionsumfang von `main` ist eingefroren, weil die App an Schulen genutzt wird. Neues entsteht nur im Zweig `entwicklung`, wird in der Testversion gezeigt und erst nach Stefans OK freigegeben (`docs/entwicklung.md`). Didaktische Entscheidungen trifft Stefan.
 
-Stand: 19.11.2026
+Stand: 20.11.2026
 
 ## Vorgeschlagene Reihenfolge
 
@@ -16,6 +16,22 @@ Stand: 19.11.2026
 | 3 | ~~**A** Plus und Minus aufteilen~~ | groß | freigegeben in 0.29.0 (20.11.2026), siehe `CHANGELOG.md` | 
 
 Alternative: B zuerst als schneller Gewinn, während Stefan den Basis-Test ausprobiert.
+
+---
+
+## F1: Fehler – Kinder weg nach „Jetzt aktualisieren“ (mehrere offene Fenster)
+
+**Status:** erledigt 20.11.2026 in 0.29.1 (`main`), siehe `CHANGELOG.md`. Umgesetzt wurde nicht nur der Listener, sondern Zusammenführen beim Speichern (Stefans Einwand: Ein Listener allein würde auch einen leeren oder kaputten Stand an alle Fenster verteilen).
+**Meldung Stefan (20.11.):** Beim Update auf 0.29.0 waren in der Chrome-App auf dem Mac die Kinder weg; Sicherung ließ sich importieren.
+
+**Ursache (nachgestellt mit Playwright):** Jedes Fenster der App liest `stufenweise.data` nur einmal beim Start und schreibt bei `saveData()` immer den ganzen Stand aus seinem eigenen Speicher zurück. Es gibt keinen `storage`-Listener. Chrome-App und Browser-Tab (und mehrere Tabs) teilen sich denselben Speicher. Ein länger offenes, veraltetes Fenster überschreibt deshalb beim nächsten Speichern alles, was ein anderes Fenster inzwischen angelegt hat. `doUpdate()` ruft vor dem Neuladen ausdrücklich `saveData()` auf – „Jetzt aktualisieren“ im veralteten Fenster löscht so die Kinder. Der Hinweis erscheint in jedem offenen Fenster.
+- Nachgestellt: Update 0.28.5 → 0.29.0 in einem Fenster: alle Kinder bleiben. Zwei Fenster, Kinder im zweiten angelegt, „Jetzt aktualisieren“ im ersten: alle Kinder weg. Beliebige Aktion im älteren Fenster: neuere Kinder weg.
+- Nicht die Ursache: Testversion (hatte von Anfang an den Vorsatz `test:`), Datenumstellung (`migrateData`), Service Worker (speichert keine Daten).
+- Fehler besteht seit Einführung der Profile, nicht erst seit 0.29.0; das Update macht ihn nur wahrscheinlich.
+
+**Erster Vorschlag (ersetzt):** (1) `storage`-Ereignis abhören: ändert ein anderes Fenster `stufenweise.data` oder die Einstellungen, liest dieses Fenster den neuen Stand ein (auf der Startseite neu zeichnen, beim Üben ruhig weiterüben und erst danach übernehmen). (2) `saveData()` in `doUpdate()` streichen (gespeichert wird ohnehin nach jeder Änderung). (3) Test mit zwei Seiten im selben Browser-Kontext.
+
+**Umsetzung 0.29.1:** `saveData()` vergleicht den gespeicherten Stand mit dem zuletzt gelesenen/geschriebenen (`dataBase`). Hat ein anderes Fenster gespeichert, Dreiwege-Abgleich (`merge3`, `mergeStores`): Kinder über ihre Kennung (Löschen gilt), Listen über ihre Einträge, Fehlerzähler addiert, Einstufungen je Feld. Sicherheitsnetz gegen Speichern ohne Kinder (`saveData({empty:true})` nur beim Löschen des letzten Kindes und beim Ersetzen durch eine Sicherung). Nicht lesbarer Stand → `stufenweise.data.defekt`. `storage`-Listener nur noch für die Anzeige. Test `tests/mehrere_fenster.py`.
 
 ---
 
