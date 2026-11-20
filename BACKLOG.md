@@ -14,8 +14,41 @@ Stand: 20.11.2026
 | 1 | ~~**C** Basis: bessere Progression~~ | mittel | freigegeben in 0.29.0 (20.11.2026), siehe `CHANGELOG.md` |
 | 2 | ~~**B** Unterricht: Zahl im Zwanzigerfeld~~ | klein | freigegeben in 0.29.0 (20.11.2026), siehe `CHANGELOG.md` |
 | 3 | ~~**A** Plus und Minus aufteilen~~ | groß | freigegeben in 0.29.0 (20.11.2026), siehe `CHANGELOG.md` | 
+| 4 | **D** Materialkiste (Hilfen für Schüler*innen) | mittel | gebaut 20.11. in `entwicklung`, in der Testversion; wartet auf Stefans Freigabe (`IN_PROGRESS.md`) |
 
 Alternative: B zuerst als schneller Gewinn, während Stefan den Basis-Test ausprobiert.
+
+---
+
+## D: Materialkiste – Hilfen für Schüler*innen als eigenes Modul
+
+**Status:** gebaut 20.11.2026 in `entwicklung`, in der Testversion; wartet auf Stefans Rückmeldung und Freigabe (`IN_PROGRESS.md`).
+**Wunsch Stefan (20.11.):** Die Rechenhilfe soll kein Teil von Mathe/Plus-Minus sein, sondern ein ganz unabhängiges Modul, „quasi wie ein Taschenrechner, Materialvorrat usw.“ für Schüler*innen.
+
+**Ausgangslage:**
+- Rechenhilfe seit 0.29.0: `app.calc` innerhalb von Plus/Minus, eigener Eintrag in der Mathe-Leiste vor „Schriftlich“ (`homeAreasMath`), für alle Kinder sichtbar. Eigene Aufgabe eingeben, Plus/Minus und Darstellung frei wählen. Übungen werden protokolliert (`logAttempt`), aber ohne „Schwerer/Leichter“.
+- „Frei legen“ (`free`) ist schon ein Materialvorrat und bleibt nach dem Test immer sichtbar.
+- Für die Tafel gibt es acht Werkzeuge ohne Namen und ohne Speichern (`CLASS_TOOLS`: Zahlen, Zwanzigerfeld, Zahlenstrahl, Hundertertafel, Frei legen, Blitzblick, Uhr, Wörter mit Silben). Diese könnten für Schüler*innen wiederverwendet werden, ohne neue Architektur.
+
+**Idee:** eigener Bereich mit Werkzeugen, die ein Kind nutzt, wenn es eine Aufgabe (z. B. vom Arbeitsblatt oder aus dem Alltag) hat: kein Lernstand, keine Tests, keine Förderzone.
+
+**Entscheidungen Stefan (20.11.):**
+- Ort: eigener Eingang auf der Startseite neben Üben und Testen, unabhängig vom Fach.
+- Inhalt: Rechenhilfe Plus/Minus, Materialvorrat (Frei legen mit Material, Würfeln, Geld), Zwanzigerfeld, Hundertertafel, Zahlenstrahl, Uhr (wie an der Tafel) und neu ein einfacher Taschenrechner (große Tasten, Ergebnis wahlweise auch als Material).
+- Speichern: nur die Nutzung zählen (z. B. „Rechenhilfe 5× genutzt“) für Lernstand und ILEB; keine einzelnen Aufgaben, keine Ergebnisse, keine Förderzone.
+- Sichtbarkeit: für alle Kinder immer.
+
+**Weitere Entscheidungen Stefan (20.11.):** Name „Materialkiste“; Rechenhilfe fällt in der Mathe-Leiste weg; Taschenrechner mit + − · : und Zahlen bis 10 000.
+
+**Umsetzung:** vierte Kachel auf der Startseite → „Wer bist du?“ (mit Gast) → Werkzeugauswahl; in der Kiste eigene Leiste mit „Fertig“. Die Tafel-Werkzeuge laufen unverändert (`TOOL_MODES`), die Rechenhilfe wie bisher (`app.calc`). In der Kiste (`app.kiste`) keine Lenkung (`guideFix`), kein gesperrter Zahlenraum, keine Runden, kein `logAttempt`/`noteError`/`logSkip`. `kisteCount` zählt das Öffnen je Werkzeug in `data.kiste`. Taschenrechner `tcalc`: eine Rechnung nach der anderen, Weiterrechnen mit dem Ergebnis, geteilt mit Rest, Material nur für ganze Ergebnisse 0–10 000. Lernstand (`statsSections`, `kisteLine`) und ILEB Mathe (`zoneReport`). Test `tests/materialkiste.py`.
+
+**Ursprüngliche Fragen:**
+1. Ort: eigener Eingang auf der Startseite (neben Üben und Testen) oder eigene Gruppe in der Leiste, die in jedem Fach zu sehen ist.
+2. Inhalt: Rechenhilfe (Plus/Minus), Materialvorrat, Zwanzigerfeld, Hundertertafel, Zahlenstrahl, Uhr, Geld, Wörter/Silben; ein echter Taschenrechner (große Tasten, Ergebnis wahlweise auch als Material)?
+3. Speichern: ohne Ergebnisse wie an der Tafel, oder Nutzung mitschreiben (z. B. „hat die Rechenhilfe 5× genutzt“) für Lernstand/ILEB.
+4. Sichtbarkeit: immer für alle Kinder, oder je Kind von der Lehrkraft ein- und ausschaltbar (wie das Basis-Häkchen).
+5. Name für Kinder: „Hilfen“, „Werkzeugkiste“ o. Ä.
+6. Rechenhilfe danach aus der Mathe-Leiste nehmen oder an beiden Stellen lassen.
 
 ---
 
