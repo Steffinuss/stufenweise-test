@@ -18,8 +18,32 @@ Stand: 24.11.2026 (0.33.0)
 | 5 | ~~**E** QR-Umzug schneller (+ Fehler F2)~~ | mittel | freigegeben in 0.31.0 (23.11.2026), zusammen mit F3 (Druck wie Vorschau), siehe `CHANGELOG.md` |
 | 6 | ~~**G** Hundertertafel-Blätter: Bezug zur Tafel sichtbar (+ Heft zur Förderzone)~~ | klein | freigegeben in 0.32.0 (23.11.2026), siehe `CHANGELOG.md` |
 | 7 | ~~**H** Konzentrationsmodus für Kinder (+ Usability-Review)~~ | klein bis mittel | freigegeben in 0.33.0 (24.11.2026), siehe `CHANGELOG.md` |
+| 8 | **I** Optimierung Deutsch (Bilder beim Schreiben, Anhören, Ausbau) + Hundertertafel verdeckt | groß | gebaut in `entwicklung` (24.11.2026), Testversion, wartet auf Freigabe |
 
 Alternative: B zuerst als schneller Gewinn, während Stefan den Basis-Test ausprobiert.
+
+---
+
+## I: Optimierung Fach Deutsch
+
+**Status:** gebaut in `entwicklung` (24.11.2026), Testversion; wartet auf Stefans Freigabe. Dokument „Stufenweise – Optimierung Deutsch“ (claude.ai/artifact/UWNJUi6e6cFP7h7W7ugtdx).
+**Anlass (Stefan, 24.11.):** In Deutsch ist deutlich weniger als in Mathe. Beim Schreiben müssen Kinder Wörter schreiben, ohne sie zu kennen; manchmal erkennen sie die Bilder nicht. „Vielleicht wäre an dieser Stelle doch eine Sprachausgabe als Hilfe gut.“
+
+**Befund (gezählt in 0.33.0):**
+- Stufen mit Übungen: Mathe 51 (M 20, R 7, H 7, U 6, S 4, G 4, Z 3), Deutsch 15 (L 9, W 6) plus LX/WX. Arbeitsblätter 34 zu 16, Legeblätter 9 zu 6, Tafelwerkzeuge 7 zu 1 (`tword`), Materialkiste 7 zu 0.
+- Hören P1–P4: `P_LEVELS`, `L_INFO.P1–P4`, `HEAR_RAIL` und eine Lernstandszeile gibt es, aber `PHON = {}` (keine Übungen, kein Test).
+- Schreiben zeigt nur Bild + Kästchen + Tastatur (`writeStage`). Falsches Wort → „Noch nicht. Sprich das Wort langsam mit.“ und zählt wie ein Schreibfehler.
+- 12 Schreibwörter nicht in `CLEAR`: `LAUT_SHORT` Lama, Rabe, Schal, Limo, Lupe, Dose; `LAUT_LONG` Kamel, Nudel, Melone; `MERK` Tonne, Decke, Pfanne. Der Schreib-Test (`writePlan`) nutzt dieselben Listen. `CLEAR` selbst enthält Tulpe/Rose/Blume und Tasse/Kanne.
+- Sprachausgabe wurde entfernt (`speak()` leer, „Qualität der Gerätestimmen reicht nicht“); `germanVoices`, `bestVoice`, `settings.voice`, `#btn-say` und die Aufbereitung gesprochener Zahlen sind noch im Code. Feste Regel „Keine Sprachausgabe“ – nur Stefan kann sie ändern.
+
+**Vorschläge (Details im Dokument):**
+- Ohne Ton: H1 nur `CLEAR` beim Schreiben (Üben + Test); H2 Knopf „Kenne ich nicht“ (a: anderes Bild, zählt nicht; b: Wort kurz zeigen, dann aus dem Gedächtnis, zählt „mit Hilfe“), Lernstand sammelt nicht erkannte Bilder als Wortschatzliste, nie als Schreibfehler; H3 Bilder vor einer Runde kennenlernen + Blatt „Bildkarten mit Wort“; H4 Bilder für die Klasse abwählen.
+- Mit Ton: Knopf „Anhören“ neben dem Bild, nur das Wort. A Gerätestimme nur mit `localService`-Stimmen (nichts ins Internet); B eigene Aufnahmen der ~110 Bildwörter als Teil der App (~1 MB, offline), evtl. zusätzlich in Silben; Mischung möglich (Gerätestimme nur für „Meine Wörter“). Lehrkraft schaltet ein (alle oder je Kind).
+- Ausbau: D1 Hören P1–P4 mit Übungen, D2 Silben beim Schreiben (W4 Kästchen unter Silbenbögen, Silbenkarten legen), D3 Deutsch in der Materialkiste (Anlauttabelle, Bildwörterbuch, Wörter legen), D4 Deutsch im Unterricht (Anlauttabelle, Blitzlesen, Satz-Baukasten), D5 Schreiben im Alltag (Einkaufszettel, eigener Satz), D6 Arbeitsblätter (Silben zählen, Reime, Anlaut-Bilder, Bildkarten).
+
+**Stefans Antworten (im Dokument, 24.11.):** 1 ja, Üben und Test · 2 wie vorgeschlagen „oder beides gelten lassen“ → herausgenommen · 3 b beim Üben, a im Test · 4 ja, Knopf für die Lehrkraft · 5 ganze Klasse · 6 „erstmal A testen, evtl. später eigene Aufnahmen“ · 7 im Test ja, je Kind · 8 D2, D1, D3, D6, D4, D5 · 9 „Ja, auch im Test prüfen“. Dazu (24.11.): Hundertertafel „Finde Zahl“ auch abgedeckt und teilabgedeckt.
+**Damit geändert:** feste Regel „Keine Sprachausgabe“ gilt nicht mehr für „Anhören“ (nur das Wort, nur Gerätestimmen); Rückmeldungen werden weiter nicht vorgelesen.
+**Umsetzung:** `W_AMBIG`, `wClear`, `wPool`, `wPick`, `W_POOLS`, `settings.wHide`, `wUnkOk` (`r-unk`, Test `d-unk` mit `unkFrom`, `d.unkK`), `unkWords` (Log-Feld `unk`), `wPreviewStart`/`app.read.wq`; Anhören `sayOn`/`sayWord`/`speechBtn`/`sayMini` (nur `localService`), `settings.anhoeren`, `p.say`; W4 `syl` (Kästchen `w-sylg`), `sylCardItem`, `WRITE_PRACTICE`; Hören `PHON` (P1–P4), `RHYME`, Lese-Test `readPlan` (Hören, wenn L4 nicht erreicht), `cap:40`; Kiste `abc`/`dict`/`tword` (`subj:'D'`, `kisteLine(pid, sj)`); Unterricht `abc`/`tblitz`/`tsatz`; Blätter `P_SHEETS`, Legeblatt `bildk`; W6 `shopItem`, `satzItem` (`check:'satz'`, `free`); Hundertertafel `hCover`, `hcovTrack`, `p.hcov`. Test `tests/deutsch_optimierung.py`.
 
 ---
 

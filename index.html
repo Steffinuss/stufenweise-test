@@ -377,6 +377,35 @@ body.screening .toolbar{visibility:hidden}
 .dg-stage:has(.it-more)::after{content:'↓ Weiter unten';position:absolute;bottom:6px;left:50%;transform:translateX(-50%);background:var(--dark);color:#fff;font-weight:700;font-size:15px;padding:5px 14px;border-radius:999px;pointer-events:none;z-index:3}
 .it-svg{width:100%;display:flex;justify-content:center}.it-svg>svg{max-width:100%;max-height:300px}
 .it-icon svg{display:block;filter:drop-shadow(0 2px 3px #0002)}
+.it-icon:has(.say-btn){position:relative}.it-icon svg+.say-btn{position:absolute;left:100%;top:50%;transform:translate(16px,-50%)}
+.say-btn{display:inline-flex;align-items:center;justify-content:center;width:60px;height:60px;border-radius:50%;border:2px solid #346bc3;background:#fff;color:#346bc3;cursor:pointer;flex:none;box-shadow:0 2px 6px #0001}
+.say-btn>svg{filter:none;width:30px!important;height:30px!important;max-width:none!important}.say-btn:active{background:#e6eefb}
+.say-btn.big{width:72px;height:72px}
+.say-btn.mini{width:40px;height:40px;position:absolute;right:-6px;bottom:-6px}.say-btn.mini>svg{width:20px!important;height:20px!important}
+.p-pic{position:relative;display:inline-flex;padding:4px}
+.p-dots{display:inline-flex;gap:10px;padding:8px 4px}.p-dots i{width:26px;height:26px;border-radius:50%;background:#346bc3;display:block}
+.p-hear{flex-direction:column;align-items:center;display:flex;gap:6px;font-weight:700}
+.p-teacher{font-size:16px;color:#6b665e;margin:0}
+.wpre{max-width:900px;margin:0 auto;text-align:center}
+.abc-wrap{width:100%;max-height:100%;overflow:auto;padding:6px}
+.abc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:10px;max-width:980px;margin:0 auto}
+.abc-tile{display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 4px;border-radius:14px;background:#fff;min-height:96px}
+.abc-tile b{font-size:30px;font-family:Stufenfibel,Verdana,sans-serif}.abc-tile b small{font-size:24px;margin-left:4px;font-weight:600}
+.abc-one{max-width:980px;margin:0 auto;text-align:center}.abc-big{font-size:96px;font-weight:800;font-family:Stufenfibel,Verdana,sans-serif;margin-bottom:10px}.abc-big span{margin-left:20px;font-weight:600}
+.abc-dict{max-width:980px;margin:0 auto}.abc-dict h3{font-size:28px;margin:16px 0 8px;font-family:Stufenfibel,Verdana,sans-serif}
+.abc-wrap figure{cursor:pointer}
+.tb-hid{cursor:pointer;color:#a39e97;min-width:200px;text-align:center}
+.ts-wrap{flex-direction:column;gap:30px}.ts-line{min-height:90px;display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:center;padding:12px 20px;border-bottom:4px solid var(--dark);min-width:60%}
+.ts-line em{color:#a39e97;font-size:20px}.ts-line.ok{border-color:#27834b}.ts-line.no{border-color:#c9414a}
+.ts-tiles{display:flex;flex-wrap:wrap;gap:14px;justify-content:center}
+.ts-card{font:inherit;font-size:clamp(28px,4vw,44px);font-weight:700;padding:10px 22px;border-radius:14px;background:#fff;border:2px solid #2b2930;box-shadow:0 2px 6px #0001;font-family:Stufenfibel,Verdana,sans-serif}
+.ts-card.in{border-color:#346bc3}.ts-card:disabled{opacity:.25}.wpre-h{font-size:19px;margin:4px 0 14px}
+.wpre-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:14px}
+.wpre-grid figure{margin:0;background:#fff;border-radius:16px;padding:10px 6px;display:flex;flex-direction:column;align-items:center;gap:6px;box-shadow:0 1px 4px #0001}
+.wpre-grid figcaption{font-size:24px;font-weight:700}.wpre-grid .say-btn{width:44px;height:44px}.wpre-grid .say-btn>svg{width:22px!important;height:22px!important}
+.whide{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:6px;margin-top:6px}
+.whide-it{display:flex;align-items:center;gap:6px;padding:4px 6px;border-radius:10px;background:#fff;border:1.5px solid #ddd4c3;font-size:15px}
+.whide-it.off{opacity:.45;background:#f3efe6}.whide-it svg{flex:none}
 .it-word{font-size:clamp(44px,7vw,72px);font-weight:700;letter-spacing:.04em;background:#fff;border-radius:18px;padding:6px 34px;box-shadow:var(--shadow)}
 .it-text .it-in{width:2.6em;font:inherit;font-weight:700;text-align:center;padding:0 .1em;margin:0 .05em;height:1.35em;border:3px dashed #cfc6b4;border-radius:12px;background:#fdfbf6;color:var(--ink);vertical-align:middle;position:relative;top:-.15em}
 .it-text .it-in:focus{border-style:solid;border-color:var(--focus);outline:none;background:#fff}
@@ -564,7 +593,7 @@ body.rail-off .rail-show{display:block}
 .ctx-tile b{font-size:34px;line-height:1.1}.ctx-tile span{font-size:18px;color:var(--muted);font-weight:700}
 .ctx-tile.practice{background:#eaf5ee;border-color:#9fd3ae}.ctx-tile.kiste{background:#f4ecfa;border-color:#c9aee3}.ctx-tile.class{background:#e8effa;border-color:#8fb3ea}.ctx-tile.test{background:#fdf1e1;border-color:#f0c48a}
 .ctx-tile:hover{transform:translateY(-3px)}
-.ct-tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:14px;width:min(980px,100%)}
+.ct-tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px;width:min(980px,100%)}
 /* Materialkiste: Taschenrechner */
 .trc{display:flex;flex-wrap:wrap;gap:24px;justify-content:center;align-items:flex-start;width:100%;padding:8px 0}
 .trc-box{width:min(380px,100%);background:#2b2930;border-radius:26px;padding:16px}
@@ -576,7 +605,8 @@ body.rail-off .rail-show{display:block}
 .trc-keys button{min-height:64px;font-size:32px;font-weight:800;border-radius:14px;background:#fff;color:#2b2930;border:0;padding:0}
 .trc-keys .op{background:#ffe2b8}.trc-keys .clr{background:#f6d3cf;font-size:26px}.trc-keys .bk{background:#e6e1d8;font-size:26px}
 .trc-keys .eq{grid-column:1/-1;background:#27834b;color:#fff}.trc-keys .eq:hover{background:#1f6b3d}
-.kiste-tiles{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}.kiste-tiles .ct-tile{min-height:0;padding:10px 6px}
+.kiste-tiles{grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:8px}.kiste-tiles .ct-tile{min-height:0;padding:8px 4px}.kiste-tiles .ct-tile svg{width:72px;height:48px}.kiste-tiles .ct-tile b{font-size:17px}.kiste-tiles .ct-tile span{font-size:13px}
+.kiste-h{font-size:15px;color:var(--muted);margin:2px 0 -4px;align-self:flex-start;width:min(980px,100%);margin-inline:auto;text-transform:uppercase;letter-spacing:.06em}
 .trc-side{flex:1 1 320px;min-width:260px;max-width:680px;display:flex;flex-direction:column;gap:10px}
 .trc-note{margin:0;font-size:20px;font-weight:700;color:var(--muted)}
 .trc-mat{background:#fff;border-radius:16px;padding:12px}.trc-mat svg{width:100%;height:auto;max-height:460px}
@@ -692,6 +722,15 @@ button.brand{background:none;box-shadow:none;border:0;padding:4px 0 2px;min-heig
 /* Schreiben */
 .w-wrap{gap:12px}
 .w-boxes{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+.w-boxes.syl{gap:18px}
+.w-free{min-width:min(640px,90%);min-height:64px;border-bottom:4px solid var(--dark);font-size:clamp(28px,4vw,40px);font-weight:700;font-family:Stufenfibel,Verdana,Arial,sans-serif;background:#fff;border-radius:8px 8px 0 0;padding:6px 14px;white-space:pre-wrap;text-align:left}
+.w-caret{display:inline-block;width:3px;height:1em;background:#e8962e;vertical-align:-.1em;margin-left:2px}
+.w-extra{display:flex;gap:6px;justify-content:center;margin-top:-8px}.w-extra button{min-height:48px;min-width:56px;padding:0 14px;font-size:24px;font-weight:700}.w-extra .space{min-width:280px;font-size:16px}
+.w-shop{position:absolute;left:12px;top:12px;background:#fffdf3;border:1.5px solid #ddd4c3;border-radius:10px;padding:8px 12px;min-width:170px;box-shadow:0 2px 6px #0001;font-size:18px}
+.w-shop b{display:block;margin-bottom:4px;font-size:15px;color:var(--muted)}.w-shop-r{display:flex;align-items:center;gap:8px;border-bottom:1px dashed #cfc6b4;padding:2px 0;font-weight:700;font-family:Stufenfibel,Verdana,sans-serif}.w-shop-r.now{background:#fff2db}
+.w-shopw{position:relative}.w-sylg{display:flex;gap:6px;padding-bottom:16px;position:relative}
+.w-sylg::after{content:'';position:absolute;left:8%;right:8%;bottom:0;height:12px;border:3px solid #346bc3;border-top:none;border-radius:0 0 60px 60px/0 0 14px 14px}
+.w-sylg:nth-child(even)::after{border-color:#c9414a}
 .w-box{width:52px;height:64px;border-bottom:4px solid var(--dark);display:flex;align-items:flex-end;justify-content:center;font-size:44px;font-weight:700;font-family:Stufenfibel,Verdana,Arial,sans-serif;background:#fff;border-radius:8px 8px 0 0}
 .w-box.cur{border-bottom-color:#e8890c;background:#fff8ee}
 .w-keys{display:grid;grid-template-columns:repeat(10,minmax(30px,54px));gap:6px;justify-content:center}
@@ -1139,6 +1178,18 @@ button.tb-jump{font-size:22px;font-weight:800;min-width:66px}
       <textarea data-key="ownWords" rows="4" placeholder="Ali, Selin, Praktikum, Schraube, Montag" style="width:100%;font:inherit;font-size:16px;padding:8px;border-radius:10px;border:1.5px solid #ddd4c3;margin-top:6px"></textarea></label>
     <p class="note">Die Wörter erscheinen unter „Lesen → Meine Wörter“, „Schreiben → Meine Wörter“ und als Arbeitsblatt. Sie werden nicht für Tests verwendet.</p>
   </fieldset>
+  <fieldset><legend>Anhören (Sprachausgabe)</legend>
+    <p class="note">Neben dem Bild erscheint ein Knopf „Anhören“. Er liest nur das Wort vor: beim Schreiben, im Schreib-Test und beim Hören. Die App nutzt nur deutsche Stimmen, die auf diesem Gerät liegen; nichts geht ins Internet. Gibt es keine solche Stimme, erscheint kein Knopf.</p>
+    <label class="row">Standard für alle Kinder <select data-key="anhoeren"><option value="off">aus</option><option value="on">an</option></select></label>
+    <div id="say-list"></div>
+    <label class="row">Stimme <select data-key="voice" id="voice-select"></select></label>
+    <label class="row">Tempo <select data-key="rate"><option value="0.7">langsam</option><option value="0.85">etwas langsam</option><option value="1">normal</option></select></label>
+    <div class="row" style="justify-content:flex-start;gap:8px"><button type="button" class="icon-btn" id="say-test">Probe: „Tomate“</button><span class="note" id="say-state"></span></div>
+  </fieldset>
+  <fieldset><legend>Bilder beim Schreiben</legend>
+    <p class="note">Beim Schreiben nach Bild kommen nur eindeutige Bilder vor. Bilder, die deine Klasse nicht kennt, hier abwählen: Sie kommen dann beim Schreiben, bei den Anfangsbuchstaben und auf diesen Arbeitsblättern nicht mehr vor.</p>
+    <div id="whide-list" class="whide"></div>
+  </fieldset>
   </div>
   <div class="set-panel" data-stab-panel="kids" role="tabpanel" hidden>
   <fieldset><legend>Konzentrationsmodus</legend>
@@ -1236,12 +1287,13 @@ const FREE_COLORS = ['#c9414a','#346bc3','#27834b','#bd7618','#8054ad','#b0477c'
 const FREE_COLOR_NAMES = ['Rot','Blau','Grün','Orange','Lila','Pink'];
 const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches || !Element.prototype.animate;
 
-const DEFAULTS = {fokus:'on', fbMail:'', qrSmall:false, allowResults:false, digits:true, numberWords:true, colors:'montessori', words:'exchange', exchangeMode:'select', subMode:'self', zones:true, help:true, speech:false, labels:true, ten:'any', hundred:'any', lock:false, timesRows:[2,5,10], wrMaterial:true, voice:'', rate:'0.9', subject:'M', lastMath:'number', numpad:'auto', world:'HS', clockMin:'5', kbd:'qwertz', roundLen:'10', startCtx:'ask', askWho:'ask', ownWords:'', guide:'plus', fbOn:true, fbName:''};
+const DEFAULTS = {fokus:'on', fbMail:'', qrSmall:false, allowResults:false, digits:true, numberWords:true, colors:'montessori', words:'exchange', exchangeMode:'select', subMode:'self', zones:true, help:true, speech:false, anhoeren:'off', wHide:[], labels:true, ten:'any', hundred:'any', lock:false, timesRows:[2,5,10], wrMaterial:true, voice:'', rate:'0.85', subject:'M', lastMath:'number', numpad:'auto', world:'HS', clockMin:'5', kbd:'qwertz', roundLen:'10', startCtx:'ask', askWho:'ask', ownWords:'', guide:'plus', fbOn:true, fbName:''};
 const STORE = 'stufenweise.settings';
 /* Übernahme aus dem alten Arbeitstitel: vorhandene Daten einmalig in die neuen Schlüssel kopieren */
 try { for(const [n, o] of [['stufenweise.settings', 'zahlenraum-werkstatt.v2'], ['stufenweise.data', 'zahlenraum-werkstatt.data']]){ if(localStorage.getItem(n) == null && localStorage.getItem(o) != null){ localStorage.setItem(n, localStorage.getItem(o)); localStorage.removeItem(o); } } } catch {}
 const settings = (() => { try { const st = JSON.parse(localStorage.getItem(STORE) || '{}'); if(!st.v3){ delete st.colors; st.v3 = true; } if(!st.v4){ delete st.speech; st.v4 = true; } if(!st.v5){ if(String(st.fbMail || '').includes('posteo.de')) st.fbMail = ''; st.v5 = true; } return {...DEFAULTS, ...st}; } catch { return {...DEFAULTS}; } })();
 settings.v3 = true; settings.v4 = true;
+if(!['0.7', '0.85', '1'].includes(String(settings.rate))) settings.rate = '0.85';
 const saveSettings = () => { try { localStorage.setItem(STORE, JSON.stringify(settings)); } catch {} };
 
 /* ---------- Icons ---------- */
@@ -1342,9 +1394,9 @@ function toSpeech(text){
   s = s.replace(/\d+/g, m => spokenNumber(+m));
   return s.replace(/\s+([.,!?:])/g, '$1').replace(/([?!])\./g, '$1').replace(/\.{2,}/g, '.').replace(/\s+/g, ' ').trim();
 }
+/* Backlog I: nur Stimmen, die auf dem Gerät liegen (localService) – Online-Stimmen würden den Text ins Internet schicken */
 function germanVoices(){
-  if(!('speechSynthesis' in window)) return [];
-  return speechSynthesis.getVoices().filter(v => v.lang && v.lang.toLowerCase().startsWith('de'));
+  try { if(!('speechSynthesis' in window)) return []; return speechSynthesis.getVoices().filter(v => v.lang && v.lang.toLowerCase().startsWith('de') && v.localService); } catch { return []; }
 }
 function bestVoice(){
   const vs = germanVoices(); if(!vs.length) return null;
@@ -1352,7 +1404,18 @@ function bestVoice(){
   const score = v => (/natural|neural|online/i.test(v.name) ? 50 : 0) + (/google/i.test(v.name) ? 30 : 0) + (/premium|enhanced|erweitert/i.test(v.name) ? 40 : 0) + (/anna|petra|helena|katja|seraphina|vicki/i.test(v.name) ? 10 : 0) + (v.lang === 'de-DE' ? 5 : 0) - (/espeak|compact/i.test(v.name) ? 60 : 0);
   return [...vs].sort((a, b) => score(b) - score(a))[0];
 }
-function speak(){ /* Sprachausgabe bewusst entfernt (Qualität der Gerätestimmen reicht nicht) */ }
+function speak(){ /* Rückmeldungen werden nicht vorgelesen (Qualität der Gerätestimmen; keine Spielmechanik) */ }
+/* „Anhören“ (Backlog I, Stefan 24.11.: Gerätestimme ausprobieren): ein Knopf liest nur das Wort vor – beim Schreiben, im Test, beim Hören.
+   Einschalten: Einstellungen → Deutsch (Standard für alle Kinder, je Kind abweichend). Ohne deutsche Stimme auf dem Gerät kein Knopf. */
+const sayWanted = () => { const p = curProfile(); return p?.say ? p.say === 'on' : settings.anhoeren === 'on'; };
+const sayOn = () => sayWanted() && !!bestVoice();
+function sayWord(w){
+  try { const v = bestVoice(); if(!v || !w) return; speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(String(w)); u.voice = v; u.lang = v.lang; u.rate = Math.min(1.2, Math.max(0.5, +settings.rate || 0.85)); speechSynthesis.speak(u); } catch {}
+}
+const SAY_ICON = '<svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+const speechBtn = (w, big) => w && sayOn() ? `<button type="button" class="say-btn${big ? ' big' : ''}" data-sayw="${escHtml(w)}" aria-label="Anhören" title="Anhören">${SAY_ICON}</button>` : '';
+document.addEventListener('click', e => { const b = e.target.closest('[data-sayw]'); if(!b) return; e.stopPropagation(); e.preventDefault(); sayWord(b.dataset.sayw); }, true);
+try { if('speechSynthesis' in window) speechSynthesis.addEventListener('voiceschanged', () => { if(sayWanted() && ['read', 'diag'].includes(app.mode) && !document.querySelector('[data-sayw]')) render(); }); } catch {}
 
 /* ---------- Material-Modell ---------- */
 let uid = 0;
@@ -1546,7 +1609,7 @@ const TESTS = {
       plan: d => mathPlan(d), rePlan: d => mathRePlan(d), title: d => d.part === 1 ? 'Mathe-Test Teil 1' : d.part === 2 ? 'Mathe-Test Teil 2' : 'Mathe-Test',
       homeKey: k => /^[MUGH]/.test(k), log: e => MATH_MODES.includes(e.mode),
       buttons: () => `<button class="icon-btn" data-diag="new-M1">${icon('target')}<span style="display:inline">Teil 1: Zahlen und Rechnen</span></button><button class="icon-btn" data-diag="new-M2">${icon('target')}<span style="display:inline">Teil 2: Uhr, Größen, Hundertertafel</span></button>`},
-  L: {subj:'D', name:'Lesen', long:'Lesen', axes:['L', 'P'], cap:30, homeZones:1, start:'baut erste Lesefähigkeiten auf',
+  L: {subj:'D', name:'Lesen', long:'Lesen', axes:['L', 'P'], cap:40, homeZones:1, start:'baut erste Lesefähigkeiten auf',
       plan: d => readPlan(d), rePlan: d => readRePlan(d), title: () => 'Lese-Test', log: e => e.mode === 'read'},
   W: {subj:'D', name:'Schreiben', long:'Schreiben', axes:['W'], cap:24, homeZones:1, start:'baut erste Schreibfähigkeiten auf',
       plan: d => writePlan(d), rePlan: d => writeRePlan(d), title: () => 'Schreib-Test', log: e => e.mode === 'write'},
@@ -1726,13 +1789,15 @@ function railDeutschHtml(g, lvOk){
     const on = l => app.mode === 'read' && app.read.lvl === l;
     const WR = [['W1','<small>A→A</small>'],['W2','<small>M…</small>'],['W3','<small>Rad</small>'],['W4','<small>To-ma</small>'],['W5','<small>ss</small>'],['W6','<small>Satz.</small>']];
     /* nur eine Gruppe offen: die mit der aktiven Stufe oder die zuletzt angetippte */
-    const open = (app.railGrp && app.railGrpLvl === app.read.lvl && app.mode === 'read' ? app.railGrp : null) || (app.mode === 'read' && String(app.read.lvl)[0] === 'W' ? 'W' : 'L');
+    const open = (app.railGrp && app.railGrpLvl === app.read.lvl && app.mode === 'read' ? app.railGrp : null) || (app.mode === 'read' && 'WP'.includes(String(app.read.lvl)[0]) ? String(app.read.lvl)[0] : 'L');
     const fold = (gp, name, n) => `<button class="rail-fold" data-railgrp="${gp}" aria-expanded="false" title="${name} aufklappen"><span>${name}</span><small>${n} Stufen ▾</small></button>`;
     const RL = [...READ_RAIL, ...(ownWords().length ? [['LX', '<small>★</small>']] : [])].filter(([l]) => lvOk(l));
     if(ownWords().length) WR.push(['WX', '<small>★</small>']);
     const WL = WR.filter(([l]) => lvOk(l));
     h += open !== 'L' ? fold('L', 'Lesen', RL.length) : `<span class="rail-h">Lesen</span>` + RL.map(([l, sym]) => `<button data-mode="read" data-lvl="${l}" aria-pressed="${on(l)}"><b aria-hidden="true">${sym}</b>${L_INFO[l].short}</button>`).join('');
     h += open !== 'W' ? fold('W', 'Schreiben', WL.length) : `<span class="rail-h">Schreiben</span>` + WL.map(([l, sym]) => `<button data-mode="read" data-lvl="${l}" aria-pressed="${on(l)}"><b aria-hidden="true">${sym}</b>${W_INFO[l].short}</button>`).join('');
+    const HL = HEAR_RAIL.filter(([l]) => lvOk(l));
+    if(HL.length) h += open !== 'P' ? fold('P', 'Hören', HL.length) : `<span class="rail-h">Hören</span>` + HL.map(([l, sym]) => `<button data-mode="read" data-lvl="${l}" aria-pressed="${on(l)}"><b aria-hidden="true">${sym}</b>${L_INFO[l].short}</button>`).join('');
   return h;
 }
 function railHtml(){
@@ -3578,7 +3643,7 @@ function logSkip(){
   if(app.ctx === 'class' || app.kiste) return;
   const label = currentTaskLabel(); if(!label) return;
   const id = data.current || 'guest', list = (data.skips ??= {})[id] ??= [];
-  list.push({ts: Date.now(), mode: app.mode === 'read' ? rdMode(app.read.lvl) : app.mode, lvl: app.mode === 'read' ? app.read.lvl : undefined, task: label});
+  list.push({ts: Date.now(), mode: app.mode === 'read' ? rdMode(app.read.lvl) : app.mode, lvl: app.mode === 'read' ? app.read.lvl : undefined, task: label, ...(app.mode === 'read' && app.read.item?.unkWord ? {unk: app.read.item.unkWord} : {})});
   if(list.length > 500) list.splice(0, list.length - 500);
   saveData();
 }
@@ -4099,7 +4164,7 @@ const pct = (a, b) => b ? Math.round(a/b*100) + ' %' : '–';
 const frac = list => `${list.filter(e => e.ok).length} von ${list.length}`;
 const KISTE_TITLE = 'Materialkiste (selbst genutzt)';
 /* Materialkiste: wie oft welches Werkzeug geöffnet wurde, z. B. „Rechenhilfe 5×, Taschenrechner 2×“ */
-function kisteLine(pid){ try { const ks = data.kiste?.[pid]; return ks ? KISTE_TOOLS.filter(t => ks[t.k]).map(t => `${t.label} ${ks[t.k]}×`).join(', ') : ''; } catch { return ''; } }
+function kisteLine(pid, sj){ try { const ks = data.kiste?.[pid]; return ks ? KISTE_TOOLS.filter(t => ks[t.k] && (!sj || (t.subj || 'M') === sj)).map(t => `${t.label} ${ks[t.k]}×`).join(', ') : ''; } catch { return ''; } }
 function statsSections(id){
   const L = data.log[id] || [], out = [];
   const prof = data.profiles.find(p => p.id === id);
@@ -4143,10 +4208,10 @@ function statsSections(id){
     }
     if(mode === 'write'){
       for(const l of W_LEVELS){ const es = E.filter(e => e.lvl === l); if(es.length) lines.push(`${W_INFO[l].name}: ${frac(es)} beim ersten Versuch richtig`); }
-      const laut = E.filter(e => !e.ok && e.given).slice(-6).map(e => `${e.task.replace(/^.*: /, '')} → „${e.given}“`); if(laut.length) lines.push(`Schreibungen zum Ansehen: ${laut.join(', ')}`);
+      const laut = E.filter(e => !e.ok && e.given && !e.unk).slice(-6).map(e => `${e.task.replace(/^.*: /, '')} → „${e.given}“`); if(laut.length) lines.push(`Schreibungen zum Ansehen: ${laut.join(', ')}`);
     }
     if(mode === 'read'){
-      for(const l of L_LEVELS){ const es = E.filter(e => e.lvl === l); if(es.length) lines.push(`${L_INFO[l].name}: ${frac(es)} beim ersten Versuch richtig`); }
+      for(const l of [...L_LEVELS, ...P_LEVELS]){ const es = E.filter(e => e.lvl === l); if(es.length) lines.push(`${l[0] === 'P' ? 'Hören: ' : ''}${L_INFO[l].name}: ${frac(es)} beim ersten Versuch richtig`); }
     }
     if(mode === 'clock' || mode === 'size' || mode === 'board' || mode === 'tenpair'){
       const [lv, info] = mode === 'clock' ? [U_LEVELS, U_INFO] : mode === 'board' ? [H_LEVELS, H_INFO] : mode === 'tenpair' ? [Z_LEVELS, Z_INFO] : [G_LEVELS, G_INFO];
@@ -4169,7 +4234,8 @@ function statsSections(id){
     const tot = {}; for(const o of Object.values(errs)) for(const [k, n] of Object.entries(o)) tot[k] = (tot[k] || 0) + n;
     const tips = Object.entries(tot).filter(([k, n]) => ERR_MAT[k] && n >= 3).sort((a, b) => b[1] - a[1]).map(([k]) => `${ERR_NAME[k]}: ${ERR_MAT[k]}`);
     if(tips.length) out.push({title:'Nächster Schritt am Material', lines: tips}); }
-  const kl = kisteLine(id); if(kl) out.push({title:KISTE_TITLE, lines:[kl]});   /* nur Lernstand (und Kopieren), nicht in der Elterninfo (Stefan 20.11.) */
+  const kl = kisteLine(id); if(kl) out.push({title:KISTE_TITLE, lines:[kl]});
+  const uw = unkWords(id); if(uw.length) out.push({title:'Bilder, die nicht erkannt wurden (Wortschatz)', lines:[uw.slice(0, 30).join(', '), 'Diese Wörter mit echten Gegenständen und Bildkarten üben. Bilder, die die Klasse nicht kennt, lassen sich in den Einstellungen unter „Deutsch“ abwählen.']});   /* nur Lernstand (und Kopieren), nicht in der Elterninfo (Stefan 20.11.) */
   /* Übersprungen: ohne Lösung weitergeklickt (für die Lehrkraft – zeigt, wo ein Kind ausweicht) */
   const sk = data.skips?.[id] || [];
   if(sk.length){
@@ -4653,6 +4719,33 @@ const LAUT_SHORT_READ = ['Bus','Rad','Mond','Limo','Sofa','Hose','Lupe','Dose','
 const LAUT_LONG = ['Tomate','Banane','Kamera','Radio','Gabel','Pinsel','Lampe','Blume','Zange','Wolke','Nagel','Apfel','Rakete','Salat','Tulpe','Palme','Kamel','Nudel','Ananas','Lineal','Ampel','Paket','Besen','Melone'];
 const MERK = ['Tasse','Sonne','Kasse','Hammer','Messer','Tonne','Ball','Mütze','Jacke','Pizza','Kanne','Kissen','Decke','Socke','Glocke','Puppe','Katze','Brille','Löffel','Pfanne','Bett','Kamm','Rock','Schnecke']; /* echte Merkstellen: doppelte Mitlaute, ck, tz */
 const INITIAL = {};
+/* Schreiben nach Bild (Backlog I): nur eindeutige Bilder. Tulpe und Rose (→ „Blume“) und Kanne (→ „Tasse“) nicht.
+   Die Lehrkraft kann Bilder für die Klasse abwählen (settings.wHide). Bleiben weniger als 3, gelten die Abwahlen nicht. */
+const W_AMBIG = ['Tulpe', 'Rose', 'Kanne'];
+const wHidden = () => new Set(Array.isArray(settings.wHide) ? settings.wHide : []);
+const wClear = w => !!ICON[w] && CLEAR.includes(w) && !W_AMBIG.includes(w);
+function wPool(list){ const h = wHidden(), a = list.filter(w => wClear(w) && !h.has(w)); return a.length >= 3 ? a : list.filter(wClear); }
+/* „Bilder vorher ansehen“: die Wörter der Runde stehen in app.read.wq und kommen dann der Reihe nach dran (nur beim Üben) */
+function wPick(list){ const pool = wPool(list), q = app.mode === 'read' ? app.read?.wq : null; if(q?.length){ const i = q.findIndex(w => pool.includes(w)); if(i >= 0) return q.splice(i, 1)[0]; } return fresh(pool); }
+const W_POOLS = {W2: () => Object.values(INITIAL).flat(), W3: () => LAUT_SHORT, W4: () => LAUT_LONG, W5: () => MERK, W6: () => [...LAUT_SHORT, ...LAUT_LONG]};
+/* „Kenne ich nicht“: nur bei Schreibaufgaben nach Bild (Wort nicht zu sehen) */
+const wUnkOk = it => !!it && it.type === 'write' && !!it.icon && !it.word && !it.unkWord && (!it.tiles || it.sylT);
+/* Bilder, die ein Kind nicht kannte (aus Übungen, Überspringen und Test): Wortschatzliste für die Lehrkraft */
+function unkWords(pid){
+  const n = {}; for(const e of [...(data.log[pid] || []), ...(data.skips?.[pid] || [])]) if(e.unk) for(const w of String(e.unk).split('|')) n[w] = (n[w] || 0) + 1;
+  return Object.entries(n).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], 'de')).map(([w, k]) => k > 1 ? `${w} (${k}×)` : w);
+}
+/* Bilder vorher ansehen: die Wörter der nächsten Runde mit Bild und Silbenbögen zeigen (Knopf für die Lehrkraft) */
+function wPreviewStart(){
+  const R = app.read, f = W_POOLS[R.lvl]; if(!f) return;
+  const n = roundOn() ? roundLen() : 8, pool = wPool(f()), ws = [];
+  freshNew(); for(let i = 0; i < n && ws.length < pool.length; i++){ const w = fresh(pool.filter(x => !ws.includes(x))); ws.push(w); }
+  R.wq = [...ws]; R.wpre = ws; setHint(''); renderRead();
+}
+function wPreviewHtml(ws){
+  return `<div class="wpre"><p class="wpre-h">Diese Bilder kommen gleich. Schaut sie zusammen an und sprecht die Wörter.</p><div class="wpre-grid">${ws.map(w => `<figure>${iconSvg(w, 84)}<figcaption class="bows">${sylSpans(sylOf(w))}</figcaption>${speechBtn(w)}</figure>`).join('')}</div></div>`;
+}
+const wAllPics = () => [...new Set(Object.values(W_POOLS).flatMap(f => f()))].filter(wClear).sort((a, b) => a.localeCompare(b, 'de'));
 for(const w of CLEAR) if(ICON[w] && !/^(Sch|Ei|Au|Eu|St|Sp|Pf|Ch|Qu|V)/.test(w)) (INITIAL[w[0]] ??= []).push(w);   /* St/Sp klingen wie Scht/Schp, Pf ist ein Doppellaut */
 /* Abwechslung: Wörter wiederholen sich nicht, solange es andere gibt */
 const FRESH = {used:new Set(), recent:[]};
@@ -4738,7 +4831,7 @@ const signEasy = kern => { const t = fresh(['STOP','WC','BUS','ZUG','EIS','PIZZA
 const signHard = () => { const t = fresh(Object.keys(SIGN_SIMILAR)); return signItem(false, t, shuffle(SIGN_SIMILAR[t]).slice(0, 2)); };
 /* L3: Buchstaben */
 function anlautItem(kern){
-  const k = fresh(Object.values(INITIAL).flat()), L = k[0];
+  const k = fresh(wPool(W_POOLS.W2())), L = k[0];
   return choiceRow({kern, icon:k, prompt:'Mit welchem Buchstaben fängt das Wort an?', label:`Anlaut ${k} → ${L}`, L}, [L, ...others(['A','M','S','T','L','R','H','B','K','O','E','F','N','P','G','Z','D','W'], [L], 2)].map(x => ({h:`<span class="rd-letter">${x}</span>`, a: x})));
 }
 const CASE = {B:['b','d','p'], M:['m','n','w'], A:['a','o','e'], R:['r','n','h'], E:['e','a','c'], L:['l','i','t'], N:['n','m','u'], D:['d','b','q'], G:['g','q','p'], F:['f','t','l'], H:['h','n','k'], T:['t','f','l'], U:['u','n','v'], W:['w','m','v']};
@@ -5099,7 +5192,41 @@ const READ = {
   L8: [() => seriesItem('L8', true), () => seriesItem('L8', false), () => seriesItem('L8', false)],
   L9: [() => seriesItem('L9', true), () => seriesItem('L9', false), () => seriesItem('L9', false)]
 };
-const PHON = {};
+/* Hören P1–P4 (Backlog I, D1): phonologische Bewusstheit mit Bildern. Mit „Anhören“ liest die App das Wort vor,
+   sonst spricht die Lehrkraft (oder das Kind leise). Nur eindeutige Bilder. */
+const RHYME = [['Hase', 'Nase'], ['Maus', 'Haus'], ['Tasse', 'Kasse'], ['Socke', 'Glocke'], ['Tisch', 'Fisch']];
+const RHYMES = new Set(RHYME.flat());
+const SYL_DOTS = n => `<span class="p-dots" aria-label="${n} Silbe${n > 1 ? 'n' : ''}">${'<i></i>'.repeat(n)}</span>`;
+const sayMini = w => w && sayOn() ? `<span class="say-btn mini" role="button" tabindex="0" data-sayw="${escHtml(w)}" aria-label="Anhören">${SAY_ICON}</span>` : '';
+const picOpt = w => ({h:`<span class="p-pic">${iconSvg(w, 84)}${sayMini(w)}</span>`, a: w});
+const pWords = () => Object.keys(ICON).filter(w => wClear(w) && WORDS[w] && sylOf(w).length <= 3);
+function sylCountItem(kern){
+  const want = rnd(1, 3), pool = pWords().filter(w => sylOf(w).length === want), w = fresh(pool.length ? pool : pWords()), n = sylOf(w).length;
+  return mkChoice({kern, icon:w, say:w, layout:'row', prompt:'Wie viele Silben hat das Wort? Klatsche mit.', label:`Silben zählen: ${w} (${n})`, tip:'Noch nicht. Sprich das Wort langsam und klatsche bei jeder Silbe.'}, [n, ...[1, 2, 3].filter(x => x !== n)].map(x => ({h: SYL_DOTS(x), a: String(x)})));
+}
+function sylJoinItem(kern){
+  const pool = pWords().filter(w => sylOf(w).length >= 2), w = fresh(pool), parts = sylOf(w);
+  const others = shuffle(pool.filter(x => x !== w && x[0] !== w[0])).slice(0, 2);
+  return mkChoice({kern, layout:'row', sayParts: parts, teacher:`Lehrkraft spricht: ${parts.join(' – ')}`, prompt:'Hör zu. Welches Wort ist das? Tippe auf das Bild.', label:`Silben verbinden: ${parts.join('-')}`, tip:'Noch nicht. Hör noch einmal zu und sprich die Silben schnell hintereinander.'}, [w, ...others].map(picOpt));
+}
+function rhymeItem(kern){
+  const pr = RHYME[rnd(0, RHYME.length - 1)], [a, b] = Math.random() < .5 ? pr : [pr[1], pr[0]];
+  const same = pWords().filter(x => x[0] === a[0] && !RHYMES.has(x) && x !== a), other = pWords().filter(x => !RHYMES.has(x) && x[0] !== a[0]);
+  const ds = [...shuffle(same).slice(0, 1), ...shuffle(other)].slice(0, 2);
+  return mkChoice({kern, icon:a, say:a, layout:'row', prompt:'Was reimt sich? Tippe auf das Bild.', label:`Reim: ${a} – ${b}`, tip:`Noch nicht. Sprich die Wörter. Welches klingt am Ende wie „${a}“?`}, [b, ...ds].map(picOpt));
+}
+function anlautHearItem(kern){
+  const groups = Object.entries(INITIAL).map(([L, ws]) => [L, ws.filter(w => wClear(w) && !wHidden().has(w))]).filter(([, ws]) => ws.length >= 2);
+  const [L, ws] = groups[rnd(0, groups.length - 1)], [a, b] = shuffle(ws);
+  const ds = shuffle(groups.filter(([K]) => K !== L && !(/[AEIOU]/.test(K) && /[AEIOU]/.test(L))).map(([, w]) => pick(w))).slice(0, 2);
+  return mkChoice({kern, icon:a, say:a, layout:'row', prompt:'Welches Bild fängt genauso an? Tippe darauf.', label:`Anlaut hören: ${a} – ${b} (${L})`, tip:`Noch nicht. Sprich den ersten Laut von „${a}“ lang. Welches Wort fängt auch so an?`}, [b, ...ds].map(picOpt));
+}
+const PHON = {
+  P1: [() => sylCountItem(true), () => sylCountItem(false), () => sylCountItem(false)],
+  P2: [() => sylJoinItem(true), () => sylJoinItem(false), () => sylJoinItem(false)],
+  P3: [() => rhymeItem(true), () => rhymeItem(false), () => rhymeItem(false)],
+  P4: [() => anlautHearItem(true), () => anlautHearItem(false), () => anlautHearItem(false)]
+};
 
 /* ---------- Beschreibungen je Zelle: Lernstand, Ziel, Lernangebot, analoge Förderung, Bildungsplan ---------- */
 const N_LEVELS = ['I','II','III','IV','V'], S_LEVELS = ['S1','S2','S3','S4'], L_LEVELS = ['L1','L2','L3','L4','L5','L6','L7','L8','L9'], P_LEVELS = ['P1','P2','P3','P4'];
@@ -5273,35 +5400,60 @@ const WRITE = {
   W1: [() => { const k = fresh(LAUT_SHORT); return wItem(k, {kern:true, word:k, tiles: shuffle(k.split('')), check:'exact', prompt:'Lege das Wort nach.', label:`abschreiben: ${k}`}); },
        () => { const k = fresh(['Lampe','Tasse','Hose','Gabel','Lupe','Sofa','Limo','Blume','Kiste','Wolke']); return wItem(k, {word:k, tiles: shuffle(k.split('')), check:'exact', prompt:'Lege das Wort nach.', label:`abschreiben: ${k}`}); },
        () => { const k = fresh(LAUT_LONG); return wItem(k, {word:k, tiles: shuffle(k.split('')), check:'exact', prompt:'Lege das Wort nach.', label:`abschreiben: ${k}`}); }],
-  W2: [0, 1, 2].map(i => () => { const k = fresh(Object.values(INITIAL).flat()); return {kern: i === 0, type:'write', icon:k, target:k[0], check:'ci', max:1, prompt:'Schreibe den ersten Buchstaben.', label:`Anlaut schreiben: ${k} → ${k[0]}`}; }),
-  W3: [() => wItem(fresh(LAUT_SHORT), {kern:true}), () => wItem(fresh(LAUT_SHORT)), () => wItem(fresh(LAUT_SHORT))],
-  W4: [() => wItem(fresh(LAUT_LONG), {kern:true}), () => wItem(fresh(LAUT_LONG)), () => wItem(fresh(LAUT_LONG))],
-  W5: [() => wItem(fresh(MERK), {kern:true, check:'ci', prompt:'Schreibe das Wort richtig.'}), () => wItem(fresh(MERK), {check:'ci', prompt:'Schreibe das Wort richtig.'}), () => wItem(fresh(MERK), {check:'ci', prompt:'Schreibe das Wort richtig.'})],
-  W6: [() => wItem(fresh([...LAUT_SHORT, ...LAUT_LONG].filter(w => CLEAR.includes(w))), {kern:true, check:'exact', prompt:'Schreibe das Wort richtig – denk an den großen Anfangsbuchstaben.', label:'Nomen groß schreiben'}),
+  W2: [0, 1, 2].map(i => () => { const k = wPick(W_POOLS.W2()); return {kern: i === 0, type:'write', icon:k, target:k[0], check:'ci', max:1, prompt:'Schreibe den ersten Buchstaben.', label:`Anlaut schreiben: ${k} → ${k[0]}`}; }),
+  W3: [() => wItem(wPick(LAUT_SHORT), {kern:true}), () => wItem(wPick(LAUT_SHORT)), () => wItem(wPick(LAUT_SHORT))],
+  W4: [() => wItem(wPick(LAUT_LONG), {kern:true, syl:true, prompt:'Sprich in Silben. Schreibe Silbe für Silbe.'}), () => wItem(wPick(LAUT_LONG), {syl:true, prompt:'Sprich in Silben. Schreibe Silbe für Silbe.'}), () => wItem(wPick(LAUT_LONG), {syl:true, prompt:'Sprich in Silben. Schreibe Silbe für Silbe.'})],
+  W5: [() => wItem(wPick(MERK), {kern:true, check:'ci', prompt:'Schreibe das Wort richtig.'}), () => wItem(wPick(MERK), {check:'ci', prompt:'Schreibe das Wort richtig.'}), () => wItem(wPick(MERK), {check:'ci', prompt:'Schreibe das Wort richtig.'})],
+  W6: [() => wItem(wPick(W_POOLS.W6()), {kern:true, check:'exact', prompt:'Schreibe das Wort richtig – denk an den großen Anfangsbuchstaben.', label:'Nomen groß schreiben'}),
        () => { const n = fresh(FACTS.map(f => f[0])), t = FACTS.find(f => f[0] === n)[1]; const s = [cap(art(n)), n, 'ist', ...(t + '.').split(' ')]; return {type:'sent', icon: n, words: s, tiles: shuffle(s.map((_, i) => i)), prompt:'Lege den Satz zum Bild.', label:`Satz legen: ${s.join(' ')}`}; },
        () => { const w2 = fresh(['Hose','Lampe','Gabel','Tasse','Jacke','Mütze','Blume','Kerze','Kiste','Leiter','Schere','Pizza','Banane','Tomate']); const right = `Die ${w2} ist neu.`; return mkChoice({layout:'col', icon: w2, prompt:'Welcher Satz ist richtig geschrieben?', label:`richtig geschriebener Satz (${w2})`}, [right, `die ${w2} ist neu.`, `Die ${w2.toLowerCase()} ist neu.`, `Die ${w2} Ist neu`].map(t => ({h:`<span class="rd-word" style="font-size:26px">${escHtml(t)}</span>`, a:t})), 0); }]
 };
+/* Nur beim Üben (nicht im Test): W4 Silbenkarten legen als Zwischenschritt (Backlog I, D2) */
+function sylCardItem(){
+  const k = wPick(LAUT_LONG), parts = sylOf(k), other = fresh(wPool(LAUT_LONG).filter(w => w !== k)), extra = sylOf(other).find(x => !parts.includes(x));
+  return {type:'write', icon:k, target:k, syl:true, sylT:true, tiles: shuffle([...parts, ...(extra ? [extra] : [])]), check:'exact', prompt:'Lege das Wort aus Silben.', label:`Silben legen: ${k}`, tip:'Noch nicht. Sprich das Wort langsam in Silben. Welche Silbe hörst du zuerst?'};
+}
+/* W6 nur beim Üben: Schreiben im Alltag (Backlog I, D5) – Einkaufszettel und ein eigener Satz zum Bild */
+const SHOP = ['Banane', 'Milch', 'Brot', 'Käse', 'Salat', 'Gurke', 'Tomate', 'Pizza', 'Apfel', 'Ananas', 'Seife'];
+function shopItem(){
+  const R = app.read, S = R.shop && R.shop.list.length > R.shop.done.length ? R.shop : (R.shop = {list: freshN(wPool(SHOP), 3), done: []});
+  const k = S.list[S.done.length];
+  return wItem(k, {shop:S, prompt:'Schreibe den Einkaufszettel.', label:`Einkaufszettel: ${k}`, tip:'Noch nicht. Sprich das Wort langsam mit.'});
+}
+function satzItem(){
+  const k = wPick(W_POOLS.W6());
+  return {type:'write', icon:k, target:k, check:'satz', free:true, prompt:'Schreibe einen Satz zum Bild. Denk an den großen Anfang und den Punkt.', label:`eigener Satz: ${k}`};
+}
+const WRITE_PRACTICE = {W4: [sylCardItem, sylCardItem], W6: [shopItem, shopItem, satzItem]};
 /* Darstellung */
 function writeStage(it, r, opt = {}){
   r.text ??= ''; r.used ??= [];
-  if(it.memo && !r.hidden) return `<div class="it-wrap w-wrap"><div class="it-word memo-word">${escHtml(it.word)}</div><p class="memo-steps">Lies das Wort genau. Sprich es leise mit. Merke es dir.</p><button class="memo-btn" data-wmemo>Ich habe es mir gemerkt – abdecken</button></div>`;
+  if(it.memo && !r.hidden) return `<div class="it-wrap w-wrap">${it.unkWord ? `<div class="it-icon">${iconSvg(it.icon, 110)}</div>` : ''}<div class="it-word memo-word">${escHtml(it.word)}</div><p class="memo-steps">${it.unkWord ? 'So heißt das Bild. Lies das Wort genau. Merke es dir.' : 'Lies das Wort genau. Sprich es leise mit. Merke es dir.'}</p><button class="memo-btn" data-wmemo>Ich habe es mir gemerkt – abdecken</button></div>`;
   const showWord = it.word && (!it.memo || opt.feedback);
-  const head = (it.icon ? `<div class="it-icon">${iconSvg(it.icon, 130)}</div>` : '') + (showWord ? `<div class="it-word">${escHtml(it.word)}</div>` : '') + (it.memo && !opt.feedback ? `<button class="memo-peek" data-wpeek>Nochmal ansehen</button>` : '');
+  const sayW = it.icon || it.word || (it.target?.length > 1 ? it.target : '');
+  const head = (it.icon ? `<div class="it-icon">${iconSvg(it.icon, 130)}${speechBtn(sayW)}</div>` : speechBtn(sayW) ? `<div class="it-icon">${speechBtn(sayW)}</div>` : '') + (showWord ? `<div class="it-word">${escHtml(it.word)}</div>` : '') + (it.memo && !opt.feedback ? `<button class="memo-peek" data-wpeek>Nochmal ansehen</button>` : '');
   /* so viele Kästchen wie das Wort Buchstaben hat; sind alle voll, kommt kein leeres Kästchen dazu (sonst wirkt das Wort unfertig).
      Wer weiterschreibt, sieht die zusätzlichen Buchstaben trotzdem. */
   const n = it.max || Math.max(it.target.length, r.text.length);
   let boxes;
-  if(opt.feedback && !opt.feedback.ok && r.marks) boxes = `<div class="w-boxes" aria-label="Deine Antwort mit Markierung">${r.marks.ops.map(o => `<span class="w-box ${o.k}" aria-label="${o.k === 'ok' ? 'richtig' : o.k === 'miss' ? 'hier fehlt ein Buchstabe' : o.k === 'extra' ? 'zu viel' : 'falsch'}">${escHtml(o.c)}</span>`).join('')}</div>`;
+  if(it.free){ boxes = `<div class="w-free" aria-label="Dein Satz">${escHtml(r.text)}<span class="w-caret"></span></div>`; }
+  const shopHtml = it.shop ? (S => { const i = S.list.indexOf(it.target); return `<div class="w-shop"><b>Einkaufszettel</b>${S.list.map((w, j) => `<div class="w-shop-r${j === i ? ' now' : ''}">${iconSvg(w, 40)}<span>${j < i || S.done.includes(w) ? escHtml(w) : j === i ? '✎' : '…'}</span></div>`).join('')}</div>`; })(it.shop) : '';
+  if(boxes);
+  else if(opt.feedback && !opt.feedback.ok && r.marks) boxes = `<div class="w-boxes" aria-label="Deine Antwort mit Markierung">${r.marks.ops.map(o => `<span class="w-box ${o.k}" aria-label="${o.k === 'ok' ? 'richtig' : o.k === 'miss' ? 'hier fehlt ein Buchstabe' : o.k === 'extra' ? 'zu viel' : 'falsch'}">${escHtml(o.c)}</span>`).join('')}</div>`;
   else if(r.slots){ const cur = r.slots.findIndex(x => !x.c); boxes = `<div class="w-boxes" aria-label="Verbessere das Wort">${r.slots.map((x, i) => `<span class="w-box ${x.fix ? 'fix' : ''} ${i === cur ? 'cur' : ''}">${escHtml(x.c)}</span>`).join('')}</div>`; }
-  else boxes = `<div class="w-boxes" aria-label="Deine Antwort">${Array.from({length: Math.max(n, r.text.length)}, (_, i) => `<span class="w-box ${i === r.text.length ? 'cur' : ''}">${escHtml(r.text[i] || '')}</span>`).join('')}</div>`;
+  else { const bx = Array.from({length: Math.max(n, r.text.length)}, (_, i) => `<span class="w-box ${i === r.text.length ? 'cur' : ''}">${escHtml(r.text[i] || '')}</span>`);
+    /* W4 (Backlog I, D2): Kästchen in Silben gruppiert, unter jeder Silbe ein Bogen */
+    if(it.syl && !it.max){ const parts = sylOf(it.target), g = []; let k = 0; parts.forEach((p, j) => { const end = j === parts.length - 1 ? bx.length : k + p.length; g.push(`<span class="w-sylg">${bx.slice(k, end).join('')}</span>`); k = end; }); boxes = `<div class="w-boxes syl" aria-label="Deine Antwort, Silbe für Silbe">${g.join('')}</div>`; }
+    else boxes = `<div class="w-boxes" aria-label="Deine Antwort">${bx.join('')}</div>`; }
   let kb;
   if(it.tiles) kb = `<div class="w-tiles">${it.tiles.map((ch, i) => `<button data-wtile="${i}" ${r.used.includes(i) ? 'disabled' : ''}>${escHtml(ch)}</button>`).join('')}<button data-wdel aria-label="Letzten Buchstaben löschen">⌫</button></div>`;
   else {
     const key = k => `<button data-wkey="${k}">${r.shift ? keyUp(k) : k}</button>`, shift = `<button data-wshift aria-pressed="${!!r.shift}" class="wide">⇧ groß</button>`, del = `<button data-wdel class="wide" aria-label="Löschen">⌫</button>`;
     kb = settings.kbd === 'abc' ? `<div class="w-keys">${KEYS.map(key).join('')}${shift}${del}</div>`
       : `<div class="w-keys qwertz">${[...QWERTZ[0]].map(key).join('')}<span class="off"></span><span class="off"></span>${[...QWERTZ[1]].map(key).join('')}${shift}${[...QWERTZ[2]].map(key).join('')}${del}</div>`;
+    if(it.free) kb += `<div class="w-extra"><button data-wkey=" " class="wide space" aria-label="Leertaste">Leertaste</button><button data-wkey="." aria-label="Punkt">.</button><button data-wkey="?" aria-label="Fragezeichen">?</button><button data-wkey="!" aria-label="Ausrufezeichen">!</button></div>`;
   }
-  return `<div class="it-wrap w-wrap">${head}${boxes}${kb}</div>`;
+  return `<div class="it-wrap w-wrap${it.shop ? ' w-shopw' : ''}">${shopHtml}${head}${boxes}${kb}</div>`;
 }
 function sentStage(it, r){
   r.order ??= [];
@@ -5317,6 +5469,7 @@ function writeClick(e, it, r){
   if(e.target.closest('[data-wmemo]')){ r.hidden = true; return true; }
   if(e.target.closest('[data-wpeek]')){ r.hidden = false; r.peek = (r.peek || 0) + 1; return true; }
   const t = e.target.closest('[data-wtile]'); if(t){ const i = +t.dataset.wtile; r.marks = null; r.used.push(i); r.text += it.tiles[i]; return true; }
+  if(it.sylT && e.target.closest('[data-wdel]')){ if(r.used?.length){ const i = r.used.pop(); r.text = r.text.slice(0, -it.tiles[i].length); } r.marks = null; return true; }
   const k = e.target.closest('[data-wkey]'); if(k){ wType(it, r, r.shift ? keyUp(k.dataset.wkey) : k.dataset.wkey); r.shift = false; return true; }
   if(e.target.closest('[data-wshift]')){ r.shift = !r.shift; return true; }
   if(e.target.closest('[data-wdel]')){ wDel(r); return true; }
@@ -5325,7 +5478,7 @@ function writeClick(e, it, r){
 function writeKey(e, it, r){
   if(!it || (it.type !== 'write' && it.type !== 'sent')) return false;
   if(e.key === 'Backspace'){ if(it.type === 'sent') r.order?.pop(); else { r.text ??= ''; wDel(r); } return true; }
-  if(it.type === 'write' && e.key.length === 1 && /[a-zäöüß]/i.test(e.key)){
+  if(it.type === 'write' && e.key.length === 1 && (/[a-zäöüß]/i.test(e.key) || (it.free && /[ .?!]/.test(e.key)))){
     if(it.tiles){ const i = it.tiles.findIndex((ch, j) => ch === e.key && !(r.used ??= []).includes(j)) ; const i2 = i >= 0 ? i : it.tiles.findIndex((ch, j) => ch.toLowerCase() === e.key.toLowerCase() && !r.used.includes(j)); if(i2 < 0) return false; r.used.push(i2); r.text = (r.text || '') + it.tiles[i2]; return true; }
     if(it.max && (r.text || '').length >= it.max) return false; r.text ??= ''; wType(it, r, e.key); return true;
   }
@@ -5335,6 +5488,16 @@ function evalWrite(it, r){
   if(it.type === 'sent'){ if((r.order || []).length < it.words.length) return null; const ok = r.order.every((v, i) => it.words[v] === it.words[i]); return {ok, given: r.order.map(i => it.words[i]).join(' '), obs: ok ? [] : ['Satzbau unvollständig oder vertauscht']}; }
   if(r.slots && r.slots.some(x => !x.c)) return null;
   const a = (r.text || '').trim(); if(!a) return null;
+  if(it.check === 'satz'){ /* eigener Satz: großer Anfang, Punkt (oder ! ?), mindestens 3 Wörter, das Wort zum Bild (lautgetreu genügt) */
+    const ws = a.replace(/[.!?]+$/, '').split(/\s+/).filter(Boolean), obs = [];
+    if(!/^[A-ZÄÖÜ]/.test(a)) obs.push('Satzanfang klein');
+    if(!/[.!?]$/.test(a)) obs.push('Punkt fehlt');
+    if(ws.length < 3) obs.push('zu kurz');
+    const nw = ws.find(w => lautNorm(w) === lautNorm(it.target));
+    if(!nw) obs.push('Wort zum Bild fehlt'); else if(!/^[A-ZÄÖÜ]/.test(nw)) obs.push('Nomen klein');
+    it.tipNow = obs.includes('Wort zum Bild fehlt') ? `Noch nicht. Schreibe in deinem Satz, was auf dem Bild ist.` : obs.includes('zu kurz') ? 'Noch nicht. Schreibe einen ganzen Satz mit mindestens drei Wörtern.' : obs.includes('Satzanfang klein') ? 'Fast! Der Satz fängt mit einem großen Buchstaben an.' : obs.includes('Nomen klein') ? `Fast! „${nw}“ ist ein Ding. Dinge schreibt man groß.` : obs.includes('Punkt fehlt') ? 'Fast! Am Ende vom Satz steht ein Punkt.' : '';
+    return {ok: !obs.length, given: a, obs};
+  }
   const exact = a === it.target, ci = a.toLowerCase() === it.target.toLowerCase(), laut = lautNorm(a) === lautNorm(it.target);
   const ok = it.check === 'exact' ? exact : it.check === 'ci' ? ci : (ci || laut);
   const obs = [];
@@ -5621,7 +5784,7 @@ function boardHtml(bd, o = {}){
   const set = new Set(o.set || []), want = o.want ? new Set(o.want) : null;
   let s = '';
   for(let r = r0; r <= r1; r++) for(let c = c0; c <= c1; c++){
-    const n = hAt(page, r, c), sh = bd.show?.[n] || bd.def || 'num';
+    const n = hAt(page, r, c), sh = (bd.cover && o.fb?.ok ? 'num' : bd.show?.[n] || bd.def) || 'num';
     let cls = 'hb-c' + (c === 4 && c < c1 ? ' g5c' : '') + (r === 4 && r < r1 ? ' g5r' : '') + (bd.marks?.[n] ? ' ' + bd.marks[n] : '');
     if(sh === 'off'){ s += `<span class="hb-c hb-off${c === 4 && c < c1 ? ' g5c' : ''}${r === 4 && r < r1 ? ' g5r' : ''}" aria-hidden="true"></span>`; continue; }
     if(sh === 'in' && o.print){ s += `<span class="${cls} hb-gap"></span>`; continue; }
@@ -5678,6 +5841,22 @@ function hMiss(s, t){
   if(Math.abs(d) === 1) return 'ein Feld daneben (±1)';
   if(hRev(t) === s) return 'Zahlendreher';
   return `${s} statt ${t} angetippt`;
+}
+/* H1 „Zahlen finden“ beim Üben auch mit verdeckter Tafel (Stefan 24.11.): 0 alle Zahlen, 1 teilweise (erste Zeile und Zehnerzahlen), 2 verdeckt.
+   Wechselt wie bei Plus/Minus von selbst: nach 8 auf Anhieb richtigen eine Stufe weiter, nach 3 Fehlern in Folge zurück. Lehrkraft wählt oben. Nicht im Test. */
+const HCOV_NAMES = ['Alle Zahlen', 'Teilweise verdeckt', 'Verdeckt'];
+const hcovLv = () => { const p = curProfile(); return p ? (p.hcov || 0) : (app.hcov || 0); };
+function hcovSet(v){ const p = curProfile(); v = Math.max(0, Math.min(2, v)); if(p){ if(v) p.hcov = v; else delete p.hcov; saveData(); } else app.hcov = v; app.hcovRun = {ok:0, miss:0}; }
+function hCover(it){
+  const lv = hcovLv(); if(!lv || it.type !== 'board' || it.mode !== 'tap' || it.bd?.show) return it;
+  const show = {}; if(lv === 1) for(let i = 1; i <= 10; i++){ show[i] = 'num'; show[i*10] = 'num'; }
+  delete show[it.target];
+  return {...it, bd:{...it.bd, def:'blank', show, cover:true}, label: it.label + (lv === 1 ? ' (teilweise verdeckt)' : ' (verdeckt)'), tip: lv === 1 ? 'Noch nicht. Die Zehnerzahlen stehen rechts. Suche die Zeile, dann zähle die Felder.' : 'Noch nicht. Jede Zeile sind 10. Zähle zuerst die Zeilen, dann die Felder.'};
+}
+function hcovTrack(ok, first){
+  if(app.read.lvl !== 'H1' || teacherView()) return; const run = app.hcovRun ||= {ok:0, miss:0};
+  if(ok && first){ run.ok++; run.miss = 0; if(run.ok >= 8 && hcovLv() < 2){ hcovSet(hcovLv() + 1); toast(`Hundertertafel: ${HCOV_NAMES[hcovLv()]}`); } }
+  else if(!ok){ run.miss++; run.ok = 0; if(run.miss >= 3 && hcovLv() > 0) hcovSet(hcovLv() - 1); }
 }
 const hDecade = () => rnd(1, 9)*10 + rnd(1, 9);           /* 11 … 99 ohne Zehnerzahlen */
 const hInPage = (p, rLo = 0, rHi = 9, cLo = 0, cHi = 9) => hAt(p, rnd(rLo, rHi), rnd(cLo, cHi));
@@ -5972,11 +6151,13 @@ function* readPlan(d){
   const m = matrixOf(d.pid), keys = L_LEVELS.map(l => `L|${l}`);
   const z = keys.findIndex(k => !isOk(m[k]?.status));
   const hi = yield* binary(d, keys, z > 0 ? z : 3);
+  /* Hören P1–P4 (Backlog I): nur, wenn das alphabetische Lesen (L4) noch nicht sicher ist */
+  if(hi <= L_LEVELS.indexOf('L4')){ const pk = P_LEVELS.map(l => `P|${l}`), pz = pk.findIndex(k => !isOk(m[k]?.status)); yield* binary(d, pk, pz > 0 ? pz : 1); }
   return hi;
 }
 function* writePlan(d){ const m = matrixOf(d.pid), keys = W_LEVELS.map(l => `W|${l}`); const z = keys.findIndex(k => !isOk(m[k]?.status)); yield* binary(d, keys, z > 0 ? z : 2); }
 function* writeRePlan(d){ yield* walkUp(d, W_LEVELS.map(l => `W|${l}`)); }
-function* readRePlan(d){ yield* walkUp(d, L_LEVELS.map(l => `L|${l}`)); }
+function* readRePlan(d){ yield* walkUp(d, L_LEVELS.map(l => `L|${l}`)); if(Object.keys(matrixOf(d.pid)).some(k => k.startsWith('P|'))) yield* walkUp(d, P_LEVELS.map(l => `P|${l}`)); }
 
 /* ---------- Testablauf ---------- */
 app.diag = null;
@@ -6018,8 +6199,8 @@ function warmAnswer(skip){
 }
 /* Fortschritt im Test: Abschnitte in fester Reihenfolge und ein Balken, der nur vorwärts läuft.
    Keine Anzeige von richtig/falsch; Rückschritte der adaptiven Suche sieht man nicht. */
-const DG_SEC = k => ({M:'Zahlen', R:'Rechnen', Z:'Rechnen', S:'Stellenwert', U:'Uhr', G:'Größen', H:'Hundertertafel', L:'Lesen', W:'Schreiben'})[String(k)[0]] || TESTS[testOfKey(k)]?.secName?.(k) || TESTS[testOfKey(k)]?.name;
-const DG_EST = {Zahlen:5, Rechnen:5, Stellenwert:2, Uhr:3, 'Größen':3, Hundertertafel:3, Lesen:4, Schreiben:3}; /* geschätzte Stufen je Abschnitt */
+const DG_SEC = k => ({M:'Zahlen', R:'Rechnen', Z:'Rechnen', S:'Stellenwert', U:'Uhr', G:'Größen', H:'Hundertertafel', L:'Lesen', P:'Hören', W:'Schreiben'})[String(k)[0]] || TESTS[testOfKey(k)]?.secName?.(k) || TESTS[testOfKey(k)]?.name;
+const DG_EST = {Zahlen:5, Rechnen:5, Stellenwert:2, Uhr:3, 'Größen':3, Hundertertafel:3, Lesen:4, 'Hören':2, Schreiben:3}; /* geschätzte Stufen je Abschnitt */
 function dgSections(d){
   if(d.secs) return d.secs;
   if(TESTS[d.subj]?.sections) return d.secs = TESTS[d.subj].sections(d);
@@ -6055,8 +6236,8 @@ function diagAnswer(skip){
   let res;
   if(skip) res = {ok:false, given:'–', obs:['„Weiß ich nicht“']};
   else { res = evalItem(it, d.resp || {}, readFields()); if(!res) return focusEmpty(); }
-  d.answers.push({label: it.label, ok: res.ok, kern: !!it.kern, given: res.given, obs: res.obs || [], ms: Math.round(performance.now() - d.t0), ...(it.blk ? {blk: it.blk} : {})});
-  logAttempt({mode:'diag', task: it.label, ok: res.ok, tries:1, cell: d.key});
+  d.answers.push({label: it.label, ok: res.ok, kern: !!it.kern, given: res.given, obs: res.obs || [], ms: Math.round(performance.now() - d.t0), ...(it.blk ? {blk: it.blk} : {}), ...(it.unkFrom ? {unk: it.unkFrom} : {})});
+  logAttempt({mode:'diag', task: it.label, ok: res.ok, tries:1, cell: d.key, ...(it.unkFrom ? {unk: it.unkFrom.join('|')} : {})});
   d.nItems++;
   let st = TESTS[d.subj]?.decide ? TESTS[d.subj].decide(d) : cellDecision(d.answers);
   if(!st && d.idx + 1 >= d.items.length) st = d.answers.some(a => a.ok) ? 'teilweise' : 'nicht'; /* keine Aufgabe mehr übrig: nie hängen bleiben */
@@ -6135,7 +6316,8 @@ function itemStage(it, r, opt = {}){
   const inl = opt.inline && inlineQ(it); let qk = 0;
   const qIn = () => `<input class="dg-in it-in" type="number" inputmode="numeric" placeholder=" " aria-label="${escHtml((it.fieldLabels || [])[qk] || 'Antwort ' + (qk + 1))}" data-q="${qk++}">`;
   const head = (it.svg && it.type !== 'flash' ? `<div class="it-svg">${it.svg}</div>` : '') +
-    (it.icon ? `<div class="it-icon">${iconSvg(it.icon, 150)}</div>` : '') +
+    (it.icon ? `<div class="it-icon">${iconSvg(it.icon, 150)}${speechBtn(it.say)}</div>` : '') +
+    (it.sayParts ? (sayOn() ? `<div class="it-icon p-hear">${speechBtn(it.sayParts.join(' … '), true)}<span>Hör zu</span></div>` : `<p class="p-teacher">${escHtml(it.teacher || '')}</p>`) : '') +
     (it.word ? `<div class="it-word">${rdWordHtml(it.word, opt.colored && it.colored !== false)}</div>` : '') +
     (it.text ? `<div class="it-text ${it.textCls || ''}">${it.text.split(/ {3,}/).map(inl ? (x => escHtml(x).replace(Q_RE, (m, pre) => pre + qIn())) : opt.colored ? sylText : escHtml).join('<span class="it-gap" aria-hidden="true"></span>')}</div>` : '') +
     (it.html ? `<div class="it-doc">${it.html}</div>` : '') +
@@ -6274,6 +6456,7 @@ function renderDiag(){
   let c = '';
   if(it.type === 'flash' && r.hidden) c += toolBtn({id:'d-again', ic:'eye', label:'Nochmal zeigen'});
   if(it.type !== 'flash' || r.hidden) c += toolBtn({id:'d-next', ic:'next', label:'Weiter', primary:true});
+  if(!d.warm && wUnkOk(it) && !TESTS[d.subj]?.cellItems && ((d.unkK ||= {})[d.key] || 0) < 2) c += toolBtn({id:'d-unk', ic:'eye', label:'Kenne ich nicht'});
   c += toolBtn({id:'d-skip', ic:'help', label: d.warm ? 'Überspringen' : 'Weiß ich nicht'}) + '<span class="sep"></span>' + toolBtn({id:'d-close', ic:'close', label:'Abbrechen'});
   $('#controls').innerHTML = c;
   setHint(it.hint || '');
@@ -6298,6 +6481,11 @@ function diagControl(btn){
     case 'd-go': if(!d.dm?.end) return; clearTimeout(d.timer); d.idx++; d.resp = null; d.dm = null; d.you = d.items[d.idx]; d.t0 = performance.now(); setHint(''); return renderDiag();
     case 'd-redemo': if(!d.dm?.end) return; d.dm = null; setHint(''); return renderDiag();
     case 'd-next': return d.warm ? warmAnswer(false) : diagAnswer(false);
+    case 'd-unk': { /* Backlog I: Bild nicht erkannt → anderes Bild derselben Stufe, zählt nicht (höchstens 2-mal je Stufe) */
+      const it = d.items[d.idx], gens = itemsFor(d.key); if(!wUnkOk(it) || !gens?.length) return;
+      let nw, n = 0; do { nw = gens[d.idx % gens.length](); n++; } while(nw.icon === it.icon && n < 8);
+      d.unkK[d.key] = (d.unkK[d.key] || 0) + 1; d.items[d.idx] = {...nw, kern: it.kern, unkFrom: [...(it.unkFrom || []), it.icon]};
+      d.resp = null; d.t0 = performance.now(); setHint(''); return renderDiag(); }
     case 'd-skip': return d.warm ? warmAnswer(true) : diagAnswer(true);
     case 'w-more': { const k = d.answers.find(a => !a.ok)?.key || d.answers[0]?.key; app.diag = null; $('#stage').innerHTML = ''; if(k){ leaveMode(); applyOffer(cellInfo(k).offer.set); } else { app.mode = 'home'; render(); } return; }
     case 'd-again': { d.resp ||= {}; d.resp.hidden = false; d.resp.again = true; return renderDiag(); }
@@ -7093,7 +7281,7 @@ function zoneReport(pid, subj){
     massnahmen: out.zones.map(z => { const w = matWay(z.key); return w ? `Am Material: ${w.hand.replace(/\.$/, '')}. Im Bild: ${w.bild.replace(/\.$/, '')}. In der App: ${z.info.offer.text}` : `${z.info.offer.text}; analog: ${z.info.analog}`; }).join('. ') + `. Re-Diagnose nach etwa 5 Übungseinheiten.`,
     bp: [...new Set(out.zones.map(z => z.info.bp))].join('; ')
   };
-  if(subj === 'M'){ const kl = kisteLine(pid); if(kl) out.ileb.lernstand += ` ${name} nutzt Hilfen aus der Materialkiste (${kl}).`; }
+  if(subj === 'M' || subj === 'L' || subj === 'W'){ const kl = kisteLine(pid, subj === 'M' ? 'M' : 'D'); if(kl) out.ileb.lernstand += ` ${name} nutzt Hilfen aus der Materialkiste (${kl}).`; }
   if(!out.zones.length){ out.ileb.ziel = `${name} festigt und überträgt das Gelernte auf neue Situationen.`; out.ileb.massnahmen = 'Anwendung im Alltag und in Projekten; nächster Zahlenraum oder anspruchsvollere Texte.'; }
   return out;
 }
@@ -7169,15 +7357,16 @@ function readDefaultLevel(){
   return z || (L_LEVELS.some(l => m['L|' + l]) ? L_LEVELS.at(-1) : 'L4');
 }
 const rdMode = l => AXES[String(l)[0]]?.mode || ({W:'write', U:'clock', G:'size', H:'board', Z:'tenpair'})[String(l)[0]] || 'read';
-const rdLevels = l => (AXES[String(l)[0]] && axLevels(String(l)[0])) || ({W:W_LEVELS, U:U_LEVELS, G:G_LEVELS, H:H_LEVELS, Z:Z_LEVELS})[String(l)[0]] || L_LEVELS;
+const rdLevels = l => (AXES[String(l)[0]] && axLevels(String(l)[0])) || ({W:W_LEVELS, P:P_LEVELS, U:U_LEVELS, G:G_LEVELS, H:H_LEVELS, Z:Z_LEVELS})[String(l)[0]] || L_LEVELS;
 const rdInfo = l => L_INFO[l] || W_INFO[l] || U_INFO[l] || G_INFO[l] || H_INFO[l] || Z_INFO[l] || AXES[String(l)[0]]?.info[l];
 function readNew(){
   const R = app.read; R.lvl ||= readDefaultLevel();
   const axBank = l => AXES[String(l)[0]]?.items[l];
-  if(!READ[R.lvl] && !WRITE[R.lvl] && !CLOCK[R.lvl] && !G_ITEMS[R.lvl] && !H_ITEMS[R.lvl] && !Z_ITEMS[R.lvl] && !axBank(R.lvl)) R.lvl = 'L4';
-  const bank = READ[R.lvl] || WRITE[R.lvl] || CLOCK[R.lvl] || G_ITEMS[R.lvl] || H_ITEMS[R.lvl] || Z_ITEMS[R.lvl] || axBank(R.lvl);
+  if(!READ[R.lvl] && !PHON[R.lvl] && !WRITE[R.lvl] && !CLOCK[R.lvl] && !G_ITEMS[R.lvl] && !H_ITEMS[R.lvl] && !Z_ITEMS[R.lvl] && !axBank(R.lvl)) R.lvl = 'L4';
+  const bank = [...(READ[R.lvl] || PHON[R.lvl] || WRITE[R.lvl] || CLOCK[R.lvl] || G_ITEMS[R.lvl] || H_ITEMS[R.lvl] || Z_ITEMS[R.lvl] || axBank(R.lvl) || []), ...(WRITE_PRACTICE[R.lvl] || [])];
   const arts = bzArts(R.lvl), m = arts && bzMem(); if(m && !arts[m.art]) Object.assign(m, {art:0, ok:0});
   freshNew(); let it, tries = 0; do { it = arts ? arts[m.art][1](bzStep(m, arts[m.art])) : pick(bank)(); tries++; } while(R.item && it.label === R.item.label && tries < 6);
+  if(R.lvl === 'H1') it = hCover(it);
   Object.assign(R, {item: it, r:{}, fb:null, tries:0, spoken:false, demo:false});
   setHint(''); /* neue Aufgabe: „Richtig“ der vorigen Aufgabe weg, auch über „Neue Aufgabe“ oben */
   /* Basis: vor jeder neuen Aufgabenart einmal vormachen (je Kind und Sitzung) */
@@ -7190,7 +7379,7 @@ function renderTopRead(){
   const info = rdInfo(R.lvl);
   if(R.lvl[0] === 'G'){ $('#range-label').textContent = 'Größen'; $('#ranges').innerHTML = G_LEVELS.filter(l => !guideOf('M') || guideOf('M').lvlOk(l)).map(l => `<button data-rlvl="${l}" aria-pressed="${R.lvl === l}">${G_INFO[l].short}</button>`).join(''); $('#inputs').innerHTML = ''; rb.hidden = false; rb.innerHTML = icon('next') + '<span>Neue Aufgabe</span>'; return; }
   if(R.lvl[0] === 'Z'){ $('#range-label').textContent = 'Partner'; $('#ranges').innerHTML = Z_LEVELS.filter(l => !guideOf('M') || guideOf('M').lvlOk(l)).map(l => `<button data-rlvl="${l}" aria-pressed="${R.lvl === l}">${Z_INFO[l].short}</button>`).join(''); $('#inputs').innerHTML = ''; rb.hidden = false; rb.innerHTML = icon('next') + '<span>Neue Aufgabe</span>'; return; }
-  if(R.lvl[0] === 'H'){ $('#range-label').textContent = 'Tafel'; $('#ranges').innerHTML = H_LEVELS.filter(l => !guideOf('M') || guideOf('M').lvlOk(l)).map(l => `<button data-rlvl="${l}" aria-pressed="${R.lvl === l}">${H_INFO[l].short}</button>`).join(''); $('#inputs').innerHTML = ''; rb.hidden = false; rb.innerHTML = icon('next') + '<span>Neue Aufgabe</span>'; return; }
+  if(R.lvl[0] === 'H'){ $('#range-label').textContent = 'Tafel'; $('#ranges').innerHTML = H_LEVELS.filter(l => !guideOf('M') || guideOf('M').lvlOk(l)).map(l => `<button data-rlvl="${l}" aria-pressed="${R.lvl === l}">${H_INFO[l].short}</button>`).join(''); $('#inputs').innerHTML = R.lvl === 'H1' ? `<span class="seg" role="group" aria-label="Tafel verdecken">${HCOV_NAMES.map((t, i) => `<button data-hcov="${i}" aria-pressed="${hcovLv() === i}">${t}</button>`).join('')}</span>` : ''; rb.hidden = false; rb.innerHTML = icon('next') + '<span>Neue Aufgabe</span>'; return; }
   if(R.lvl[0] === 'U'){ $('#range-label').textContent = 'Zeit'; $('#ranges').innerHTML = U_LEVELS.filter(l => !guideOf('M') || guideOf('M').lvlOk(l)).map(l => `<button data-rlvl="${l}" aria-pressed="${R.lvl === l}">${U_INFO[l].short}</button>`).join(''); $('#inputs').innerHTML = ''; rb.hidden = false; rb.innerHTML = icon('next') + '<span>Neue Aufgabe</span>'; return; }
   if(bzArts(R.lvl)){ const m = bzMem(); $('#range-label').textContent = 'Aufgabe'; $('#ranges').innerHTML = bzArts(R.lvl).map(([n], i) => `<button data-rart="${i}" aria-pressed="${m.art === i}">${escHtml(n)}</button>`).join(''); $('#inputs').innerHTML = ''; rb.hidden = false; rb.innerHTML = icon('next') + '<span>Neue Aufgabe</span>'; return; }
   if(AXES[R.lvl[0]]){ const ax = R.lvl[0], g = guideOf(subjOfLvl(R.lvl)); $('#range-label').textContent = 'Stufe'; $('#ranges').innerHTML = axLevels(ax).filter(l => !g || g.lvlOk(l)).map(l => `<button data-rlvl="${l}" aria-pressed="${R.lvl === l}">${escHtml(AXES[ax].info[l].short)}</button>`).join(''); $('#inputs').innerHTML = ''; rb.hidden = false; rb.innerHTML = icon('next') + '<span>Neue Aufgabe</span>'; return; }
@@ -7200,6 +7389,8 @@ function renderTopRead(){
 }
 function renderRead(){
   const R = app.read;
+  if(R.wpre && W_POOLS[R.lvl]){ $('#words').hidden = true; $('#btn-say').hidden = true; $('#equation').innerHTML = ''; $('#prompt').innerHTML = '<span class="dg-prompt">Bilder ansehen</span>'; $('#stage').innerHTML = wPreviewHtml(R.wpre); $('#controls').innerHTML = toolBtn({id:'r-pics-go', ic:'next', label:'Los geht\'s', primary:true}); return; }
+  if(R.wpre) R.wpre = null;
   if(!R.item) return readNew();
   const it = R.item;
   $('#words').hidden = true; $('#btn-say').hidden = true;
@@ -7224,7 +7415,9 @@ function renderRead(){
     bzAfter(); glanceArm(it, R.r, () => app.mode === 'read' && app.read.item === it && !R.demo, renderRead); return; }
   const up = R.streak >= 5 && li >= 0 && li < lv.length - 1 && !guideOn() && !roundOn(), down = R.miss >= 3 && li > 0;
   $('#controls').innerHTML = (up && R.fb?.ok ? toolBtn({id:'r-up', ic:'next', label:'Nächste Stufe', primary:true}) : '') + (down ? toolBtn({id:'r-down', ic:'undo', label:'Leichtere Stufe'}) : '') + (R.fb?.ok ? toolBtn({id:'r-next', ic:'next', label:up ? 'Hier weiter' : 'Weiter', primary:!up}) : toolBtn({id:'r-check', ic:'check', label:'Prüfen', primary:true, disabled: it.type === 'choice' ? R.r.choice == null : (it.type === 'board' && it.mode === 'fill') || it.type === 'input' ? false : !evalItem(it, R.r, [])})) +
-    (R.fb && !R.fb.ok && R.tries >= 2 ? toolBtn({id:'r-show', ic:'eye', label:'Lösung zeigen'}) : '');
+    (R.fb && !R.fb.ok && R.tries >= 2 && it.check !== 'satz' ? toolBtn({id:'r-show', ic:'eye', label:'Lösung zeigen'}) : '') +
+    (wUnkOk(it) && !R.fb?.ok ? toolBtn({id:'r-unk', ic:'help', label:'Kenne ich nicht'}) : '') +
+    (W_POOLS[R.lvl] && !document.body.classList.contains('fokus') ? '<span class="sep"></span>' + toolBtn({id:'r-pics', ic:'eye', label:'Bilder vorher ansehen'}) : '');
   itFit();
   glanceArm(it, R.r, () => app.mode === 'read' && app.read.item === it, renderRead);
 }
@@ -7238,22 +7431,24 @@ function readCheck(){
   if(isFill) R.r.wrong = new Set(res.wrong || []);
   if(BZ_TYPES.includes(it.type)) R.r.mark = res.ok ? null : res.mark;
   R.fb = {choice: R.r.choice, ok: res.ok};
+  if(R.lvl === 'H1') hcovTrack(res.ok, R.tries === 0);
+  if(res.ok && it.shop && !it.shop.done.includes(it.target)) it.shop.done.push(it.target);
   const bzm = bzArts(R.lvl) && bzMem(), bzArt = bzm && bzArts(R.lvl)[bzm.art];
   if(bzm){ if(res.ok && R.tries === 0) bzm.ok++; else if(!res.ok && R.tries === 0 && (R.miss || 0) >= 2) bzm.ok = Math.max(0, Math.min(bzm.ok, bzTop(bzArt)) - 3); /* dreimal daneben: wieder leichter */ }
   if(res.ok){
-    logAttempt({mode: rdMode(R.lvl), task: it.label, ok: R.tries === 0, tries: R.tries + 1, lvl: R.lvl, given: res.given, ...(bzm ? {art: bzm.art} : {})});
+    logAttempt({mode: rdMode(R.lvl), task: it.label, ok: R.tries === 0 && !it.unkWord, tries: R.tries + 1, lvl: R.lvl, given: res.given, ...(bzm ? {art: bzm.art} : {}), ...(it.unkWord ? {unk: it.unkWord} : {})});
     if(R.tries === 0){ R.streak = (R.streak || 0) + 1; R.miss = 0; } else R.streak = 0;
     renderRead(); if(bzm) setHint(bzm.ok === bzNextAt(bzArt) && R.tries === 0 ? 'Richtig! Das kannst du schon gut.' : R.tries ? 'Richtig – gut weitergemacht!' : 'Richtig!', 'ok'); else setHint(R.streak >= 5 && !roundOn() && [L_LEVELS, W_LEVELS, U_LEVELS, G_LEVELS, H_LEVELS, Z_LEVELS].some(lv => lv.includes(R.lvl) && lv.at(-1) !== R.lvl) ? `${R.streak}-mal in Folge richtig. Du kannst die nächste Stufe probieren.` : R.tries ? 'Richtig – gut weitergemacht!' : 'Richtig!', 'ok'); speak('Richtig!');
     celebrate(document.querySelector('#stage .fb-ok'));
   } else {
     if(R.tries === 0){ R.miss = (R.miss || 0) + 1; R.streak = 0; }
-    if(it.type === 'write' && !it.max){ R.r.marks = wDiff(res.given, it.target, it.check !== 'exact'); if(it.tiles) R.r.marks.slots = null; if(R.r.marks.okN < Math.ceil([...it.target].length / 2)) R.r.marks = null; R.r.slots = null; }
+    if(it.type === 'write' && !it.max && it.check !== 'satz'){ R.r.marks = wDiff(res.given, it.target, it.check !== 'exact'); if(it.tiles) R.r.marks.slots = null; if(R.r.marks.okN < Math.ceil([...it.target].length / 2)) R.r.marks = null; R.r.slots = null; }
     R.tries++; renderRead();
     const lautOk = it.type === 'write' && res.obs.some(o => o.startsWith('lautgetreu'));
     if(it.type === 'clockset') return setHint(res.obs.includes('Stunde falsch') ? 'Die Minuten stimmen. Schau auf den kurzen roten Zeiger.' : 'Noch nicht. Langer blauer Zeiger = Minuten, kurzer roter Zeiger = Stunden.', 'bad');
     const mk = R.r.marks, caseOnly = it.type === 'write' && res.obs.includes('Groß-/Kleinschreibung'), wHint = !mk ? '' : mk.slots ? ' Die grünen Buchstaben stimmen. Verbessere die roten Kästchen.' : it.tiles ? ' Die grünen Buchstaben stehen schon richtig.' : mk.ops.some(o => o.k === 'extra') ? ' Die durchgestrichenen Buchstaben sind zu viel.' : ' Die grünen Buchstaben stimmen schon.';
     if(caseOnly) return setHint('Fast! Achte auf groß und klein.' + wHint, 'bad');
-    setHint(lautOk ? 'Gut gehört! So spricht man es. Geschrieben wird es aber anders – schau genau.' + wHint : it.type === 'write' ? (it.tip || 'Noch nicht. Sprich das Wort langsam mit.') + wHint : it.type === 'sent' ? 'Noch nicht. Der Satz fängt groß an und endet mit Punkt.' : (it.tip || 'Noch nicht. Schau noch einmal genau.'), 'bad');
+    setHint(lautOk ? 'Gut gehört! So spricht man es. Geschrieben wird es aber anders – schau genau.' + wHint : it.type === 'write' ? (it.tipNow || it.tip || 'Noch nicht. Sprich das Wort langsam mit.') + wHint : it.type === 'sent' ? 'Noch nicht. Der Satz fängt groß an und endet mit Punkt.' : (it.tip || 'Noch nicht. Schau noch einmal genau.'), 'bad');
   }
 }
 function readControl(btn){
@@ -7264,6 +7459,9 @@ function readControl(btn){
     case 'r-demo': clearTimeout(app.demoT); setHint(''); R.fb = null; R.tries = 0; bzDemoStart(); return renderRead();
     case 'r-art-up': { const arts = bzArts(R.lvl), m = bzMem(); if(m.art < arts.length - 1) Object.assign(m, {art: m.art + 1, ok:0}); else { const lv = rdLevels(R.lvl); R.lvl = lv[lv.indexOf(R.lvl) + 1]; } Object.assign(R, {item:null, streak:0, miss:0}); setHint(''); return render(); }
     case 'r-next': skipMark(); setHint(''); return readNew();
+    case 'r-unk': if(!wUnkOk(R.item)) return; R.item = {...R.item, memo:true, word: R.item.icon, unkWord: R.item.icon}; Object.assign(R, {r:{}, fb:null}); setHint(''); return renderRead();
+    case 'r-pics': return wPreviewStart();
+    case 'r-pics-go': R.wpre = null; setHint(''); Object.assign(R, {item:null}); return readNew();
     case 'r-up': case 'r-down': { const lv = rdLevels(R.lvl); Object.assign(R, {lvl: lv[lv.indexOf(R.lvl) + (btn.id === 'r-up' ? 1 : -1)], item:null, streak:0, miss:0}); setHint(''); return render(); }
     case 'r-show': if(R.item.type === 'clockset'){ R.r.h = R.item.target.h; R.r.m = R.item.target.m; R.r.moved = true; } else if(R.item.type === 'write'){ R.r.text = R.item.target; R.r.used = []; R.r.slots = null; R.r.marks = null; } else if(R.item.type === 'sent'){ R.r.order = R.item.words.map((_, i) => i); } else if(R.item.type === 'board'){ const it = R.item; if(it.mode === 'tap') R.r.sel = it.target; else if(it.mode === 'multi') R.r.set = [...it.set]; else { R.r.vals = it.fields.map(String); R.r.wrong = new Set(); } } else if(R.item.type === 'input') R.r.vals = R.item.fields.map(String); else if(BZ_TYPES.includes(R.item.type)) bzSolve(R.item, R.r); else R.r.choice = R.item.correct; R.fb = {choice: R.item.correct, ok:true}; logAttempt({mode: rdMode(R.lvl), task: R.item.label, ok:false, tries: R.tries + 1, lvl: R.lvl, shown:true}); setHint('So ist es richtig.'); return renderRead();
   }
@@ -7302,7 +7500,8 @@ function homeAreasMath(g, lvOk){
 function homeAreasDeutsch(g, lvOk){
   const RL = READ_RAIL.filter(([l]) => lvOk(l)).map(([l, sym]) => ({mode:'read', lvl:l, sym, label:L_INFO[l].short}));
   const WR = [['W1','<small>A→A</small>'],['W2','<small>M…</small>'],['W3','<small>Rad</small>'],['W4','<small>To-ma</small>'],['W5','<small>ss</small>'],['W6','<small>Satz.</small>']].filter(([l]) => lvOk(l)).map(([l, sym]) => ({mode:'read', lvl:l, sym, label:W_INFO[l].short}));
-  return [['Lesen', RL], ['Schreiben', WR]];
+  const HR = HEAR_RAIL.filter(([l]) => lvOk(l)).map(([l, sym]) => ({mode:'read', lvl:l, sym, label:L_INFO[l].short}));
+  return [['Lesen', RL], ['Schreiben', WR], ['Hören', HR]];
 }
 function renderHome(){
   $('#equation').textContent = ''; $('#words').hidden = true; $('#prompt').textContent = ''; setHint(''); $('#controls').innerHTML = ''; $('#btn-say').hidden = true;
@@ -7377,9 +7576,13 @@ const CLASS_TOOLS = [
   {k:'free', label:'Frei legen', sub:'Würfel und Geld'},
   {k:'blitz', label:'Blitzblick', sub:'Mengen kurz zeigen'},
   {k:'tclock', label:'Uhr', sub:'Zeiger stellen'},
-  {k:'tword', label:'Wörter', sub:'groß zeigen, Silben'}
+  {k:'tword', label:'Wörter', sub:'groß zeigen, Silben'},
+  /* Deutsch im Unterricht (Backlog I, D4) */
+  {k:'abc', label:'Anlauttabelle', rail:'Anlaut&shy;tabelle', sub:'Buchstaben mit Bildern'},
+  {k:'tblitz', label:'Blitzlesen', rail:'Blitz&shy;lesen', sub:'Wörter kurz zeigen'},
+  {k:'tsatz', label:'Satz-Baukasten', rail:'Satz&shy;baukasten', sub:'Wortkarten ordnen'}
 ];
-const TOOL_MODES = ['tfield', 'nline', 'hboard', 'tclock', 'tword', 'tcalc'];
+const TOOL_MODES = ['tfield', 'nline', 'hboard', 'tclock', 'tword', 'tcalc', 'abc', 'dict', 'tblitz', 'tsatz'];
 const CT_ILL = {
   tfield:`<svg viewBox="0 0 80 56" aria-hidden="true"><rect x="3" y="12" width="74" height="32" rx="4" fill="#fff" stroke="#2b2930" stroke-width="2.5"/><path d="M3 28h74M40 12v32" stroke="#2b2930" stroke-width="1.8"/>${Array.from({length:12}, (_, i) => `<circle cx="${6.7 + (i % 10)*7.4}" cy="${20 + Math.floor(i/10)*16}" r="3.1" fill="${i < 7 ? '#2f5ea8' : '#e8890c'}"/>`).join('')}</svg>`,
   number:'<svg viewBox="0 0 80 56" aria-hidden="true"><rect x="6" y="6" width="9" height="44" rx="2" fill="#346bc3"/><rect x="19" y="6" width="9" height="44" rx="2" fill="#346bc3"/><rect x="36" y="40" width="10" height="10" rx="2" fill="#27834b"/><rect x="50" y="40" width="10" height="10" rx="2" fill="#27834b"/><rect x="64" y="40" width="10" height="10" rx="2" fill="#27834b"/><text x="56" y="28" text-anchor="middle" font-size="22" font-weight="800" fill="#2b2930" font-family="Stufenfibel,sans-serif">23</text></svg>',
@@ -7472,13 +7675,22 @@ const KISTE_TOOLS = [
   {k:'tfield', label:'Zwanzigerfeld', rail:'20er-Feld', sub:'legen und wegstreichen'},
   {k:'hboard', label:'Hundertertafel', rail:'Hunderter&shy;tafel', sub:'färben und abdecken'},
   {k:'nline', label:'Zahlenstrahl', rail:'Zahlen&shy;strahl', sub:'Sprünge machen'},
-  {k:'tclock', label:'Uhr', sub:'Zeiger stellen'}
+  {k:'tclock', label:'Uhr', sub:'Zeiger stellen'},
+  /* Deutsch (Backlog I, D3) */
+  {k:'abc', label:'Anlauttabelle', rail:'Anlaut&shy;tabelle', sub:'Buchstaben mit Bildern', subj:'D'},
+  {k:'dict', label:'Bildwörterbuch', rail:'Wörter&shy;buch', sub:'Wörter nachschauen', subj:'D'},
+  {k:'tword', label:'Wörter', sub:'schreiben, Silben sehen', subj:'D'}
 ];
 CTX_ILL.kiste = '<svg viewBox="0 0 160 110" aria-hidden="true"><rect x="44" y="10" width="11" height="58" rx="2" fill="#346bc3" transform="rotate(-12 50 40)"/><rect x="60" y="14" width="11" height="54" rx="2" fill="#346bc3" transform="rotate(-4 66 40)"/><rect x="80" y="30" width="34" height="34" rx="3" fill="#c9414a" transform="rotate(8 97 47)"/><path d="M80 37h34M80 44h34M80 51h34M87 30v34M94 30v34M101 30v34M108 30v34" stroke="#fff" stroke-opacity=".5" stroke-width="1" transform="rotate(8 97 47)"/><circle cx="122" cy="38" r="11" fill="#d5b75a" stroke="#9c8433" stroke-width="3"/><rect x="30" y="40" width="10" height="10" rx="2" fill="#27834b"/><rect x="34" y="28" width="10" height="10" rx="2" fill="#27834b"/><rect x="16" y="52" width="128" height="50" rx="7" fill="#d79a5a" stroke="#2b2930" stroke-width="4"/><path d="M16 66h128" stroke="#2b2930" stroke-width="3"/><rect x="66" y="74" width="28" height="12" rx="4" fill="#2b2930"/></svg>';
 const KISTE_ILL = k => ({
   calc:'<svg viewBox="0 0 80 56" aria-hidden="true"><rect x="6" y="10" width="8" height="40" rx="2" fill="#346bc3"/><rect x="17" y="10" width="8" height="40" rx="2" fill="#346bc3"/><rect x="29" y="42" width="8" height="8" rx="2" fill="#27834b"/><rect x="29" y="31" width="8" height="8" rx="2" fill="#27834b"/><text x="60" y="40" text-anchor="middle" font-size="32" font-weight="800" fill="currentColor" font-family="system-ui,sans-serif">±</text></svg>',
-  tcalc:'<svg viewBox="0 0 80 56" aria-hidden="true"><rect x="22" y="2" width="36" height="52" rx="6" fill="#2b2930"/><rect x="27" y="7" width="26" height="11" rx="2" fill="#e4eedc"/>' + [0, 1, 2].map(r => [0, 1, 2].map(c => `<rect x="${27 + c*9.5}" y="${22 + r*10}" width="7" height="7" rx="1.5" fill="${c === 2 ? '#ffe2b8' : '#fff'}"/>`).join('')).join('') + '</svg>'
+  tcalc:'<svg viewBox="0 0 80 56" aria-hidden="true"><rect x="22" y="2" width="36" height="52" rx="6" fill="#2b2930"/><rect x="27" y="7" width="26" height="11" rx="2" fill="#e4eedc"/>' + [0, 1, 2].map(r => [0, 1, 2].map(c => `<rect x="${27 + c*9.5}" y="${22 + r*10}" width="7" height="7" rx="1.5" fill="${c === 2 ? '#ffe2b8' : '#fff'}"/>`).join('')).join('') + '</svg>',
+  abc:'<svg viewBox="0 0 80 56" aria-hidden="true">' + [['A', 6, 4], ['B', 30, 4], ['M', 54, 4], ['S', 6, 30], ['T', 30, 30], ['O', 54, 30]].map(([t, x, y]) => `<rect x="${x}" y="${y}" width="20" height="22" rx="4" fill="#fff" stroke="#2b2930" stroke-width="2"/><text x="${x + 10}" y="${y + 17}" text-anchor="middle" font-size="15" font-weight="800" fill="${'AO'.includes(t) ? '#c9414a' : '#346bc3'}" font-family="Stufenfibel,system-ui,sans-serif">${t}</text>`).join('') + '</svg>',
+  dict:'<svg viewBox="0 0 80 56" aria-hidden="true"><path d="M40 10q-14-6-30-3v42q16-3 30 3q14-6 30-3V7q-16-3-30 3z" fill="#fff" stroke="#2b2930" stroke-width="2.5" stroke-linejoin="round"/><path d="M40 10v42" stroke="#2b2930" stroke-width="2"/><circle cx="25" cy="26" r="7" fill="#c9414a"/><path d="M47 22h16M47 29h12M47 36h16" stroke="#346bc3" stroke-width="3" stroke-linecap="round"/></svg>'
 })[k] || CT_ILL[k] || '';
+CT_ILL.abc = KISTE_ILL('abc');
+CT_ILL.tblitz = '<svg viewBox="0 0 80 56" aria-hidden="true"><rect x="8" y="12" width="64" height="32" rx="6" fill="#fff" stroke="#2b2930" stroke-width="2.5"/><text x="40" y="35" text-anchor="middle" font-size="17" font-weight="800" fill="#346bc3" font-family="Stufenfibel,system-ui,sans-serif">Rad</text><path d="M66 4l-6 9h6l-5 9" fill="none" stroke="#e8962e" stroke-width="3" stroke-linejoin="round"/></svg>';
+CT_ILL.tsatz = '<svg viewBox="0 0 80 56" aria-hidden="true">' + [['Der', 4, 8], ['Bus', 30, 8], ['ist', 4, 32], ['gelb.', 30, 32]].map(([t, x, y]) => `<rect x="${x}" y="${y}" width="${t.length > 3 ? 32 : 22}" height="18" rx="3" fill="#fff" stroke="#2b2930" stroke-width="2"/><text x="${x + (t.length > 3 ? 16 : 11)}" y="${y + 13.5}" text-anchor="middle" font-size="11" font-weight="700" fill="#2b2930" font-family="Stufenfibel,system-ui,sans-serif">${t}</text>`).join('') + '</svg>';
 const kisteOn = k => app.kiste && (k === 'calc' ? !!app.calc && ['add', 'sub'].includes(app.mode) : app.mode === k);
 function renderKisteHome(p, W){
   const hero = `<header class="wz-hero"><span class="wz-logo">${LOGO_SVG}</span><div class="wz-brand"><b>Stufenweise</b><span>Materialkiste</span></div></header>`, Q = '<b class="wz-q">?</b>';
@@ -7489,8 +7701,8 @@ function renderKisteHome(p, W){
   const stair = `<ol class="wz-stair" aria-label="Schritte">${steps.map(([k, l, pic], i) => `<li class="${i < si ? 'done' : i === si ? 'now' : 'next'}" style="--h:${i + 1}"><button ${i < si ? (k === 'ctx' ? 'data-ctx-reset title="Üben, Unterricht, Testen oder Materialkiste wählen"' : `data-wz-step="${k}" title="Zurück zu diesem Schritt"`) : 'disabled'} aria-current="${i === si ? 'step' : 'false'}"><span class="wz-blk">${pic}</span><span class="wz-lbl">${l}</span></button></li>`).join('')}</ol>`;
   const body = step === 'who'
     ? `<h2>Wer bist du?</h2><div class="home-names">${data.profiles.map(q => `<button data-home-pick="${q.id}" class="${q.sym && ICON[q.sym] ? 'has-sym' : ''}">${q.sym && ICON[q.sym] ? `<i class="kid-sym">${iconSvg(q.sym, 64)}</i>` : `<b>${escHtml(q.name.slice(0, 1).toUpperCase())}</b>`}${escHtml(q.name)}</button>`).join('')}<button data-home-pick="" class="guest"><b>?</b>Gast</button></div>`
-    : `<h2>${p ? `Hallo ${escHtml(p.name)}! ` : ''}Was brauchst du?</h2><p class="home-sub">Hier rechnest und legst du mit Hilfe. Nichts wird bewertet.</p>
-      <div class="ct-tiles kiste-tiles">${KISTE_TOOLS.map(t => `<button class="ct-tile" data-kiste="${t.k}">${KISTE_ILL(t.k)}<b>${t.label}</b><span>${t.sub}</span></button>`).join('')}</div>`;
+    : `<h2>${p ? `Hallo ${escHtml(p.name)}! ` : ''}Was brauchst du?</h2><p class="home-sub">Hier rechnest, legst und schreibst du mit Hilfe. Nichts wird bewertet.</p>
+      ${[['M', 'Mathe'], ['D', 'Deutsch']].map(([sj, n]) => `<h3 class="kiste-h">${n}</h3><div class="ct-tiles kiste-tiles">${KISTE_TOOLS.filter(t => (t.subj || 'M') === sj).map(t => `<button class="ct-tile" data-kiste="${t.k}">${KISTE_ILL(t.k)}<b>${t.label}</b><span>${t.sub}</span></button>`).join('')}</div>`).join('')}`;
   const switchBtn = step === 'tools' && needWho ? `<button class="linkish home-switch" data-home-pick-again>${p ? `Nicht ${escHtml(p.name)}? Namen wechseln` : 'Namen wählen'}</button>` : '';
   $('#stage').innerHTML = `<div class="home wz"><div class="wz-top">${hero}${stair}</div><section class="wz-body">${body}</section>${switchBtn}<button class="linkish home-legal" data-legal>Impressum und Datenschutz</button></div>`;
 }
@@ -7893,6 +8105,81 @@ function tclockControl(b){
   if(b.hasAttribute('data-tcw')){ c.words = !c.words; return renderTclock(); }
 }
 
+/* ---------- Anlauttabelle und Bildwörterbuch (Materialkiste, Backlog I D3; auch Unterricht D4) ---------- */
+const ABC = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','Ä','Ö','Ü','Sch','Ei','Au','St'];
+const ABC_PIC = {A:'Apfel', B:'Ball', D:'Dose', E:'Esel', F:'Fisch', G:'Gabel', H:'Haus', I:'Igel', J:'Jacke', K:'Kamm', L:'Lampe', M:'Maus', N:'Nase', O:'Ofen', P:'Pinsel', R:'Radio', S:'Sonne', T:'Tisch', U:'Uhr', W:'Wolke', Z:'Zug', Sch:'Schere', Ei:'Eimer', Au:'Auto', St:'Stuhl'};
+const ABC_SKIP = new Set(['Essen', 'Toilette', 'Stopp', 'Nudeln', 'Pflaster']);
+const ABC_MULTI = ['Sch', 'Ei', 'Au', 'Eu', 'St', 'Sp', 'Pf', 'Ch', 'Qu'];
+/* Wörter, die mit diesem Laut anfangen (S ohne Sch/St/Sp, E ohne Ei, A ohne Au, P ohne Pf) */
+const abcWords = L => Object.keys(ICON).filter(w => !ABC_SKIP.has(w) && (L.length > 1 ? w.startsWith(L) : w[0] === L && !ABC_MULTI.some(m => m[0] === L && w.startsWith(m)))).sort((a, b) => a.localeCompare(b, 'de'));
+app.abc = {sel:null, word:null};
+const abcFig = w => `<figure data-abcw="${escHtml(w)}">${iconSvg(w, 72)}<figcaption>${sylSpans(sylOf(w))}</figcaption>${speechBtn(w)}</figure>`;
+function renderAbc(){
+  const A = app.abc, dict = app.mode === 'dict';
+  $('#equation').innerHTML = ''; $('#words').hidden = true; setHint('');
+  let h, ctl = '';
+  if(A.word){
+    h = `<div class="tw-one"><div class="tw-icon">${iconSvg(A.word, 200)}</div><div class="tw-word bows">${sylSpans(sylOf(A.word))}</div>${speechBtn(A.word, true)}</div>`;
+    ctl = toolBtn({id:'abc-back', ic:'undo', label:'Zurück'});
+    $('#prompt').textContent = '';
+  } else if(dict){
+    $('#prompt').textContent = 'Tippe auf ein Bild.';
+    h = `<div class="abc-dict">${ABC.map(L => [L, abcWords(L)]).filter(([, ws]) => ws.length).map(([L, ws]) => `<section><h3>${L} ${L.toLowerCase()}</h3><div class="wpre-grid">${ws.map(abcFig).join('')}</div></section>`).join('')}</div>`;
+  } else if(A.sel){
+    const ws = abcWords(A.sel);
+    $('#prompt').textContent = '';
+    h = `<div class="abc-one"><div class="abc-big">${A.sel}<span>${A.sel.toLowerCase()}</span></div><div class="wpre-grid">${ws.length ? ws.map(abcFig).join('') : '<p class="note">Dazu gibt es noch kein Bild.</p>'}</div></div>`;
+    ctl = toolBtn({id:'abc-back', ic:'undo', label:'Alle Buchstaben'});
+  } else {
+    $('#prompt').textContent = 'Tippe auf einen Buchstaben.';
+    h = `<div class="abc-grid">${ABC.map(L => `<button data-abc="${L}" class="abc-tile"><b>${L}<small>${L.toLowerCase()}</small></b>${ABC_PIC[L] ? iconSvg(ABC_PIC[L], 46) : ''}</button>`).join('')}</div>`;
+  }
+  $('#stage').innerHTML = `<div class="abc-wrap">${h}</div>`;
+  $('#controls').innerHTML = ctl;
+}
+function abcClick(e){
+  const A = app.abc;
+  const l = e.target.closest('[data-abc]'); if(l){ A.sel = l.dataset.abc; A.word = null; return renderAbc(); }
+  const w = e.target.closest('[data-abcw]'); if(w){ A.word = w.dataset.abcw; return renderAbc(); }
+  if(e.target.closest('#abc-back')){ if(A.word) A.word = null; else A.sel = null; return renderAbc(); }
+}
+
+/* ---------- Blitzlesen (Unterricht, Backlog I D4): ein Wort kurz zeigen, dann abdecken ---------- */
+app.tb = {list:'', words:[], ms:1000, syl:true, cur:'', phase:'idle', timer:null};
+function tbSetWords(t){ const T = app.tb; T.list = String(t || '').trim(); T.words = T.list.split(/[\n,;]+/).map(w => w.trim()).filter(Boolean); T.phase = 'idle'; T.cur = ''; }
+function tbNext(){ const T = app.tb, pool = T.words.length ? T.words : L4_POOL; let w; do w = pick(pool); while(pool.length > 1 && w === T.cur); T.cur = w; tbShow(); }
+function tbShow(){ const T = app.tb; clearTimeout(T.timer); T.phase = 'show'; renderTblitz(); T.timer = setTimeout(() => { if(app.mode === 'tblitz' && T.phase === 'show'){ T.phase = 'hidden'; renderTblitz(); } }, T.ms); }
+function renderTblitz(){
+  const T = app.tb; $('#equation').innerHTML = ''; $('#prompt').textContent = ''; setHint('');
+  const word = T.syl ? sylText(T.cur) : escHtml(T.cur);
+  $('#stage').innerHTML = `<div class="tw-wrap">${T.phase === 'idle' ? '<p class="board-empty">„Nächstes Wort“ zeigt ein Wort kurz an. Oben eigene Wörter eintragen (mit Komma getrennt) oder leer lassen.</p>' : T.phase === 'show' ? `<div class="tw-one"><div class="tw-word">${word}</div></div>` : `<div class="tw-one"><div class="tw-word tb-hid" data-tbreveal title="Aufdecken">?</div></div>`}</div>`;
+  $('#controls').innerHTML = (T.phase === 'hidden' ? toolBtn({id:'tb-again', ic:'eye', label:'Nochmal zeigen'}) + toolBtn({id:'tb-reveal', ic:'eye', label:'Aufdecken'}) : '') + toolBtn({id:'tb-next', ic:'next', label:'Nächstes Wort', primary:true});
+}
+function tblitzClick(e){
+  const T = app.tb;
+  if(e.target.closest('#tb-next')) return tbNext();
+  if(e.target.closest('#tb-again')) return tbShow();
+  if(e.target.closest('#tb-reveal, [data-tbreveal]')){ clearTimeout(T.timer); T.phase = 'shown'; const w = T.syl ? sylText(T.cur) : escHtml(T.cur), ic = Object.keys(ICON).find(k => k.toLowerCase() === T.cur.toLowerCase()); $('#stage').innerHTML = `<div class="tw-wrap"><div class="tw-one">${ic ? `<div class="tw-icon">${iconSvg(ic, 160)}</div>` : ''}<div class="tw-word">${w}</div></div></div>`; $('#controls').innerHTML = toolBtn({id:'tb-again', ic:'eye', label:'Nochmal blitzen'}) + toolBtn({id:'tb-next', ic:'next', label:'Nächstes Wort', primary:true}); }
+}
+/* ---------- Satz-Baukasten (Unterricht, Backlog I D4): Wortkarten in die richtige Reihenfolge bringen ---------- */
+app.ts = {text:'Der Bus ist gelb.', words:[], tiles:[], order:[]};
+function tsSet(t){ const T = app.ts; T.text = String(t || '').trim() || T.text; T.words = T.text.split(/\s+/).filter(Boolean); T.tiles = shuffle(T.words.map((_, i) => i)); T.order = []; }
+function renderTsatz(){
+  const T = app.ts; if(!T.words.length) tsSet(T.text);
+  $('#equation').innerHTML = ''; $('#prompt').textContent = 'Tippe die Wörter der Reihe nach an.'; setHint('');
+  const done = T.order.length === T.words.length, ok = done && T.order.every((v, i) => T.words[v] === T.words[i]);
+  $('#stage').innerHTML = `<div class="tw-wrap ts-wrap"><div class="ts-line${done ? (ok ? ' ok' : ' no') : ''}">${T.order.length ? T.order.map(i => `<span class="ts-card in">${escHtml(T.words[i])}</span>`).join('') : '<em>Hier entsteht der Satz.</em>'}</div><div class="ts-tiles">${T.tiles.map(i => `<button class="ts-card" data-tsw="${i}" ${T.order.includes(i) ? 'disabled' : ''}>${escHtml(T.words[i])}</button>`).join('')}</div></div>`;
+  $('#controls').innerHTML = toolBtn({id:'ts-back', ic:'undo', label:'Zurück'}) + toolBtn({id:'ts-mix', ic:'next', label:'Neu mischen'}) + toolBtn({id:'ts-sol', ic:'eye', label:'Lösung'});
+  if(done) setHint(ok ? 'Der Satz stimmt.' : 'Noch nicht. Lies den Satz laut. Klingt er richtig?', ok ? 'good' : 'bad');
+}
+function tsatzClick(e){
+  const T = app.ts, w = e.target.closest('[data-tsw]');
+  if(w){ const i = +w.dataset.tsw; if(!T.order.includes(i)) T.order.push(i); return renderTsatz(); }
+  if(e.target.closest('#ts-back')){ T.order.pop(); return renderTsatz(); }
+  if(e.target.closest('#ts-mix')){ T.tiles = shuffle(T.tiles); T.order = []; return renderTsatz(); }
+  if(e.target.closest('#ts-sol')){ T.order = T.words.map((_, i) => i); return renderTsatz(); }
+}
+
 /* ---------- Wörter groß zeigen ---------- */
 app.tw = {text:'Hose', syl:true, bows:true};
 function renderTword(){
@@ -7929,6 +8216,8 @@ function renderTopTool(){
   }
   $('#range-label').textContent = ''; $('#ranges').innerHTML = '';
   if(m === 'tcalc'){ $('#inputs').innerHTML = `<button class="chip-toggle" data-trm aria-pressed="${app.tr.mat}" title="Das Ergebnis zusätzlich mit Tausendern, Hundertern, Zehnern und Einern zeigen">Ergebnis als Material</button>`; return true; }
+  if(m === 'tblitz'){ $('#inputs').innerHTML = `<label class="tw-in"><span>Wörter</span><input id="tb-text" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" maxlength="300" placeholder="leer = Wörter aus der App" value="${escHtml(app.tb.list)}"></label><button id="tb-go" class="primary">Übernehmen</button><span class="seg" role="group" aria-label="Zeigezeit">${[500, 1000, 2000].map(ms => `<button data-tbms="${ms}" aria-pressed="${app.tb.ms === ms}">${ms/1000} s</button>`).join('')}</span><button class="chip-toggle" data-tbs aria-pressed="${app.tb.syl}">Silben färben</button>`; return true; }
+  if(m === 'tsatz'){ $('#inputs').innerHTML = `<label class="tw-in"><span>Satz</span><input id="ts-text" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" maxlength="120" value="${escHtml(app.ts.text)}"></label><button id="ts-go" class="primary">Wortkarten machen</button>`; return true; }
   if(m === 'tword'){ $('#inputs').innerHTML = `<label class="tw-in"><span>Wort oder Satz</span><input id="tw-text" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" maxlength="80" value="${escHtml(app.tw.text)}"></label><button id="tw-go" class="primary">Zeigen</button>`; return true; }
   $('#inputs').innerHTML = '';
   return true;
@@ -7981,6 +8270,9 @@ function picDecor(){
 }
 const picObs = new MutationObserver(() => picDecor());
 function renderTool(){
+  if(app.mode === 'abc' || app.mode === 'dict') return renderAbc();
+  if(app.mode === 'tblitz') return renderTblitz();
+  if(app.mode === 'tsatz') return renderTsatz();
   if(app.mode === 'tfield') return renderTfield();
   if(app.mode === 'nline') return renderNline();
   if(app.mode === 'hboard') return renderHboard();
@@ -7993,6 +8285,9 @@ document.addEventListener('click', e => {
   if(e.target.closest('[data-tf-reveal]')){ app.tf.shown = true; return renderTfield(); }
   if(e.target.closest('[data-tf-cover]')){ app.tf.shown = false; return renderTfield(); }
   const inStage = e.target.closest('#stage'), inCtl = e.target.closest('#controls'), inTop = e.target.closest('.toolbar');
+  if((inStage || inCtl) && (app.mode === 'abc' || app.mode === 'dict')) return abcClick(e);
+  if((inStage || inCtl) && app.mode === 'tblitz') return tblitzClick(e);
+  if((inStage || inCtl) && app.mode === 'tsatz') return tsatzClick(e);
   if(inStage){ if(app.mode === 'tfield') tfieldClick(e); if(app.mode === 'nline') zsClick(e); if(app.mode === 'hboard') hboardClick(e); return; }
   const b = e.target.closest('button'); if(!b || !(inCtl || inTop)) return;
   if(inTop){
@@ -8005,6 +8300,10 @@ document.addEventListener('click', e => {
     if(b.id === 'tf-set') return tfSetNum($('#tf-num')?.value);
     if(b.id === 'tf-rand'){ const t = app.tf, cur = t.dots.length - t.cross; let n; do n = rnd(1, t.cap); while(n === cur && t.cap > 1); return tfSetNum(n, true); }
     if(b.id === 'tw-go'){ app.tw.text = $('#tw-text').value; return renderTword(); }
+    if(b.id === 'tb-go'){ tbSetWords($('#tb-text').value); return renderTblitz(); }
+    if(b.dataset.tbms){ app.tb.ms = +b.dataset.tbms; return render(); }
+    if(b.hasAttribute('data-tbs')){ app.tb.syl = !app.tb.syl; return render(); }
+    if(b.id === 'ts-go'){ tsSet($('#ts-text').value); return renderTsatz(); }
     return;
   }
   if(app.mode === 'tfield') return tfieldControl(b);
@@ -8772,7 +9071,7 @@ const lineW = (n = 1) => `<div class="ab-wline"></div>`.repeat(n);
 const R_SHEETS = {
   L1: {name:'Bilder und Schilder zuordnen', match:true, gen:() => { const ks = freshN(Object.keys(PICTO_MATCH), 4); return {left: ks.map(k => iconP(PICTO_MATCH[k], 17)), right: shuffle(ks).map(k => `<span class="ab-ic" style="width:16mm">${pictoSvg(k, 100)}</span>`), a: ks.map(k => `${PICTO_MATCH[k]} – ${k}`).join('; ')}; }},
   L2: {name:'Signalwörter', match:true, gen:() => { const ks = freshN(Object.keys(SIGN_PIC), 4); return {left: ks.map(k => SIGN_PIC[k].icon ? iconP(SIGN_PIC[k].icon, 17) : `<span class="ab-ic" style="width:16mm">${pictoSvg(SIGN_PIC[k].picto, 100)}</span>`), right: shuffle(ks).map(k => `<span class="ab-sign${app.sheet.lcase ? ' lc' : ''}">${sigCase(k)}</span>`), a: ks.map(sigCase).join(', ')}; }},
-  L3: {name:'Anfangsbuchstaben', cols:2, gens:[() => { const k = fresh(Object.values(INITIAL).flat()), L = k[0]; const opts = shuffle([L, ...others(['A','M','S','T','L','R','H','B','K','O','E','F','N','P','G','Z','D','W'], [L], 2)]); return T_('kreise', 'Womit fängt das Wort an?', `${iconP(k)}<p class="ab-row big letters">${opts.join(' ')}</p>`, `${k}: ${L}`); }]},
+  L3: {name:'Anfangsbuchstaben', cols:2, gens:[() => { const k = fresh(wPool(W_POOLS.W2())), L = k[0]; const opts = shuffle([L, ...others(['A','M','S','T','L','R','H','B','K','O','E','F','N','P','G','Z','D','W'], [L], 2)]); return T_('kreise', 'Womit fängt das Wort an?', `${iconP(k)}<p class="ab-row big letters">${opts.join(' ')}</p>`, `${k}: ${L}`); }]},
   L4: {name:'Wörter lesen', cols:2, gens:[() => { const k = fresh(L4_POOL), dis = others(WITH_ICON().filter(x => x[0] !== k[0]), [k], 2); return T_(['lies', 'kreise'], 'Lies das Wort. Kreise das Bild ein.', `<p class="ab-word">${k}</p><p class="ab-row">${shuffle([k, ...dis]).map(x => iconP(x, 17)).join(' ')}</p>`, k); }]},
   L5: {name:'Genau lesen', cols:2, gens:[() => { const k = fresh(MINIMAL.map(s => s[0])), set = MINIMAL.find(s => s[0] === k); return T_(['lies', 'kreise'], 'Kreise das richtige Wort ein.', `${iconP(k, 22)}<p class="ab-row words">${shuffle(set).map(w => `<span>${w}</span>`).join('')}</p>`, k); },
                                           () => { const k = fresh(LONG_POOL), dis = others(LONG_POOL, [k], 2); return T_(['lies', 'kreise'], 'Lies das Wort. Kreise das Bild ein.', `<p class="ab-word">${k}</p><p class="ab-row">${shuffle([k, ...dis]).map(x => iconP(x, 17)).join(' ')}</p>`, k); }]},
@@ -8794,10 +9093,10 @@ function traceWord(w, px = 44){
 const W_SHEETS = {
   WX: {name:'Meine Wörter (nachspuren und schreiben)', cols:2, gens:[() => { const ws = ownWords(), k = fresh(ws.length ? ws : ['Name', 'Schule', 'Montag', 'Arbeit']); return T_(['lies', 'schreibe'], 'Spure nach. Schreibe dann selbst.', `${traceWord(k)}${lineW(2)}`, k); }]},
   W1: {name:'Wörter abschreiben', cols:2, gens:[() => { const k = fresh([...LAUT_SHORT, 'Lampe','Tasse','Hose','Banane','Blume','Kiste']); return T_(['lies', 'schreibe'], 'Lies und schreibe ab.', `<div class="ab-pw">${iconP(k, 18)}<p class="ab-word">${k}</p></div>${lineW()}`, k); }]},
-  W2: {name:'Anfangsbuchstaben schreiben', cols:3, gens:[() => { const k = fresh(Object.values(INITIAL).flat()); return T_('schreibe', 'Erster Buchstabe', `${iconP(k, 22)}${ans(13)}`, `${k}: ${k[0]}`); }]},
-  W3: {name:'Kurze Wörter schreiben', cols:2, gens:[() => { const k = fresh(LAUT_SHORT); return T_('schreibe', 'Schreibe das Wort.', `${iconP(k, 22)}${lineW()}`, k); }]},
-  W4: {name:'Lange Wörter schreiben', cols:2, gens:[() => { const k = fresh(LAUT_LONG); return T_('schreibe', 'Sprich in Silben und schreibe.', `${iconP(k, 22)}<p class="ab-syl">${(WORDS[k] || [k]).map(() => '◡').join(' ')}</p>${lineW()}`, `${k} (${(WORDS[k] || [k]).join('-')})`); }]},
-  W5: {name:'Merkstellen: doppelte Mitlaute, ck, tz', cols:2, gens:[() => { const k = fresh(MERK); const m = k.match(/(ss|nn|mm|ll|tt|ck|tz|zz|sch|ft)/); const gap = m ? k.replace(m[0], '__') : k; return T_('schreibe', 'Setze ein und schreibe das Wort.', `${iconP(k, 20)}<p class="ab-word">${gap.replace('__', '<span class="ab-gap"></span>')}</p>${lineW()}`, `${k}${m ? ` (${m[0]})` : ''}`); }]},
+  W2: {name:'Anfangsbuchstaben schreiben', cols:3, gens:[() => { const k = fresh(wPool(W_POOLS.W2())); return T_('schreibe', 'Erster Buchstabe', `${iconP(k, 22)}${ans(13)}`, `${k}: ${k[0]}`); }]},
+  W3: {name:'Kurze Wörter schreiben', cols:2, gens:[() => { const k = fresh(wPool(LAUT_SHORT)); return T_('schreibe', 'Schreibe das Wort.', `${iconP(k, 22)}${lineW()}`, k); }]},
+  W4: {name:'Lange Wörter schreiben', cols:2, gens:[() => { const k = fresh(wPool(LAUT_LONG)); return T_('schreibe', 'Sprich in Silben und schreibe.', `${iconP(k, 22)}<p class="ab-syl">${(WORDS[k] || [k]).map(() => '◡').join(' ')}</p>${lineW()}`, `${k} (${(WORDS[k] || [k]).join('-')})`); }]},
+  W5: {name:'Merkstellen: doppelte Mitlaute, ck, tz', cols:2, gens:[() => { const k = fresh(wPool(MERK)); const m = k.match(/(ss|nn|mm|ll|tt|ck|tz|zz|sch|ft)/); const gap = m ? k.replace(m[0], '__') : k; return T_('schreibe', 'Setze ein und schreibe das Wort.', `${iconP(k, 20)}<p class="ab-word">${gap.replace('__', '<span class="ab-gap"></span>')}</p>${lineW()}`, `${k}${m ? ` (${m[0]})` : ''}`); }]},
   W6: {name:'Sätze richtig schreiben', cols:1, gens:[() => { const n = fresh(FACTS.map(f => f[0])), t = FACTS.find(f => f[0] === n)[1], s = [cap(art(n)), n, 'ist', ...t.split(' ')]; return T_(['lege', 'schreibe'], 'Ordne die Wörter zu einem Satz und schreibe ihn auf.', `<div class="ab-pw">${iconP(n, 16)}<p class="ab-row">${shuffle(s).map(w => `<span class="ab-card">${w}</span>`).join(' ')}</p></div>${lineW()}`, s.join(' ') + '.'); },
        () => { const n = fresh(FACTS.map(f => f[0])), t = FACTS.find(f => f[0] === n)[1], s = `${cap(art(n))} ${n} ist ${t}.`; return T_(['lies', 'schreibe'], 'Schreibe richtig ab. Denk an Großbuchstaben und den Punkt.', `<p class="ab-sent">${s.toLowerCase().replace('.', '')}</p>${lineW()}`, s); }]}
 };
@@ -8875,6 +9174,7 @@ const LEGE = {
   wortm:    {name:'Merkwörter nachlegen (Merkstelle farbig)', grp:'D', kts:['zahl'], def:'zahl'},
   silben:   {name:'Silben legen (ein Stein pro Silbe)', grp:'D', kts:['zahl'], def:'zahl'},
   buchst:   {name:'Buchstabenkarten zum Ausschneiden', grp:'D', kts:['zahl'], def:'zahl'},
+  bildk:    {name:'Bildkarten mit Wort (Wortschatz, Memory)', grp:'D', kts:['zahl'], def:'zahl'},
   sort2:    {name:'Sortierunterlage mit zwei Feldern', grp:'B', kts:['grp', 'farbe', 'none'], ktn:{grp:'Küche und Werkstatt', farbe:'zwei Farben', none:'ohne Bild (selbst beschriften)'}, def:'grp'},
   paare:    {name:'Zuordnungsleiste: eins zu eins', grp:'B', kts:['bild', 'none'], ktn:{bild:'mit Bildern oben', none:'ohne Bilder (echte Dinge oben)'}, def:'bild'},
   muster:   {name:'Musterstreifen für Plättchen', grp:'B', kts:['ab', 'aab', 'abc', 'none'], ktn:{ab:'Muster AB', aab:'Muster AAB und ABB', abc:'Muster ABC', none:'leere Streifen'}, def:'ab'}
@@ -9056,12 +9356,19 @@ function legeBuild(key, S){
       if(pt.length) sols.push(seq.slice(show).map(i => B_COL_NAME[C[i]]).join(', '));
       return `<div class="lg-strip">${seq.map((c, i) => `<span class="lg-ss">${i < show ? dot(C[c]) : ''}</span>`).join('')}</div>`; }).join('');
   }
+  else if(key === 'bildk'){ /* Backlog I: Wortschatz sichern; für ein Kind zuerst die Bilder, die es nicht kannte */
+    const kid = S.pid && S.pid !== 'none' ? S.pid : null, unk = kid ? unkWords(kid).map(x => x.replace(/ \(\d+×\)$/, '')).filter(w => ICON[w]) : [];
+    const words = [...new Set([...unk, ...shuffle(wAllPics())])].slice(0, 12);
+    words.forEach(w => sols.push(`${w} (${sylOf(w).join('-')})`));
+    title = 'Bildkarten mit Wort'; how = 'Ausschneiden. Bild ansehen, Wort sprechen, Silben schwingen. Zweimal drucken für Memory oder die Wörter abschneiden und zuordnen.';
+    body = `<div class="lg-cards">${words.map(w => `<div class="lg-card"><span class="lg-ic">${iconSvg(w, 100)}</span><b>${escHtml(w)}</b></div>`).join('')}</div>`;
+  }
   else if(key === 'buchst'){
     const mode = S.bcase || 'mixed';
     title = 'Buchstabenkarten'; how = 'Ausschneiden (am besten auf Karton drucken oder laminieren). Der Strich zeigt, wo unten ist.';
     body = lgLetters(mode);
   }
-  return {title, how, body, quer, sols, compact: key === 'buchst'};
+  return {title, how, body, quer, sols, compact: key === 'buchst' || key === 'bildk'};
 }
 function legeSheet(key){
   const S = app.sheet; B_BW = LEGE[key].grp === 'B' && !!S.bw; const b = legeBuild(key, S), kid = S.pid && S.pid !== 'none' ? kids().find(p => p.id === S.pid) : null;
@@ -9123,7 +9430,7 @@ const SHEET_CSS = document.getElementById('font-css').textContent + `@page{size:
 .ab-bars{display:grid;grid-template-columns:auto 1fr;gap:1mm 2mm;align-items:center;width:100%;font-size:10pt}.ab-bars .ab-svg{max-height:10mm}
 .ab-ic{display:inline-block;vertical-align:middle}.ab-ic svg{width:100%;height:auto;display:block}
 .ab-pw{display:flex;align-items:center;gap:4mm;justify-content:center}
-.ab-word{font-size:24pt;font-weight:700;letter-spacing:1px;text-align:center;margin:0}.ab-sent{font-size:17pt;font-weight:600;margin:0;text-align:center}.ab-text{font-size:14pt;line-height:1.6;margin:0 0 1mm;padding:2mm 3mm;background:#f6f6f6;border-radius:2mm;align-self:stretch}
+.ab-word{font-size:24pt;font-weight:700;letter-spacing:1px;text-align:center;margin:0}.ab-sylc{display:inline-flex;gap:3mm;margin-left:3mm;vertical-align:middle}.ab-sylc i{width:9mm;height:9mm;border:.5mm solid #222;border-radius:50%;display:block}.ab-pics{display:flex;align-items:center;justify-content:space-around;gap:4mm;width:100%}.ab-sep{width:.6mm;height:18mm;background:#222}.ab-sent{font-size:17pt;font-weight:600;margin:0;text-align:center}.ab-text{font-size:14pt;line-height:1.6;margin:0 0 1mm;padding:2mm 3mm;background:#f6f6f6;border-radius:2mm;align-self:stretch}
 .dc-bon{font-family:Menlo,Consolas,monospace;font-size:11pt;border-top:1px dashed #555;border-bottom:1px dashed #555;padding:1.5mm 0;max-width:80mm}.dc-bon>div{display:flex;justify-content:space-between}.dc-bon .dc-bon-sum{font-weight:700;border-top:1px solid #333}.dc-offer{display:inline-flex;flex-direction:column;border:2px solid #333;border-radius:3mm;padding:2mm 4mm}.dc-offer b{font-size:14pt}.dc-old{text-decoration:line-through}.dc-new{font-size:16pt;font-weight:700}.dc-tag{display:inline-flex;flex-direction:column;align-items:center;border:2px solid #333;border-radius:2mm;padding:2mm 6mm}.dc-tag b{font-size:16pt}.ab-trace{display:block;margin:1mm 0 2mm;align-self:flex-start;max-width:100%;height:auto;overflow:visible}.ab-q{align-self:stretch;font-size:12.5pt}.ab-q div{display:flex;gap:6mm;flex-wrap:wrap;margin-top:1mm}.ab-doc{align-self:stretch;font-size:13pt;line-height:1.5;border:1px solid #bbb;border-radius:2mm;padding:3mm 4mm}.ab-doc .dc-g{font-size:8.5pt;font-weight:700;text-transform:uppercase;letter-spacing:.5pt;color:#555}.ab-doc .dc-h{font-size:14pt;margin:1mm 0 2mm}.ab-doc .dc-p{margin:0 0 1.6mm}.ab-doc .dc-pn{display:inline-block;width:5mm;font-size:9pt;font-weight:700;color:#777}.ab-doc .dc-head{font-size:10pt;color:#555;margin:0 0 2mm}.dc-t{border-collapse:collapse;width:100%;font-size:11.5pt}.dc-t th,.dc-t td{border:1px solid #999;padding:1.2mm 2mm;text-align:left;vertical-align:top}.dc-t thead th{background:#eee}.dc-note{font-size:10.5pt;margin:1.5mm 0 0}.dc-veg{display:inline-block;border:1px solid #333;border-radius:50%;width:5mm;text-align:center;font-size:8pt;font-weight:700}.dc-msg{border:1px solid #bbb;border-radius:3mm;padding:1mm 3mm;margin:1.2mm 0;max-width:85%}.dc-msg.me{margin-left:auto;background:#f2f2f2}.dc-msg b{display:block;font-size:9pt;color:#555}.dc-rec{display:grid;grid-template-columns:1fr 1.6fr;gap:4mm}.cal{border-collapse:collapse;width:100%;table-layout:fixed;font-size:12pt}.cal th{font-size:10pt;padding:1mm 0}.cal td{border:1px solid #999;height:10mm;vertical-align:top;padding:1mm}.cal td.cal-x{border:none}.cal td.cal-we{background:#eee}.cal .cal-d{font-weight:700}.cal .cal-t{display:block;font-size:8pt;line-height:1.1;border:1px solid #333;border-radius:1mm;padding:0 1mm;margin-top:1mm}.dc-rec ul,.dc-rec ol{margin:1mm 0 0;padding-left:5mm}
 .ab-wline{height:13mm;border-bottom:1.5px solid #444;background:linear-gradient(#fff 0 60%, #ddd 60% 62%, #fff 62%);align-self:stretch}.ab-gap{display:inline-block;width:14mm;border-bottom:2px solid #222;margin:0 1mm}.ab-syl{text-align:center;font-size:16pt;color:#888;margin:0;letter-spacing:3mm}
 .ab-card{display:inline-block;border:1.4px solid #333;border-radius:2mm;padding:1mm 3mm;font-size:15pt}.ab-sign{display:inline-block;border:2px solid #222;border-radius:2mm;padding:2mm 4mm;font-weight:700;font-size:15pt;letter-spacing:1px}.ab-sign.lc{letter-spacing:.3px;font-size:16pt}
@@ -9136,12 +9443,13 @@ const SHEET_CSS = document.getElementById('font-css').textContent + `@page{size:
 .ab-foot{font-size:8pt;color:#888;margin-top:2.5mm;margin-bottom:0}.ab-lic{margin-top:.5mm}
 .sol{font-size:12pt}.sol ol{columns:2;column-gap:10mm;padding-left:6mm}.sol li{margin:1mm 0;break-inside:avoid}
 @media screen{body{background:#eee}.page{background:#fff;margin:6mm auto;padding:12mm;box-shadow:0 2px 8px #0002;width:210mm;min-height:297mm}.page[data-over]{outline:3px dashed #d08a1e;outline-offset:-2mm}.page[data-over]::before{content:'Zu lang für ein Blatt: wird auf ' attr(data-over) ' Blätter gedruckt. Weniger Aufgaben wählen, damit es auf eines passt.';display:block;margin:-6mm 0 4mm;padding:2mm 3mm;border-radius:2mm;background:#fff2db;color:#7a4a00;font:600 10pt system-ui,sans-serif}}
-.hbp{display:flex;justify-content:center}.hbp .hb{display:flex;flex-direction:column;align-items:center;gap:1mm}.hbp .hb-title{font-size:10pt;font-weight:700;color:#444}.hbp .hb-grid{display:grid;grid-template-columns:repeat(var(--hcols),auto);gap:.6mm}.hbp .hb-c{width:var(--hs);height:var(--hs);border:.25mm solid #9a9a9a;border-radius:.8mm;display:flex;align-items:center;justify-content:center;font-size:calc(var(--hs)*.42);font-weight:700;line-height:1;font-variant-numeric:tabular-nums}.hbp .h3d .hb-c{font-size:calc(var(--hs)*.33)}.hbp .hb-c.g5c{margin-right:1.1mm}.hbp .hb-c.g5r{margin-bottom:1.1mm}.hbp .hb-off{visibility:hidden}.hbp .hb-c.mk{border:.6mm solid #222;background:#e9e9e9}.hbp .hb-c.pat{background:#cfcfcf}.hbp .hb-c.hb-gap{border:.45mm solid #222;background:#fff}.ab-arrows{letter-spacing:.5mm;font-size:13pt}.page.lg .q{display:flex;flex-direction:column}.lg-top{margin-bottom:2mm}.lg-top.cmp{display:flex;align-items:baseline;gap:6mm;padding-bottom:1.5mm}.lg-top.cmp h1{font-size:15pt;margin:0;white-space:nowrap}.lg-top.cmp .lg-how{margin:0;font-size:10pt}.lg-how{font-size:12pt;margin:0 0 4mm;line-height:1.35}.quer .lg-how{margin-bottom:2.5mm}.lg-body{display:flex;flex-direction:column;gap:6mm;flex:1}.quer .lg-body{gap:3.5mm}.lg-svg{display:block;flex:none;max-width:none;max-height:none}.lg-c{display:flex;justify-content:center}.lg-unit{display:flex;flex-direction:column;gap:2.5mm;break-inside:avoid}.lg-task{display:flex;align-items:center;gap:3mm;font-size:13pt;line-height:1.3}.lg-task .nr{width:6.5mm;height:6.5mm;border-radius:50%;background:#222;color:#fff;font-size:9.5pt;font-weight:700;display:flex;align-items:center;justify-content:center;flex:none}.lg-tt{flex:1}.lg-tw{display:flex;align-items:center;gap:2mm;white-space:nowrap;font-size:13pt}.lg-box{display:inline-block;height:10mm;border:1.5px solid #333;border-radius:1.5mm;vertical-align:middle;background:#fff;flex:none}.lg-eq{display:inline-flex;align-items:center;gap:2mm;font-size:15pt}.lg-tasks2{display:grid;grid-template-columns:1fr 1fr;gap:3.5mm 8mm;margin-top:2mm}.lg-tasks2 .lg-task,.lg-tasks2 .lg-tw,.lg-tasks2 .lg-eq{font-size:12pt}.lg-tasks2.x2{grid-template-columns:repeat(4,1fr);gap:2mm 5mm;margin-top:0}.lg-tasks2.x2 .lg-tt{display:none}.lg-st{display:flex}.lg-stc{display:flex;flex-direction:column}.lg-sth{color:#fff;font-weight:700;text-align:center;padding:1.5mm 0;font-size:13pt;border:.3mm solid #222;-webkit-print-color-adjust:exact;print-color-adjust:exact}.lg-stb{border:.3mm solid #222;border-top:0}.lg-std{display:flex;justify-content:center;padding-top:2.5mm}.lg-stc+.lg-stc .lg-sth,.lg-stc+.lg-stc .lg-stb{border-left:0}.lg-clock{display:flex;flex-direction:column;align-items:center;gap:3mm}.lg-hands{display:flex;flex-direction:column;align-items:center;gap:1.5mm;font-size:9.5pt}.lg-hands>div{display:flex;gap:10mm;align-items:center}.lg-hands svg{display:block}.lg-times{display:flex;flex-wrap:wrap;gap:3mm 6mm;font-size:15pt;justify-content:center;align-items:center;margin:2mm 0 0}.lg-times span{border:1.2px solid #333;border-radius:2mm;padding:1mm 3mm}.lg-geld{display:flex;align-items:center;gap:6mm;break-inside:avoid}.lg-gi{display:flex;flex-direction:column;align-items:center;gap:2mm;width:36mm;flex:none}.lg-gi svg{width:24mm;height:24mm}.lg-price{font-size:18pt;border:2px solid #222;border-radius:2mm;padding:.5mm 3mm}.lg-gf{flex:1;height:46mm;border:.5mm dashed #888;border-radius:3mm;display:flex;align-items:flex-end;justify-content:flex-end;padding:2mm 3mm;color:#aaa;font-size:9pt}.lg-ic{width:24mm;height:24mm;flex:none;display:block}.lg-ic svg{width:100%;height:100%;display:block}.lg-slot{width:22mm;height:22mm;border:.5mm dashed #555;border-radius:1.5mm;display:inline-block;flex:none}.lg-anl{display:grid;grid-template-columns:repeat(3,1fr);gap:5mm}.lg-anc{display:flex;align-items:center;gap:4mm;border:1px solid #ccc;border-radius:3mm;padding:3mm;justify-content:center}.lg-words{display:flex;flex-direction:column;gap:3mm}.lg-wr{display:flex;align-items:center;gap:6mm;border-bottom:1px solid #ddd;padding-bottom:3mm;break-inside:avoid}.lg-wc{display:flex;flex-direction:column;gap:1mm}.lg-tpl,.lg-slots{display:flex;gap:1.5mm}.lg-tpl span{width:22mm;text-align:center;font-size:21pt;font-weight:700;color:#444;line-height:1.1}.lg-tpl .mk{color:#c9414a}.lg-syl{display:flex;gap:7mm}.lg-syl span{width:21mm;height:21mm;border-radius:50%;border:.5mm dashed #555}.lg-cards{display:grid;grid-template-columns:repeat(9,20mm);justify-content:center}.lg-card{width:20mm;height:20mm;border:.25mm dashed #9a9a9a;display:flex;align-items:center;justify-content:center;font-size:34pt;font-weight:700;position:relative;line-height:1;padding-bottom:1.5mm}.lg-card i{position:absolute;bottom:2mm;left:7mm;width:6mm;height:.7mm;background:#b5b5b5}.lg-foot{display:flex;align-items:center;gap:3mm;font-size:8pt;color:#555;margin-top:3mm}.lg-cal{width:50mm;border-top:.6mm solid #222;flex:none}.page.lg.quer .q{width:272mm}@media print{.page.lg{height:296mm;overflow:hidden}.page.lg .q{height:100%}.page.lg.quer{position:relative}.page.lg.quer .q{position:absolute;left:12mm;top:12mm;width:272mm;height:185mm;transform-origin:0 0;transform:translateX(186mm) rotate(90deg)}}@media screen{.page.lg.quer{width:297mm;min-height:210mm}}`;
+.lg-body .lg-cards{display:grid!important;grid-template-columns:repeat(3,1fr)!important;border-top:.4mm dashed #888;border-left:.4mm dashed #888}.lg-body .lg-card{border-right:.4mm dashed #888;border-bottom:.4mm dashed #888;height:62mm!important;width:auto!important;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3mm}.lg-card .lg-ic{width:34mm;height:34mm;display:block}.lg-card b{font-size:22pt}.hbp{display:flex;justify-content:center}.hbp .hb{display:flex;flex-direction:column;align-items:center;gap:1mm}.hbp .hb-title{font-size:10pt;font-weight:700;color:#444}.hbp .hb-grid{display:grid;grid-template-columns:repeat(var(--hcols),auto);gap:.6mm}.hbp .hb-c{width:var(--hs);height:var(--hs);border:.25mm solid #9a9a9a;border-radius:.8mm;display:flex;align-items:center;justify-content:center;font-size:calc(var(--hs)*.42);font-weight:700;line-height:1;font-variant-numeric:tabular-nums}.hbp .h3d .hb-c{font-size:calc(var(--hs)*.33)}.hbp .hb-c.g5c{margin-right:1.1mm}.hbp .hb-c.g5r{margin-bottom:1.1mm}.hbp .hb-off{visibility:hidden}.hbp .hb-c.mk{border:.6mm solid #222;background:#e9e9e9}.hbp .hb-c.pat{background:#cfcfcf}.hbp .hb-c.hb-gap{border:.45mm solid #222;background:#fff}.ab-arrows{letter-spacing:.5mm;font-size:13pt}.page.lg .q{display:flex;flex-direction:column}.lg-top{margin-bottom:2mm}.lg-top.cmp{display:flex;align-items:baseline;gap:6mm;padding-bottom:1.5mm}.lg-top.cmp h1{font-size:15pt;margin:0;white-space:nowrap}.lg-top.cmp .lg-how{margin:0;font-size:10pt}.lg-how{font-size:12pt;margin:0 0 4mm;line-height:1.35}.quer .lg-how{margin-bottom:2.5mm}.lg-body{display:flex;flex-direction:column;gap:6mm;flex:1}.quer .lg-body{gap:3.5mm}.lg-svg{display:block;flex:none;max-width:none;max-height:none}.lg-c{display:flex;justify-content:center}.lg-unit{display:flex;flex-direction:column;gap:2.5mm;break-inside:avoid}.lg-task{display:flex;align-items:center;gap:3mm;font-size:13pt;line-height:1.3}.lg-task .nr{width:6.5mm;height:6.5mm;border-radius:50%;background:#222;color:#fff;font-size:9.5pt;font-weight:700;display:flex;align-items:center;justify-content:center;flex:none}.lg-tt{flex:1}.lg-tw{display:flex;align-items:center;gap:2mm;white-space:nowrap;font-size:13pt}.lg-box{display:inline-block;height:10mm;border:1.5px solid #333;border-radius:1.5mm;vertical-align:middle;background:#fff;flex:none}.lg-eq{display:inline-flex;align-items:center;gap:2mm;font-size:15pt}.lg-tasks2{display:grid;grid-template-columns:1fr 1fr;gap:3.5mm 8mm;margin-top:2mm}.lg-tasks2 .lg-task,.lg-tasks2 .lg-tw,.lg-tasks2 .lg-eq{font-size:12pt}.lg-tasks2.x2{grid-template-columns:repeat(4,1fr);gap:2mm 5mm;margin-top:0}.lg-tasks2.x2 .lg-tt{display:none}.lg-st{display:flex}.lg-stc{display:flex;flex-direction:column}.lg-sth{color:#fff;font-weight:700;text-align:center;padding:1.5mm 0;font-size:13pt;border:.3mm solid #222;-webkit-print-color-adjust:exact;print-color-adjust:exact}.lg-stb{border:.3mm solid #222;border-top:0}.lg-std{display:flex;justify-content:center;padding-top:2.5mm}.lg-stc+.lg-stc .lg-sth,.lg-stc+.lg-stc .lg-stb{border-left:0}.lg-clock{display:flex;flex-direction:column;align-items:center;gap:3mm}.lg-hands{display:flex;flex-direction:column;align-items:center;gap:1.5mm;font-size:9.5pt}.lg-hands>div{display:flex;gap:10mm;align-items:center}.lg-hands svg{display:block}.lg-times{display:flex;flex-wrap:wrap;gap:3mm 6mm;font-size:15pt;justify-content:center;align-items:center;margin:2mm 0 0}.lg-times span{border:1.2px solid #333;border-radius:2mm;padding:1mm 3mm}.lg-geld{display:flex;align-items:center;gap:6mm;break-inside:avoid}.lg-gi{display:flex;flex-direction:column;align-items:center;gap:2mm;width:36mm;flex:none}.lg-gi svg{width:24mm;height:24mm}.lg-price{font-size:18pt;border:2px solid #222;border-radius:2mm;padding:.5mm 3mm}.lg-gf{flex:1;height:46mm;border:.5mm dashed #888;border-radius:3mm;display:flex;align-items:flex-end;justify-content:flex-end;padding:2mm 3mm;color:#aaa;font-size:9pt}.lg-ic{width:24mm;height:24mm;flex:none;display:block}.lg-ic svg{width:100%;height:100%;display:block}.lg-slot{width:22mm;height:22mm;border:.5mm dashed #555;border-radius:1.5mm;display:inline-block;flex:none}.lg-anl{display:grid;grid-template-columns:repeat(3,1fr);gap:5mm}.lg-anc{display:flex;align-items:center;gap:4mm;border:1px solid #ccc;border-radius:3mm;padding:3mm;justify-content:center}.lg-words{display:flex;flex-direction:column;gap:3mm}.lg-wr{display:flex;align-items:center;gap:6mm;border-bottom:1px solid #ddd;padding-bottom:3mm;break-inside:avoid}.lg-wc{display:flex;flex-direction:column;gap:1mm}.lg-tpl,.lg-slots{display:flex;gap:1.5mm}.lg-tpl span{width:22mm;text-align:center;font-size:21pt;font-weight:700;color:#444;line-height:1.1}.lg-tpl .mk{color:#c9414a}.lg-syl{display:flex;gap:7mm}.lg-syl span{width:21mm;height:21mm;border-radius:50%;border:.5mm dashed #555}.lg-cards{display:grid;grid-template-columns:repeat(9,20mm);justify-content:center}.lg-card{width:20mm;height:20mm;border:.25mm dashed #9a9a9a;display:flex;align-items:center;justify-content:center;font-size:34pt;font-weight:700;position:relative;line-height:1;padding-bottom:1.5mm}.lg-card i{position:absolute;bottom:2mm;left:7mm;width:6mm;height:.7mm;background:#b5b5b5}.lg-foot{display:flex;align-items:center;gap:3mm;font-size:8pt;color:#555;margin-top:3mm}.lg-cal{width:50mm;border-top:.6mm solid #222;flex:none}.page.lg.quer .q{width:272mm}@media print{.page.lg{height:296mm;overflow:hidden}.page.lg .q{height:100%}.page.lg.quer{position:relative}.page.lg.quer .q{position:absolute;left:12mm;top:12mm;width:272mm;height:185mm;transform-origin:0 0;transform:translateX(186mm) rotate(90deg)}}@media screen{.page.lg.quer{width:297mm;min-height:210mm}}`;
 function sheetTopics(){
   return [
     ['Mathe', Object.entries(M_SHEETS).map(([k, v]) => [`M:${k}`, v.name])],
     ['Lesen', Object.entries(R_SHEETS).map(([k, v]) => [`L:${k}`, `${k} ${v.name}`])],
     ['Schreiben', Object.entries(W_SHEETS).map(([k, v]) => [`W:${k}`, `${k} ${v.name}`])],
+    ['Hören', Object.entries(P_SHEETS).map(([k, v]) => [`P:${k}`, `${k} ${v.name}`])],
     ['Hundertertafel und Tausenderbuch', Object.entries(H_SHEETS).map(([k, v]) => [`H:${k}`, v.mat ? v.name : `${k} ${v.name}`])],
     ['Größen und Einkaufen', Object.entries(G_SHEETS).map(([k, v]) => [`G:${k}`, `${k} ${v.name}`])],
     ['Uhr und Kalender', Object.entries(U_SHEETS).map(([k, v]) => [`U:${k}`, `${k} ${v.name.replace('Uhr: ', '')}`])],
@@ -9160,7 +9468,7 @@ function sheetTree(){
     {id:'B', name:'Basis', areas:[['Vergleichen', of('B:V')], ['Orientieren', of('B:O')], ['Legeblätter', lg('B')]]},
     {id:'M', name:'Mathe', areas:[['Zahlen', M(['zaehlen', 'zahlenstrahl', 'zerlegen', 'stellenwert', 'zeichnen'])], ['Rechnen', M(['ergaenzen', 'zehnerpartner', 'ueber10', 'unterschied', 'plus', 'minus', 'einmaleins', 'schriftlich'])],
       ['Hundertertafel', of('H:')], ['Uhr', of('U:')], ['Größen und Geld', ['M:geld', ...of('G:')]], ['Legeblätter', lg('M')]]},
-    {id:'D', name:'Deutsch', areas:[['Lesen', of('L:')], ['Schreiben', of('W:')], ['Legeblätter', lg('D')]]}
+    {id:'D', name:'Deutsch', areas:[['Lesen', of('L:')], ['Schreiben', of('W:')], ['Hören', of('P:')], ['Legeblätter', lg('D')]]}
   ].map(f => ({...f, areas: f.areas.map(([name, items]) => ({name, items: items.filter(t => T[t]).map(t => [t, T[t]])})).filter(a => a.items.length)}));
 }
 const sheetPlace = topic => { for(const f of sheetTree()) for(const [ai, a] of f.areas.entries()) if(a.items.some(([t]) => t === topic)) return {fach: f.id, ai, f, a}; return null; };
@@ -9185,6 +9493,7 @@ function zoneToSheet(key){
   if(ax === 'S') return {topic:'M:stellenwert', zr: a === 'S4' ? 1000 : 100};
   if(ax === 'L') return {topic:`L:${a}`};
   if(ax === 'W') return {topic:`W:${a}`};
+  if(ax === 'P') return P_SHEETS[a] ? {topic:`P:${a}`} : null;
   if(ax === 'U') return {topic:`U:${a}`};
   if(ax === 'G') return {topic:`G:${a}`};
   if(ax === 'H') return {topic:`H:${a}`};
@@ -9354,6 +9663,16 @@ const B_SHEETS = {
       return T_('kreise', 'Was kommt zuerst? Kreise ein.', bbEx(ex => bbRow(ord.map((j, i) => bbIt(s.pics[j](), ex && i === ok ? 'ring' : '')))), `${bPos(ok)} (${s.first})`, 2); }]}
 };
 SHEET_SETS.B = B_SHEETS; SHEET_INFO.B = {...V_INFO, ...O_INFO};
+/* Hören P1–P4 als Arbeitsblätter (Backlog I, D6): Bilder statt Schrift; P2 spricht die Lehrkraft (Silben stehen in den Lösungen) */
+const abCircles = n => `<span class="ab-sylc">${'<i></i>'.repeat(n)}</span>`;
+const P_SHEETS = {
+  P1: {name:'Silben zählen', cols:3, gens:[() => { const w = fresh(pWords()), n = sylOf(w).length; return T_(['zaehle', 'male'], 'Male für jede Silbe einen Kreis an.', `${iconP(w, 20)}${abCircles(4)}`, `${w}: ${sylOf(w).join('-')} (${n})`, n); }]},
+  P2: {name:'Silben verbinden (Lehrkraft spricht)', cols:1, gens:[() => { const pool = pWords().filter(w => sylOf(w).length >= 2), w = fresh(pool), ds = others(pool.filter(x => x[0] !== w[0]), [w], 2); return T_(['kreise'], 'Hör zu. Welches Wort ist das? Kreise das Bild ein.', `<div class="ab-pics">${shuffle([w, ...ds]).map(x => iconP(x, 22)).join('')}</div>`, `${sylOf(w).join(' – ')} (${w})`); }]},
+  P3: {name:'Reime finden', match:true, gen:() => { const ps = freshN(RHYME.map(p => p.join('|')), 4).map(x => x.split('|')); const sw = ps.map(p => Math.random() < .5 ? p : [p[1], p[0]]); return {left: sw.map(p => iconP(p[0], 17)), right: shuffle(sw.map(p => p[1])).map(w => iconP(w, 17)), a: sw.map(p => p.join(' – ')).join('; ')}; }},
+  P4: {name:'Anlaute hören', cols:1, gens:[() => { const groups = Object.entries(INITIAL).map(([L, ws]) => [L, ws.filter(w => wClear(w) && !wHidden().has(w))]).filter(([, ws]) => ws.length >= 3); const [L, ws] = groups[rnd(0, groups.length - 1)], [a, ...same] = shuffle(ws); const right = same.slice(0, 2), wrong = shuffle(groups.filter(([K]) => K !== L && !(/[AEIOU]/.test(K) && /[AEIOU]/.test(L))).map(([, w]) => pick(w))).slice(0, 2);
+    return T_(['kreise'], 'Was fängt genauso an wie das erste Bild? Kreise ein.', `<div class="ab-pics">${iconP(a, 22)}<span class="ab-sep"></span>${shuffle([...right, ...wrong]).map(x => iconP(x, 20)).join('')}</div>`, `${a}: ${right.join(', ')} (${L})`); }]}
+};
+SHEET_SETS.P = P_SHEETS; SHEET_INFO.P = L_INFO;
 const BB_CSS = `.lg-sort{display:grid;grid-template-columns:1fr 1fr;gap:6mm;flex:1;min-height:200mm}.lg-sf{border:.6mm solid #222;border-radius:4mm;display:flex;flex-direction:column;align-items:center;padding:4mm}.lg-sl{display:flex;flex-direction:column;align-items:center;gap:2mm;font-size:16pt}.lg-bic svg{width:28mm;height:28mm;display:block}.lg-bsw .bb-sw{width:28mm;height:16mm;display:block}.lg-blab{width:40mm;height:28mm;border:.4mm dashed #888;border-radius:2mm;display:block}.lg-pair{display:flex;justify-content:space-between;gap:3mm}.lg-pc{display:flex;flex-direction:column;align-items:center;gap:6mm}.lg-pt{width:32mm;height:32mm;border:.4mm solid #bbb;border-radius:2mm;display:flex;align-items:center;justify-content:center}.lg-pt svg{width:26mm;height:26mm}.lg-pb{width:32mm;height:32mm;border:.5mm dashed #555;border-radius:2mm}.lg-unit+.lg-unit{margin-top:8mm}.lg-strip{display:flex;border:.5mm solid #222;border-radius:2mm;width:max-content;margin:0 auto 9mm}.lg-ss{width:25mm;height:25mm;display:flex;align-items:center;justify-content:center;border-left:.3mm solid #222}.lg-ss:first-child{border-left:0}.lg-ss svg{display:block}
 .bb-it{position:relative;display:inline-flex;align-items:center;justify-content:center}.bb-it svg{width:14mm;height:14mm;display:block}
 .bb-it.ring::after{content:'';position:absolute;inset:-2mm;border:.6mm dashed #888;border-radius:50%}
@@ -9862,11 +10181,12 @@ $('#ranges').addEventListener('click', e => {
   render();
 });
 $('#inputs').addEventListener('input', () => { const t = draftOwner(); t.draft = [$('#in-a')?.value ?? '', $('#in-b')?.value ?? '']; $('#error').hidden = true; });
-$('#inputs').addEventListener('keydown', e => { if(e.key === 'Enter'){ e.preventDefault(); if(app.mode === 'tword'){ app.tw.text = e.target.value || ''; return renderTword(); } if(app.mode === 'tfield' && e.target.id === 'tf-num') return tfSetNum(e.target.value); if(TOOL_MODES.includes(app.mode)) return; commitAny(); } });
+$('#inputs').addEventListener('keydown', e => { if(e.key === 'Enter'){ e.preventDefault(); if(app.mode === 'tword'){ app.tw.text = e.target.value || ''; return renderTword(); } if(app.mode === 'tblitz'){ tbSetWords(e.target.value); return renderTblitz(); } if(app.mode === 'tsatz'){ tsSet(e.target.value); return renderTsatz(); } if(app.mode === 'tfield' && e.target.id === 'tf-num') return tfSetNum(e.target.value); if(TOOL_MODES.includes(app.mode)) return; commitAny(); } });
 $('#inputs').addEventListener('click', e => {
   const fp = e.target.closest('[data-fplace]'); if(fp){ const b = board(); if(b.place !== fp.dataset.fplace){ freeSave(b); b.place = fp.dataset.fplace; { const keep = freeCols(), gone = [...new Set(b.pieces.filter(q => !keep.includes(q.kind)).map(q => NAME[q.kind]))]; if(gone.length){ b.pieces = b.pieces.filter(q => keep.includes(q.kind)); toast(`${gone.join(' und ')} wurden weggelegt.`); } } b.sel.clear(); if(b.ordered) b.pieces = freeArrange(b.pieces); $('#stage').innerHTML = ''; render(); } return; }
   const rl = e.target.closest('[data-rlvl]'); if(rl){ app.read.lvl = rl.dataset.rlvl; if(rl.dataset.rlvl[0] === 'U') app.read.ulvl = rl.dataset.rlvl; if(rl.dataset.rlvl[0] === 'G') app.read.glvl = rl.dataset.rlvl; if(rl.dataset.rlvl[0] === 'H') app.read.hlvl = rl.dataset.rlvl; if(rl.dataset.rlvl[0] === 'Z') app.read.zlvl = rl.dataset.rlvl; Object.assign(app.read, {item:null, streak:0, miss:0}); setHint(''); render(); return; }
   if(e.target.closest('[data-rsyl]')){ app.read.colored = !app.read.colored; render(); return; }
+  { const hc = e.target.closest('[data-hcov]'); if(hc){ hcovSet(+hc.dataset.hcov); Object.assign(app.read, {item:null}); render(); return; } }
   if(e.target.closest('#btn-commit')) return commitAny();
   const ms = e.target.closest('[data-msub]'); if(ms){ app.money.sub = ms.dataset.msub; app.money.ready = false; render(); return; }
   if(e.target.closest('[data-mcent]')){ app.money.cents = !app.money.cents; if(!app.money.cents) app.money.exact = false; app.money.ready = false; render(); return; }
@@ -10006,9 +10326,24 @@ $('#equation').addEventListener('click', e => { if(e.target.closest('#c-check'))
 const dlgSet = $('#dlg-settings'), dlgHelp = $('#dlg-help');
 function fillVoices(){
   const sel = $('#voice-select'); if(!sel) return;
-  sel.innerHTML = '<option value="">Automatisch (beste deutsche Stimme)</option>' + germanVoices().map(v => `<option value="${v.name.replace(/"/g,'&quot;')}">${v.name} (${v.lang})</option>`).join('');
+  sel.innerHTML = '<option value="">Automatisch (beste deutsche Stimme)</option>' + germanVoices().map(v => `<option value="${v.name.replace(/"/g,'&quot;')}">${escHtml(v.name)} (${v.lang})</option>`).join('');
   sel.value = settings.voice || '';
+  const st = $('#say-state'); if(st) st.textContent = germanVoices().length ? `${germanVoices().length} deutsche Stimme${germanVoices().length > 1 ? 'n' : ''} auf diesem Gerät` : 'Keine deutsche Stimme auf diesem Gerät gefunden. iPad: Einstellungen → Bedienungshilfen → Gesprochene Inhalte → Stimmen → Deutsch.';
 }
+/* Anhören je Kind (p.say: 'on' | 'off' | fehlt = Standard) */
+function saySettingsHtml(){
+  return data.profiles.length ? `<table class="guide-tbl">${data.profiles.map(p => `<tr><th>${escHtml(p.name)}</th><td><select data-say-pid="${p.id}"><option value="">Standard</option><option value="on" ${p.say === 'on' ? 'selected' : ''}>an</option><option value="off" ${p.say === 'off' ? 'selected' : ''}>aus</option></select></td></tr>`).join('')}</table>` : '';
+}
+/* Bilder beim Schreiben abwählen (settings.wHide, für die ganze Klasse) */
+function wHideHtml(){
+  const h = wHidden();
+  return wAllPics().map(w => `<label class="whide-it${h.has(w) ? ' off' : ''}"><input type="checkbox" data-whide="${escHtml(w)}" ${h.has(w) ? '' : 'checked'}>${iconSvg(w, 40)}<span>${escHtml(w)}</span></label>`).join('');
+}
+document.addEventListener('change', e => {
+  const sp = e.target.closest('[data-say-pid]'); if(sp){ const p = data.profiles.find(x => x.id === sp.dataset.sayPid); if(p){ if(sp.value) p.say = sp.value; else delete p.say; saveData(); render(); } return; }
+  const wh = e.target.closest('[data-whide]'); if(wh){ const h = wHidden(); if(wh.checked) h.delete(wh.dataset.whide); else h.add(wh.dataset.whide); settings.wHide = [...h]; saveSettings(); wh.closest('.whide-it')?.classList.toggle('off', !wh.checked); }
+});
+document.addEventListener('click', e => { if(e.target.closest('#say-test')){ const v = bestVoice(); if(!v){ toast('Keine deutsche Stimme auf diesem Gerät.'); return; } sayWord('Tomate'); } });
 function syncSettingsForm(){
   fillVoices();
   for(const el of dlgSet.querySelectorAll('[data-key]')){
@@ -10031,7 +10366,7 @@ let holdTimer = null;
 let setTab = 'general';
 function showSetTab(k){ setTab = k; for(const b of dlgSet.querySelectorAll('[data-stab]')) b.setAttribute('aria-selected', b.dataset.stab === k); for(const p of dlgSet.querySelectorAll('[data-stab-panel]')) p.hidden = p.dataset.stabPanel !== k; }
 dlgSet.addEventListener('click', e => { const b = e.target.closest('[data-stab]'); if(b) showSetTab(b.dataset.stab); });
-const openSettings = () => { showSetTab(setTab); syncSettingsForm(); $('#guide-list').innerHTML = guideSettingsHtml(); $('#subjon-list').innerHTML = subjOnHtml(); pinSettingsHtml(); $('#data-text').hidden = true; $('#data-text-note').hidden = true; $('#import-ask').hidden = true; dlgSet.showModal(); };
+const openSettings = () => { showSetTab(setTab); syncSettingsForm(); $('#guide-list').innerHTML = guideSettingsHtml(); $('#subjon-list').innerHTML = subjOnHtml(); $('#say-list').innerHTML = saySettingsHtml(); $('#whide-list').innerHTML = wHideHtml(); pinSettingsHtml(); $('#data-text').hidden = true; $('#data-text-note').hidden = true; $('#import-ask').hidden = true; dlgSet.showModal(); };
 $('#btn-settings').addEventListener('click', () => requireTeacher(openSettings));
 document.addEventListener('change', e => {
   const t = e.target, pid = t.dataset?.pworld || t.dataset?.ppic; if(!pid || !teacherOn()) return;
@@ -10043,7 +10378,7 @@ document.addEventListener('change', e => { const c = e.target.closest('[data-sub
 document.addEventListener('change', e => { const s = e.target.closest('[data-guide-pid]'); if(!s) return; const p = data.profiles.find(x => x.id === s.dataset.guidePid); if(p){ p.guide = s.value || undefined; saveData(); render(); } });
 
 /* ---------- Rückmeldung (Testphase): Art, Schwere, Text + automatischer Kontext → E-Mail ---------- */
-const APP_VERSION = '0.34.0 · Testversion 574d2d5 · 24.11.2026';
+const APP_VERSION = '0.34.0 · Testversion 8b1398d · 24.11.2026';
 /* Danke-Seite: Namen nur mit Einverständnis eintragen, z. B. 'Vorname Nachname (Schule)' */
 const THANKS = [];
 const FB_REPO = 'https://github.com/Steffinuss/stufenweise';
