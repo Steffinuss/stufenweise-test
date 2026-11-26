@@ -19,6 +19,7 @@ Stand: 24.11.2026 (0.34.0)
 | 6 | ~~**G** Hundertertafel-Blätter: Bezug zur Tafel sichtbar (+ Heft zur Förderzone)~~ | klein | freigegeben in 0.32.0 (23.11.2026), siehe `CHANGELOG.md` |
 | 7 | ~~**H** Konzentrationsmodus für Kinder (+ Usability-Review)~~ | klein bis mittel | freigegeben in 0.33.0 (24.11.2026), siehe `CHANGELOG.md` |
 | 8 | ~~**I** Optimierung Deutsch (Bilder beim Schreiben, Anhören, Ausbau) + Hundertertafel verdeckt, Mathe mit Material~~ | groß | freigegeben in 0.34.0 (24.11.2026), siehe `CHANGELOG.md` |
+| 9 | ~~**J** Arbeitshefte, die aufeinander aufbauen + **K** Fußzeile ohne Namen~~ | groß | freigegeben in 0.38.0 (26.11.2026), siehe `CHANGELOG.md` |
 
 Alternative: B zuerst als schneller Gewinn, während Stefan den Basis-Test ausprobiert.
 
@@ -218,7 +219,9 @@ Beispiel „Was passt nicht?“:
 
 **Vor der Umsetzung zu klären (Stefan):** Welche Stufen zuerst (Vorschlag: V1 Gleiches, V2 Was passt nicht?, V3 Sortieren – dort wirkt Ähnlichkeit am stärksten)? Welche Gegenstände und Varianten? Soll „mittel“ eine eigene Aufgabenart werden oder eine weitere Schwierigkeit `st` innerhalb der Art? Gilt die neue Progression auch für die Arbeitsblätter?
 
-## J. Arbeitshefte, die aufeinander aufbauen (Wunsch Stefan, 25.11.2026) – Schritte 1–5 gebaut (Testversion), Durchsicht der Texte offen
+## J. Arbeitshefte, die aufeinander aufbauen (Wunsch Stefan, 25.11.2026) – erledigt, freigegeben in 0.38.0
+
+**Status:** erledigt, freigegeben in 0.38.0 (26.11.2026), siehe `CHANGELOG.md`. Mit Heft-Layout B, Deckblatt C4 und Rückseite als Nachguckseite.
 
 Stefan: „Test machen → Arbeitsheft drucken → Schüler üben lassen.“ Heute ist das Heft oft an einem Tag durch (nur Förderzone, 1–2 Seiten je Stufe). Gewünscht: kommende Stufen vorwegnehmen, Heft nur für Mathe oder nur für Deutsch, für Deutsch mehr Texte und Aufgaben, zwischendurch längere Texte; Umfang wie ein Verlagsheft (Westermann „Fördern Inklusiv“, rund 48–64 Seiten).
 
@@ -232,7 +235,52 @@ Konzept mit 9 Fragen an Stefan: Dokument „Stufenweise – Arbeitshefte, die au
 
 ## K: Name auf Arbeitsblättern durch Projektnamen ersetzen (Wunsch Stefan, 25.11.2026)
 
-**Status:** gebaut in `entwicklung` (26.11.2026, Stefan: „mach das noch“), wartet mit Backlog J auf die Freigabe. Alle 6 Fußzeilen (`tafHelp`, Arbeitsblätter, Legeblätter, Heft-Deckblatt, `HEFT_LIC`) zeigen „Stufenweise · stufenweise.app · CC BY-SA 4.0“; Impressum, Lizenzseite, Kopfkommentar und `docs/anleitung.md` (Lizenzabschnitt) unverändert. Test in `tests/heft_assistent.py`.
+**Status:** erledigt, freigegeben in 0.38.0 (26.11.2026; gebaut 26.11., Stefan: „mach das noch“). Alle 6 Fußzeilen (`tafHelp`, Arbeitsblätter, Legeblätter, Heft-Deckblatt, `HEFT_LIC`) zeigen „Stufenweise · stufenweise.app · CC BY-SA 4.0“; Impressum, Lizenzseite, Kopfkommentar und `docs/anleitung.md` (Lizenzabschnitt) unverändert. Test in `tests/heft_assistent.py`.
 **Anlass:** Unten auf Arbeitsblättern, Legeblättern und Hilfeseiten steht „© Stefan Hackl“ (5 Stellen in `index.html`, Klasse `ab-lic`, z. B. `tafHelp`, Legeblätter; dazu seit Backlog J `HEFT_LIC` für Heftseiten und Deckblatt in `buildHeft`). Blätter anderer Lehrkräfte tragen so Stefans Namen; der Name gehört nicht in Hefte und zu Eltern.
 **Vorschlag:** Fußzeile „Stufenweise · stufenweise.app · CC BY-SA 4.0“. Das genügt der Namensnennung der Lizenz; Stefan bleibt als Urheber im Impressum, in `LICENSE`/`LIZENZ-INHALTE.md` und auf GitHub genannt. Impressum und Kopfkommentar in `index.html` unverändert lassen.
 **Größe:** klein. Prüfen: `arbeitsblaetter.py`, `legeblaetter.py` (Fußzeile darf keine Seite verlängern).
+
+## L: Lineatur zum freien Schreiben wählbar (Wunsch Stefan, 26.11.2026)
+
+**Status:** nur dokumentiert, nicht begonnen.
+**Wunsch (Stefan):** „Beim freien Schreiben Arten von Lineatur aussuchen. Standard (dreiteilig → Dach/Erdgeschoss/Keller) Standard für 1./2. Klasse. Dann 2 Linien (3. Klasse) und 1 Linie (Standard 4. Klasse).“
+**Idee:** Auswahl „Lineatur“ mit drei Arten:
+- **Haus mit drei Stockwerken:** Dach, Erdgeschoss, Keller (Oberlänge, Mittelband, Unterlänge). Standard für Klasse 1/2.
+- **Zwei Linien:** Grundlinie und Mittelband. Standard für Klasse 3.
+- **Eine Linie:** Standard für Klasse 4.
+
+Der Standard richtet sich nach der Klasse/Stufe des Kindes. Die Wahl wird gemerkt (`app.sheet`, `SHEET_KEEP`) und gilt auch im Heft.
+**Betrifft:** nur Arbeitsblätter und Arbeitshefte (Stefan, 26.11.2026), also die Schreibzeilen `.ab-wline` und `.hf-lines` (W6 „Satz zum Bild“, „Satz abschreiben“, Aufgabenseiten der Fortsetzungsgeschichte). Nicht der Stift an der Tafel.
+**Größe:** klein bis mittel. Schreibzeilen mit fester Höhe je Lineatur; prüfen mit `heft_seiten_passen.py` (Seiten dürfen nicht überlaufen).
+
+## M: Arbeitsblätter im Design der Arbeitshefte (Wunsch Stefan, 26.11.2026)
+
+**Status:** nur dokumentiert, nicht begonnen.
+**Wunsch (Stefan):** „Passend zu den Arbeitsheften auch Arbeitsblätter im Design anpassen/aktualisieren.“
+**Idee:** Einzelne Arbeitsblätter („Material drucken“) bekommen das Aussehen der Heftseiten, wie in 0.38.0 eingeführt:
+- Kopfzeile wie im Heft, z. B. Fach und Stufe; Name und Datum bleiben.
+- Fußzeile immer auf gleicher Höhe, mit Bildungsplan und Lizenz.
+- Aufgabenkästen reichen bis zur Fußzeile (Layout B), keine großen Lücken.
+- **Kein Farbrand** auf einzelnen Blättern (Stefan).
+- **Schwarz-Weiß-Version für alle Blätter** anbieten (Stefan); bisher gibt es sie nur bei Basis-Blättern (`B_BW`). Farben durch Muster bzw. Graustufen ersetzen, z. B. bei Plättchen, Zwanzigerfeld, Bildern und Uhrzeigern.
+- **Lösungsblätter** bleiben im Aufbau, passen sich aber im Grundsatz an (Schrift, Fußzeile) (Stefan).
+
+Ein gemeinsamer Seitenrahmen für Blatt und Heft (`heftFrame` verallgemeinern) wäre sinnvoll, damit beide gleich bleiben.
+**Entschieden (Stefan, 26.11.2026):** kein Farbrand; Schwarz-Weiß für alle Blätter; Lösungsblätter bleiben, nur angepasst. Noch offen: Legeblätter sind genau bemaßt und bleiben vermutlich, wie sie sind. Vor dem Bauen wieder Vorschläge als Bilder zeigen.
+**Größe:** mittel. Prüfen: `arbeitsblaetter.py`, `druck_seiten.py`, `grosse_aufgaben.py`, Anleitungsbilder neu.
+
+## N: „Große Aufgaben“ auch im Heft-Assistenten (Wunsch Stefan, 26.11.2026)
+
+**Status:** nur dokumentiert, nicht begonnen.
+**Wunsch (Stefan):** „‚Große Aufgaben (mehr Platz zum Schreiben und Streichen)‘ auch bei Arbeitsheften anbieten als Option.“
+**Ist-Stand:** Bei einzelnen Arbeitsblättern gibt es das Häkchen (`app.sheet.gross`, Zoom 1,35). Im Heft bekommen nur die Einstiegsseiten große Aufgaben, und nur wenn die Seite damit zu drei Vierteln voll wird (`fixed()`). Übungsseiten übernehmen sonst zufällig die Einstellung des letzten Einzelblatts (siehe Übergabe, offene Punkte).
+**Idee:**
+- Häkchen „Große Aufgaben (mehr Platz zum Schreiben und Streichen)“ im Heft-Assistenten (`H.gross`). Es gilt für alle Übungsseiten, „Das kann ich schon“ und die Wiederholung.
+- Weniger Aufgaben je Seite. Die Seiten füllen sich weiter ganz (Layout B) und werden nicht verkleinert, große Aufgaben bleiben groß.
+- Die Einstellung des letzten Einzelblatts wird im Heft nicht mehr übernommen.
+
+**Zu bedenken:**
+- Mehr Seiten für dieselbe Übungsmenge, die Seitenzahl bleibt aber fest.
+- Sehr große Aufgaben (z. B. lange Texte) brauchen eventuell eine Ausnahme, damit sie auf eine Seite passen.
+
+**Größe:** klein bis mittel. Prüfen: `heft_seiten_passen.py` (alle Stufen mit großen Aufgaben), `heft_assistent.py`.
