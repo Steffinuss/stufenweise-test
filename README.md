@@ -1,4 +1,4 @@
-> **Testversion von Stufenweise** – Stand aus [Steffinuss/stufenweise](https://github.com/Steffinuss/stufenweise), Zweig `entwicklung` (553b4df). Nicht für den Unterricht. Hier nicht direkt arbeiten.
+> **Testversion von Stufenweise** – Stand aus [Steffinuss/stufenweise](https://github.com/Steffinuss/stufenweise), Zweig `entwicklung` (9a6636c). Nicht für den Unterricht. Hier nicht direkt arbeiten.
 
 # Stufenweise
 
