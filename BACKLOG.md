@@ -4,7 +4,7 @@ Geplante Entwicklungsaufgaben für Stufenweise. Begonnenes steht in `IN_PROGRESS
 
 Regeln (Stand 17.11.2026): Der Funktionsumfang von `main` ist eingefroren, weil die App an Schulen genutzt wird. Neues entsteht nur im Zweig `entwicklung`, wird in der Testversion gezeigt und erst nach Stefans OK freigegeben (`docs/entwicklung.md`). Didaktische Entscheidungen trifft Stefan.
 
-Stand: 26.11.2026 (0.40.0; L in der Testversion)
+Stand: 27.11.2026 (0.41.0 freigegeben; als Nächstes U, T wartet auf Stefans Antworten)
 
 ## Vorgeschlagene Reihenfolge
 
@@ -22,7 +22,10 @@ Stand: 26.11.2026 (0.40.0; L in der Testversion)
 | 9 | ~~**J** Arbeitshefte, die aufeinander aufbauen + **K** Fußzeile ohne Namen~~ | groß | freigegeben in 0.38.0 (26.11.2026), siehe `CHANGELOG.md` |
 | 10 | ~~**O1** Voller Speicher melden, **P1** Safari-Tab auf dem iPad, **Q1** Raten im Test~~ | klein | Datensicherheit aus der Prüfung vom 22.11.; O1 freigegeben in 0.38.1, P1 und Q1 in 0.39.0 |
 | 11 | ~~**N** Große Aufgaben im Heft-Assistenten~~ | klein | freigegeben in 0.39.0 (26.11.2026) |
-| 12 | ~~**M** Blätter im Heft-Design~~, dann **L** Lineatur | klein bis mittel | M freigegeben in 0.40.0 (26.11.); L gebaut, in der Testversion |
+| 12 | ~~**M** Blätter im Heft-Design~~, dann ~~**L** Lineatur~~ | klein bis mittel | M freigegeben in 0.40.0 (26.11.); L freigegeben in 0.41.0 (27.11.) |
+| 13 | ~~**S** Rückmeldungen Blätter und Hefte~~ | klein bis mittel | freigegeben in 0.41.0 (27.11.2026) |
+| 14 | **U** Arbeitshefte stringenter (U1–U3) | mittel | Stefan: „super“; Detailfragen vor dem Bau |
+| 15 | **T** Basis-Arbeitsblätter überarbeiten | mittel | Konzept steht, wartet auf Stefans 7 Antworten |
 
 Alternative: B zuerst als schneller Gewinn, während Stefan den Basis-Test ausprobiert.
 
@@ -245,7 +248,7 @@ Konzept mit 9 Fragen an Stefan: Dokument „Stufenweise – Arbeitshefte, die au
 
 ## L: Lineatur zum freien Schreiben wählbar (Wunsch Stefan, 26.11.2026)
 
-**Status:** gebaut in `entwicklung`, in der Testversion (26.11.2026; Stefan: „Anschließend mach mit L weiter.“), wartet auf Stefans Freigabe.
+**Status:** erledigt, freigegeben in 0.41.0 (27.11.2026).
 **Wunsch (Stefan):** „Beim freien Schreiben Arten von Lineatur aussuchen. Standard (dreiteilig → Dach/Erdgeschoss/Keller) Standard für 1./2. Klasse. Dann 2 Linien (3. Klasse) und 1 Linie (Standard 4. Klasse).“
 **Idee:** Auswahl „Lineatur“ mit drei Arten:
 - **Haus mit drei Stockwerken:** Dach, Erdgeschoss, Keller (Oberlänge, Mittelband, Unterlänge). Standard für Klasse 1/2.
@@ -369,7 +372,7 @@ Ein gemeinsamer Seitenrahmen für Blatt und Heft (`heftFrame` verallgemeinern) w
 
 ## S: Rückmeldungen zu Arbeitsblättern und Heften (Stefan, 26.11.2026 abends)
 
-**Status:** S1–S9 gebaut in `entwicklung` und in der Testversion (27.11.2026), wartet auf Stefans Durchsicht; Freigabe zusammen mit L als 0.41.0. **Entschieden (Stefan, 26.11.):** S3/S4 Material in Schwarz-Weiß **hellgrau** gefüllt (nicht weiß), Pfeile deutlich; S5/S6 **Kästchen in jeder Aufgabe** (Aufgabe über die ganze Breite); S7 Zehnerfeld als eine Reihe mit 10 **überall** (Blätter, Üben, Test, Materialkiste, Tafel); Reihenfolge: S jetzt in `entwicklung`, in der Testversion zeigen, dann mit L als 0.41.0 freigeben; T danach als Konzept-Dokument.
+**Status:** erledigt, S1–S9 freigegeben in 0.41.0 (27.11.2026). **Entschieden (Stefan, 26.11.):** S3/S4 Material in Schwarz-Weiß **hellgrau** gefüllt (nicht weiß), Pfeile deutlich; S5/S6 **Kästchen in jeder Aufgabe** (Aufgabe über die ganze Breite); S7 Zehnerfeld als eine Reihe mit 10 **überall** (Blätter, Üben, Test, Materialkiste, Tafel); Reihenfolge: S jetzt in `entwicklung`, in der Testversion zeigen, dann mit L als 0.41.0 freigeben; T danach als Konzept-Dokument.
 
 Fehler:
 - **S1 Schriftlich rechnen bis 1000 mit „Große Aufgaben“ läuft rechts über den Rand.** Das Blatt hat 3 Spalten (`schriftlich.cols`), große Aufgaben werden auf 135 % vergrößert (`AB_GROSS`). Vorschlag: Mit großen Aufgaben höchstens 2 Spalten, für alle Blätter mit 3 oder mehr Spalten. Test: jedes Blatt mit großen Aufgaben darf nicht breiter als die Seite sein.
@@ -397,10 +400,20 @@ Nebenbei gefunden (26.11., Testlauf): Im Lese-Test L8 „Stundenplan“ steht im
 
 ## T: Basis-Arbeitsblätter didaktisch überarbeiten (Stefan, 26.11.2026)
 
-**Status:** dokumentiert. Stefan: „Bei den Basis-Arbeitsblättern scheint mir didaktisch noch am meisten der Wurm drin zu sein … Vielleicht müssen wir uns extra nochmal darum kümmern.“
+**Status:** Konzept mit Bildern und 7 Fragen steht (27.11.2026, Claude-Doc „Konzept: Basis-Arbeitsblätter überarbeiten (Backlog T)“, https://claude.ai/artifact/MUbTKabSxyXh9fofA3No2U); wartet auf Stefans Antworten, gebaut wird erst nach OK. Kern: eine Aufgabenart je Blatt (Auswahl „Aufgabe“), eine Bildreihe je Kasten, Beispiel ganz vorgemacht, nichts zum Lesen ankreuzen; neuer Aufbau für V2, V4, V5, V6. Stefan: „Bei den Basis-Arbeitsblättern scheint mir didaktisch noch am meisten der Wurm drin zu sein … Vielleicht müssen wir uns extra nochmal darum kümmern.“
 Rückmeldungen:
 - **T1 V2 Was passt nicht?** Lieber nur eine Bildreihe je eingerahmter Aufgabe (heute zwei Reihen in einem Kasten).
 - **T2 V4 Eins zu eins zuordnen:** Das Beispiel verbindet quer (erster Teller mit dritter Gabel); der Sinn fehlt. Gabeln stehen schon unter den Tellern.
 - **T3 V5 Mehr, weniger, gleich viel:** nicht alle drei auf einem Blatt – Kinder, die nicht lesen, schaffen den Wechsel nicht, und man sitzt nicht ständig daneben.
 - **T4 V6 Der Größe nach ordnen:** unklar, wie das Kind es machen soll.
 Vorschlag: eigenes Konzept-Dokument „Basis-Arbeitsblätter“ wie bei den Arbeitsheften – je Blatt V1–V8, O2–O4: Ziel, was das Kind tut (ohne Lesen), Aufbau, Beispiel, Varianten; dazu Bild-Vorschläge zum Ansehen. Grundsätze aus Stefans Entscheidungen zum Basis-Test (nicht mischen, vor jeder neuen Art unübersehbar vormachen, eine Art je Blatt bzw. Kasten).
+
+## U: Arbeitshefte stringenter – einzelne Blätter vs. fertige Hefte (Stefan, 27.11.2026)
+
+**Status:** Stefan 27.11.2026 09:24: „Deine Vorschläge 1–3 finde ich super.“ → U1–U3 bauen (in `entwicklung`, Testversion). Offen: Was passiert mit gemerkten Heften, an die schon einzelne Blätter angehängt sind? (Vorschlag Claude: beim Öffnen als Blattsammlung weiterführen.)
+Stefan: „Wir haben ja immer noch die Möglichkeit, einzelne Arbeitsblätter in ein Arbeitsheft aufzunehmen. Das ist jetzt etwas unklar, da dort beliebige Seitenzahlen möglich werden. Vielleicht sollte es eher ohne Schülername/Test vorgefertigte Arbeitshefte zu gewissen Kompetenzbereichen geben. … Insgesamt ist das so zumindest wenig stringent.“
+Ist-Stand: „Ins Arbeitsheft“ im Blatt-Dialog (`heftAdd`) hängt Seiten an das gemerkte Heft an, auch an ein Heft aus dem Heft-Assistenten. Dann stimmen Kapitel, Inhaltsseite und Seitenzahl nicht mehr; für die Broschüre werden Leerseiten bis zur Vierer-Zahl eingefügt.
+Vorschlag:
+- **U1 Hefte nur noch über den Assistenten**, mit zwei Wegen: „für ein Kind“ (wie heute, Förderzone) und **„für einen Bereich“** ohne Kind und Test: Bereich und Stufen wählen (z. B. Mathe „Zahlen bis 20“ Stufe I–III, Deutsch L4–L6), Umfang 12/24/36/48, Namenszeile auf dem Deckblatt leer. Gleicher Kapitelaufbau (Einstieg, Üben, „Das kann ich schon“), gleiche Optionen (groß, Lineatur, Schwarz-Weiß, Druck).
+- **U2 „Ins Arbeitsheft“ wird „Zur Blattsammlung“:** beliebig viele lose Blätter sammeln und zusammen drucken (A4 einseitig, mit Lösungen), ohne Deckblatt, Kapitel und Broschüre. Kein Mischen mit Heften mehr.
+- **U3 Seite im Heft austauschen** statt anhängen: im Assistenten bei einem Kapitel „andere Aufgaben“ oder ein Blatt aus dem Generator an die Stelle einer Übungsseite setzen; Seitenzahl bleibt.
