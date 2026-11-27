@@ -10145,7 +10145,7 @@ const PAGE_FIT_JS = `<script>(function(){
   if(document.readyState === 'complete') fit(); else addEventListener('load', fit);
   addEventListener('beforeprint', fit);
 })();<\/script>`;
-const SHEET_CSS = document.getElementById('font-css').textContent + `@page{size:A4;margin:0}*{box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact}body{font-family:Stufenfibel,"Atkinson Hyperlegible",Verdana,Arial,sans-serif;color:#222;margin:0;font-size:13pt}
+const SHEET_CSS = document.getElementById('font-css').textContent + `@page{size:A4;margin:0}html{-webkit-text-size-adjust:100%;text-size-adjust:100%}*{box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact}body{font-family:Stufenfibel,"Atkinson Hyperlegible",Verdana,Arial,sans-serif;color:#222;margin:0;font-size:13pt}
 .page{width:210mm;padding:12mm;margin:0 auto;page-break-after:always;-webkit-box-decoration-break:clone;box-decoration-break:clone}.page:last-child{page-break-after:auto}
 .ab-top{border-bottom:2.5px solid #222;padding-bottom:2.5mm;margin-bottom:3mm}.ab-top h1{font-size:20pt;margin:0 0 3mm;line-height:1.15}
 .ab-meta{display:grid;grid-template-columns:2fr 1fr;gap:8mm;font-size:11pt}.ab-meta div{display:flex;gap:2mm;align-items:flex-end}.ab-meta span{flex:1;border-bottom:1.2px solid #444;min-height:6mm;font-weight:700;padding-left:1mm}
@@ -11719,7 +11719,7 @@ document.addEventListener('change', e => { const c = e.target.closest('[data-sub
 document.addEventListener('change', e => { const s = e.target.closest('[data-guide-pid]'); if(!s) return; const p = data.profiles.find(x => x.id === s.dataset.guidePid); if(p){ p.guide = s.value || undefined; saveData(); render(); } });
 
 /* ---------- Rückmeldung (Testphase): Art, Schwere, Text + automatischer Kontext → E-Mail ---------- */
-const APP_VERSION = '0.42.0.2611270958 · Testversion 9a6636c · 27.11.2026';
+const APP_VERSION = '0.42.0.2611271250 · Testversion 7360d5c · 27.11.2026';
 /* Danke-Seite: Namen nur mit Einverständnis eintragen, z. B. 'Vorname Nachname (Schule)' */
 const THANKS = [];
 const FB_REPO = 'https://github.com/Steffinuss/stufenweise';
