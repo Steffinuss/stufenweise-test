@@ -1288,6 +1288,10 @@ button.tb-jump{font-size:22px;font-weight:800;min-width:66px}
   <div class="dlg-head"><h2 id="legal-title">Impressum und Datenschutz</h2><button data-close class="icon-btn">Schließen</button></div>
   <div id="legal-content" class="legal"></div>
 </dialog>
+<dialog id="dlg-pdf" aria-labelledby="pdf-title">
+  <div class="dlg-head"><h2 id="pdf-title">PDF</h2></div>
+  <div id="pdf-body"></div>
+</dialog>
 <dialog id="dlg-help" aria-labelledby="help-title">
   <div class="dlg-head"><h2 id="help-title">So geht Stufenweise</h2><button data-close class="icon-btn">Schließen</button></div>
   <div id="help-content"></div>
@@ -3741,12 +3745,16 @@ function safariTab(){ try { const ua = navigator.userAgent || '', ios = /iPad|iP
   return ios && navigator.standalone === false && !matchMedia('(display-mode: standalone)').matches; } catch { return false; } }
 /* Drucken auf iPad/iPhone (Backlog V, Stefan 28.11.2026): Safari druckt Kopf- und Fußzeile immer und fragt beim ersten Mal nach;
    die App vom Home-Bildschirm öffnet gar keinen Druckdialog – dort gibt der Knopf das Dokument ans Teilen-Menü („Teilen und drucken“).
+   Seit Backlog W bauen Einzelblatt, Blattsammlung, Heft und Lösungsheft auf iPad/iPhone ein PDF (prLabel(t, 1), printHint(1), pdfMake);
+   der Lernstandsbericht geht noch den Weg von V.
    Für Tests: window.STUFENWEISE_IOS = 'safari' | 'app'. */
 function iosDevice(){ try { if(window.STUFENWEISE_IOS) return true; const ua = navigator.userAgent || ''; return /iPad|iPhone|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1); } catch { return false; } }
 function iosApp(){ try { if(window.STUFENWEISE_IOS) return window.STUFENWEISE_IOS === 'app'; return iosDevice() && (navigator.standalone === true || matchMedia('(display-mode: standalone)').matches); } catch { return false; } }
-function prLabel(t){ return `<span style="display:inline">${iosApp() ? (t === 'Drucken' ? 'Teilen und drucken' : t.replace(/ drucken$/, ' teilen und drucken')) : t}</span>`; }
-function printHint(){
+function prLabel(t, pdf){ if(pdf && iosDevice()) return pdfLabel(t);   /* Backlog W: auf iPad/iPhone baut der Knopf ein PDF */
+  return `<span style="display:inline">${iosApp() ? (t === 'Drucken' ? 'Teilen und drucken' : t.replace(/ drucken$/, ' teilen und drucken')) : t}</span>`; }
+function printHint(pdf){
   if(!iosDevice()) return '';
+  if(pdf) return `<div class="note print-ios"><b>Drucken auf iPad und iPhone:</b> Der Knopf baut ein PDF ohne Kopf- und Fußzeile. Danach im Teilen-Menü auf „Drucken“ tippen und die Skalierung bei 100 % lassen.</div>`;   /* Backlog W */
   const fit = 'Safari druckt oben und unten immer eine Kopf- und Fußzeile (Datum, Adresse); sie lässt sich auf iPad und iPhone nicht abschalten. Rutscht dadurch eine Seite auf zwei Blätter, im Druckdialog die Skalierung verkleinern (etwa 90 %). Legeblätter für echtes Material dabei nicht verkleinern.';
   return `<div class="note print-ios"><b>Drucken auf iPad und iPhone:</b> ${iosApp() ? 'Die App vom Home-Bildschirm kann den Druckdialog nicht direkt öffnen. Tippe auf „Teilen und drucken“ und im Teilen-Menü auf „Drucken“. Fehlt dort „Drucken“: „Als Datei speichern“, die Datei in „Dateien“ öffnen, dann Teilen → Drucken. ' : 'Beim ersten Drucken meldet Safari „Diese Website wurde für das automatische Drucken gesperrt“ – dann auf „Erlauben“ tippen. '}${fit} Am saubersten druckt ein Computer (zum Beispiel mit Chrome).</div>`;
 }
@@ -3758,6 +3766,236 @@ async function shareDoc(name, html){
   } catch(err){ if(err?.name === 'AbortError') return true; }
   toast('Teilen geht hier nicht – bitte „Als Datei speichern“, die Datei in „Dateien“ öffnen und dort Teilen → Drucken.');
   return false;
+}
+/* ---------- PDF selbst bauen (Backlog W, Stefan 28.11.2026) ----------
+   Auf iPad/iPhone druckt Safari immer Kopf- und Fußzeile, die Home-Bildschirm-App kann gar nicht drucken, und „PDF erstellen“ von iOS
+   kennt unsere Seitenformate nicht (Broschüren). Deshalb macht die App aus jeder Druckseite (.page bzw. Broschüren-Bogen .bk-side) mit
+   html2canvas ein Bild (200 dpi, JPEG) und setzt die Bilder mit einem kleinen eigenen PDF-Schreiber zu einem PDF im Seitenformat aus @page
+   zusammen – ohne Rand, ohne Kopf- und Fußzeile. html2canvas (vendor/, MIT) wird erst beim ersten PDF geladen. */
+const PDF_DPI = 200, PDF_Q = .82, PDF_MAXPX = 16e6;   /* iOS: höchstens ca. 16,7 Mio. Pixel je Canvas */
+let pdfLib = null, pdfRun = null;
+/* Zusatzknopf am Computer (Stefans Wahl): Drucken bleibt über den Browser, daneben „Als PDF“ */
+function pdfBtn(id, dis){ return iosDevice() ? '' : `<button class="icon-btn" id="${id}-pdf" ${dis ? 'disabled' : ''}>${icon('check')}<span style="display:inline">Als PDF</span></button>`; }
+function pdfLabel(t){ return `<span style="display:inline">${t} (PDF)</span>`; }
+function pdfLoad(){
+  if(!pdfLib) pdfLib = fetch('vendor/html2canvas.min.js').then(r => { if(!r.ok) throw new Error('html2canvas fehlt'); return r.text(); }).catch(err => { pdfLib = null; throw err; });
+  return pdfLib;
+}
+/* Seitenformat aus der letzten @page-Regel des Dokuments (mm) */
+function pdfPageSize(html){
+  const all = [...html.matchAll(/@page\s*\{\s*size:\s*([^;}]+)/g)], v = (all.at(-1)?.[1] || 'A4').trim();
+  const mm = v.match(/([\d.]+)mm\s+([\d.]+)mm/); if(mm) return [+mm[1], +mm[2]];
+  if(/^A3/i.test(v)) return /landscape/i.test(v) ? [420, 297] : [297, 420];
+  return /landscape/i.test(v) ? [297, 210] : [210, 297];
+}
+/* html2canvas kann CSS-zoom nicht (Broschüre, .gross, .fitz, .bb-match, .bb-stairs): in der Kopie, die html2canvas zeichnet, jedes
+   Element mit zoom ≠ 1 durch dieselbe Größe mit transform:scale ersetzen (Probe 28.11.: deckungsgleich mit dem Druck in Chrome). */
+function pdfUnzoom(doc){
+  const win = doc.defaultView, zf = e => parseFloat(win.getComputedStyle(e).zoom) || 1;
+  const eff = e => { let z = 1; for(let p = e; p && p.nodeType === 1; p = p.parentElement) z *= zf(p); return z; };
+  const m = [...doc.querySelectorAll('body *')].filter(e => Math.abs(zf(e) - 1) > 1e-3).map(e => {
+    const r = e.getBoundingClientRect(), cs = win.getComputedStyle(e), P = e.parentElement ? eff(e.parentElement) : 1;
+    return {e, z: zf(e), L: [r.width/P, r.height/P], mr: parseFloat(cs.marginRight) || 0, mb: parseFloat(cs.marginBottom) || 0}; });
+  m.forEach(({e, z, L, mr, mb}) => { const w = L[0]/z, h = L[1]/z;
+    Object.assign(e.style, {zoom:'1', width: w + 'px', height: h + 'px', minWidth:'0', maxWidth:'none', minHeight:'0', maxHeight:'none', boxSizing:'border-box',
+      transform:`scale(${z})`, transformOrigin:'0 0', marginRight:(mr + L[0] - w) + 'px', marginBottom:(mb + L[1] - h) + 'px', flexShrink:'0'}); });
+  return m.length;
+}
+/* Zu lange Seite (Hinweis „wird auf 2 Blätter gedruckt“): wie der Drucker auf mehrere Blätter verteilen, Schnitt nur zwischen Aufgaben
+   (Kinder von .ab-grid bzw. der Seite), Folgeblätter oben wieder mit dem Seitenrand. Liefert [von, bis, Abstand oben] in CSS-Pixeln. */
+function pdfCuts(el, r, P, pt, pb){
+  const H = r.height; if(H <= P + 2) return [[0, H, 0]];
+  const atoms = [...el.querySelectorAll('.ab-grid > *'), ...[...el.querySelectorAll(':scope > *, :scope > .fitz > *, :scope > .hf-main > *')].filter(c => !c.matches('.ab-grid, .fitz, .hf-main') && !c.querySelector('.ab-grid'))]
+    .map(a => { const q = a.getBoundingClientRect(); return [q.top - r.top, q.bottom - r.top]; }).filter(q => q[1] > q[0]);
+  const segs = []; let y0 = 0, off = 0, fine = null;
+  while(H - y0 + off > P + 2 && segs.length < 40){
+    const lim = y0 + P - off - pb, best = A => { const ok = A.map(q => q[1]).filter(b => b > y0 + 1 && b <= lim && !A.some(q => q[0] < b - .5 && q[1] > b + .5)); return ok.length ? Math.max(...ok) : -1; };
+    let cut = best(atoms);
+    if(cut < 0){   /* eine Aufgabe größer als ein Blatt: innerhalb zwischen Zeilen, Bildern, Tabellenzeilen schneiden */
+      fine ||= [...el.querySelectorAll('*')].filter(e => !e.closest('svg') || e.tagName.toLowerCase() === 'svg').filter(e => !e.children.length || /^(svg|img|tr|li|p|h\d|canvas)$/i.test(e.tagName))
+        .map(a => { const q = a.getBoundingClientRect(); return [q.top - r.top, q.bottom - r.top]; }).filter(q => q[1] > q[0]);
+      cut = best(fine); if(cut < 0) cut = lim; }
+    segs.push([y0, cut, off]);
+    const inside = atoms.some(q => q[0] < cut - .5 && q[1] > cut + .5), nxt = atoms.map(q => q[0]).filter(t => t >= cut - .5 && t < cut + P/3);
+    y0 = !inside && nxt.length ? Math.min(...nxt) : cut; off = pt;   /* Lücke zwischen Aufgaben überspringen, in einer Aufgabe nichts auslassen */
+  }
+  segs.push([y0, H, off]);
+  return segs;
+}
+/* Fließtext mit Seitenrand (@page margin, z. B. Lösungsheft mit zwei Spalten): Der Drucker verteilt das selbst auf Blätter.
+   Für das PDF hier nachgebaut: feste Seiten (Format, Rand aus @page), Abschnitte (.ls) Spalte für Spalte, nie geteilt; letzte Seite ausgeglichen. */
+function pdfFlow(d, pw, ph, m){
+  const src = d.querySelector('.page.rp'); if(!src) return;
+  const W = pw - 2*m, Hc = ph - 2*m, gap = 8, mm = v => v + 'mm';
+  let page, body, cols, col, ci, last = null;
+  const newPage = () => { page = d.createElement('div'); page.className = 'page pdf-flow';
+    Object.assign(page.style, {width: mm(pw), height: mm(ph), minHeight: mm(ph), padding: mm(m), margin:'0', boxSizing:'border-box', overflow:'hidden', background:'#fff'});
+    body = d.createElement('div'); page.append(body); d.body.append(page); cols = null; };
+  const over = () => body.getBoundingClientRect().height > page.clientHeight - 2*parseFloat(d.defaultView.getComputedStyle(page).paddingTop) + 1;
+  const newCols = () => { cols = d.createElement('div'); Object.assign(cols.style, {display:'flex', gap: mm(gap), alignItems:'flex-start'});
+    cols.innerHTML = `<div style="width:${(W - gap)/2}mm"></div><div style="width:${(W - gap)/2}mm"></div>`; body.append(cols); ci = 0; col = cols.children[0]; last = cols; };
+  const kids = [...src.children]; newPage();
+  for(const k of kids){
+    if(k.classList.contains('ls-cols')){
+      const blocks = [...k.children]; newCols();
+      for(const b of blocks){
+        col.append(b);
+        if(over() && col.children.length > 1){ b.remove();
+          if(ci === 0){ ci = 1; col = cols.children[1]; col.append(b); if(!over()) continue; b.remove(); }
+          newPage(); newCols(); col.append(b); }
+      }
+    } else { body.append(k); if(over() && body.children.length > 1){ k.remove(); newPage(); body.append(k); } }
+  }
+  /* letzte Spaltenseite ausgleichen (wie column-fill:balance beim Drucken) */
+  if(last){ const bl = [...last.children[0].children, ...last.children[1].children];
+    const hs = bl.map(b => { const cs = d.defaultView.getComputedStyle(b); return b.getBoundingClientRect().height + parseFloat(cs.marginBottom || 0); }), tot = hs.reduce((a, b) => a + b, 0);
+    let best = bl.length, bestH = Infinity, acc = 0;
+    for(let i = 0; i <= bl.length; i++){ const h = Math.max(acc, tot - acc); if(h < bestH - .5){ bestH = h; best = i; } acc += hs[i] || 0; }
+    bl.forEach((b, i) => last.children[i < best ? 0 : 1].append(b)); }
+  src.remove();
+}
+/* Weitere Grenzen von html2canvas, in der Kopie ausgeglichen: absolut gesetzte SVG (Schere auf der Bastelseite) zeichnet es versetzt →
+   als Bild (img mit SVG-Daten, verwendete Muster/Symbole aus dem Dokument mitgenommen); Aufzählungszeichen von Listen sitzen zu hoch →
+   als Text vor jeden Punkt. */
+function pdfFixClone(doc){
+  pdfUnzoom(doc);
+  const win = doc.defaultView;
+  /* SVG: html2canvas zeichnet manche SVG beschnitten oder versetzt (Einer-Würfel, Schere) und ohne Muster aus anderen SVG.
+     Deshalb jedes sichtbare SVG als Bild (img mit den SVG-Daten) an dieselbe Stelle, mit allem, was es aus dem Dokument braucht. */
+  const fontCss = (doc.getElementById('font-css')?.textContent || [...doc.querySelectorAll('style')].map(st => st.textContent).join('').match(/@font-face\s*\{[^}]*\}/g)?.join('') || '');
+  [...doc.querySelectorAll('svg')].forEach(sv => {
+    if(sv.parentElement?.closest('svg') || sv.closest('defs')) return;
+    const cs = win.getComputedStyle(sv), w = parseFloat(cs.width), h = parseFloat(cs.height);
+    if(!(w > 0 && h > 0) || cs.display === 'none' || cs.visibility === 'hidden') return;
+    const c = sv.cloneNode(true), so = [...sv.querySelectorAll('*')], co = [...c.querySelectorAll('*')];   /* gleiche Reihenfolge: vor allen Zusätzen paaren */
+    /* Schrift, Farben, Linien usw., die per Stylesheet auf Teile des SVG wirken, als Angabe am Element mitnehmen (im Bild gilt das Stylesheet nicht) */
+    so.forEach((e, i) => { const o = co[i]; if(!o || e.closest('defs') || /^(style|title|desc|defs)$/i.test(e.tagName)) return; const es = win.getComputedStyle(e);
+      for(const k of ['fill', 'stroke', 'stroke-width', 'stroke-dasharray', 'stroke-linecap', 'stroke-linejoin', 'opacity', 'fill-opacity', 'stroke-opacity', 'visibility', 'display']) if(!e.hasAttribute(k)) o.style.setProperty(k, es.getPropertyValue(k));
+      if(/^(text|tspan)$/i.test(e.tagName)){ for(const k of ['font-family', 'font-size', 'font-weight', 'font-style', 'letter-spacing']) o.style.setProperty(k, es.getPropertyValue(k));
+        for(const k of ['text-anchor', 'dominant-baseline']) if(!e.hasAttribute(k)) o.style.setProperty(k, es.getPropertyValue(k)); } });
+    const ids = new Set(), defs = doc.createElementNS('http://www.w3.org/2000/svg', 'defs');
+    const scan = el => [el, ...el.querySelectorAll('*')].forEach(e => [...e.attributes].forEach(a => { if(!/href|fill|stroke|clip|mask|filter|marker|style/.test(a.name)) return; for(const m of a.value.matchAll(/#([\w.:-]+)/g)) if(!ids.has(m[1])){ ids.add(m[1]); const t = doc.getElementById(m[1]); if(t && !sv.contains(t)){ defs.append(t.cloneNode(true)); scan(t); } } }));
+    scan(sv); if(defs.children.length) c.prepend(defs);
+    if(sv.querySelector('text')){ const st = doc.createElementNS('http://www.w3.org/2000/svg', 'style'); st.textContent = fontCss; c.prepend(st); }   /* Schrift „Stufenfibel“ im Bild */
+    c.setAttribute('xmlns', 'http://www.w3.org/2000/svg'); c.setAttribute('width', w); c.setAttribute('height', h); c.removeAttribute('style'); c.removeAttribute('class');
+    if(cs.color) c.setAttribute('color', cs.color);
+    const im = doc.createElement('img'); im.alt = '';
+    im.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(new XMLSerializer().serializeToString(c));
+    const keep = ['display', 'position', 'left', 'top', 'right', 'bottom', 'margin-top', 'margin-right', 'margin-bottom', 'margin-left', 'vertical-align', 'flex-grow', 'flex-shrink', 'flex-basis', 'align-self', 'justify-self', 'grid-column-start', 'grid-column-end', 'grid-row-start', 'grid-row-end', 'order', 'transform', 'transform-origin', 'z-index', 'background-color', 'border-top', 'border-right', 'border-bottom', 'border-left', 'border-radius', 'padding-top', 'padding-right', 'padding-bottom', 'padding-left', 'box-sizing', 'opacity', 'float'];
+    keep.forEach(k => im.style.setProperty(k, cs.getPropertyValue(k)));
+    im.style.width = cs.width; im.style.height = cs.height; im.style.maxWidth = 'none'; im.style.maxHeight = 'none'; im.style.minWidth = '0'; im.style.minHeight = '0';
+    if(cs.display === 'inline') im.style.display = 'inline-block';
+    sv.replaceWith(im);
+  });
+  /* Lineatur und andere Verläufe mit mm-Angaben: html2canvas versteht nur px und % */
+  doc.querySelectorAll('body *').forEach(e => { const bi = win.getComputedStyle(e).backgroundImage;
+    if(bi && bi !== 'none' && /gradient/.test(bi) && /\dmm/.test(bi)) e.style.backgroundImage = bi.replace(/([\d.]+)mm/g, (m, v) => (v*96/25.4).toFixed(3) + 'px'); });
+  doc.querySelectorAll('ol, ul').forEach(l => {
+    const t = win.getComputedStyle(l).listStyleType, pl = parseFloat(win.getComputedStyle(l).paddingLeft) || 0;
+    if(!/^(decimal|disc)$/.test(t) || pl < 4) return;
+    let n = parseInt(l.getAttribute('start') || '1', 10);
+    [...l.children].filter(li => li.tagName === 'LI').forEach(li => { const m = doc.createElement('span');
+      m.textContent = t === 'disc' ? '•' : (n++) + '.'; Object.assign(m.style, {position:'absolute', right:'100%', top:'0', paddingRight:'.4em', whiteSpace:'nowrap'});
+      li.style.listStyle = 'none'; li.style.position = 'relative'; li.prepend(m); });
+  });
+}
+/* Kleiner PDF-Schreiber: jede Seite ein JPEG über die ganze Seite (mm → pt) */
+function pdfWrite(pages){
+  const enc = new TextEncoder(), parts = [], offs = []; let pos = 0;
+  const put = x => { const b = typeof x === 'string' ? enc.encode(x) : x; parts.push(b); pos += b.length; };
+  const obj = (n, s) => { offs[n] = pos; put(`${n} 0 obj\n${s}\nendobj\n`); };
+  const pt = mm => (mm*72/25.4).toFixed(2), N = pages.length;
+  put('%PDF-1.4\n'); put(new Uint8Array([37, 226, 227, 207, 211, 10]));
+  obj(1, '<< /Type /Catalog /Pages 2 0 R >>');
+  obj(2, `<< /Type /Pages /Count ${N} /Kids [${pages.map((p, i) => `${3 + 3*i} 0 R`).join(' ')}] >>`);
+  pages.forEach((p, i) => { const n = 3 + 3*i, W = pt(p.mm[0]), H = pt(p.mm[1]), c = `q ${W} 0 0 ${H} 0 0 cm /Im Do Q`;
+    obj(n, `<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${W} ${H}] /Resources << /XObject << /Im ${n + 2} 0 R >> >> /Contents ${n + 1} 0 R >>`);
+    obj(n + 1, `<< /Length ${c.length} >>\nstream\n${c}\nendstream`);
+    offs[n + 2] = pos; put(`${n + 2} 0 obj\n<< /Type /XObject /Subtype /Image /Width ${p.w} /Height ${p.h} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${p.jpg.length} >>\nstream\n`);
+    put(p.jpg); put('\nendstream\nendobj\n'); });
+  const x = pos, size = 3 + 3*N;
+  put(`xref\n0 ${size}\n0000000000 65535 f \n` + offs.slice(1, size).map(o => String(o).padStart(10, '0') + ' 00000 n \n').join('') + `trailer\n<< /Size ${size} /Root 1 0 R >>\nstartxref\n${x}\n%%EOF\n`);
+  return new Blob(parts, {type:'application/pdf'});
+}
+/* Baut das PDF aus einem Druckdokument. onStep(i, n) für den Fortschritt; signal.stop = true bricht ab (liefert null). */
+async function pdfFromHtml(html, onStep, signal = {}){
+  const code = await pdfLoad(), [pw, ph] = pdfPageSize(html), px = PDF_DPI/25.4;
+  /* Druckansicht nachstellen: @media print gilt, @media screen nicht (Seitenhöhen, Legeblätter quer, kein Schatten) */
+  const src = html.replace(/@media\s+print/g, '@media all').replace(/@media\s+screen/g, '@media not all');
+  const f = document.createElement('iframe');
+  f.setAttribute('aria-hidden', 'true'); f.style.cssText = `position:fixed;left:-20000px;top:0;width:${Math.ceil(pw*96/25.4)}px;height:${Math.ceil(ph*96/25.4)}px;border:0;visibility:hidden`;
+  document.body.append(f);
+  try {
+    await new Promise(res => { f.onload = res; f.srcdoc = src; });
+    const d = f.contentDocument, w = f.contentWindow;
+    try { await w.document.fonts.ready; } catch {}
+    try { w.__fitPages && w.__fitPages(); } catch {}
+    const mg = [...html.matchAll(/@page\s*\{[^}]*margin:\s*([\d.]+)mm/g)].at(-1);
+    if(mg && +mg[1] > 0 && d.querySelector('.page.rp')) pdfFlow(d, pw, ph, +mg[1]);
+    if(d.querySelector('.bk-side')){ d.body.classList.add('bk-measure'); try { w.__fitPages && w.__fitPages(); } catch {} d.body.classList.remove('bk-measure'); }
+    const s = d.createElement('script'); s.textContent = code; d.head.append(s);
+    await new Promise(r => w.requestAnimationFrame(() => w.requestAnimationFrame(r)));
+    let els = [...d.querySelectorAll('.bk-side')]; if(!els.length) els = [...d.querySelectorAll('.page')].filter(p => !p.parentElement.closest('.page'));
+    const mmPx = w.document.createElement('div'); mmPx.style.cssText = 'position:absolute;width:100mm;height:0'; d.body.append(mmPx);
+    const cssMm = mmPx.getBoundingClientRect().width/100 || 96/25.4; mmPx.remove();
+    /* nur die Seite im Dokument, die gerade gezeichnet wird: html2canvas kopiert sonst bei jeder Seite das ganze Heft */
+    const marks = els.map(e => { const c = d.createComment('s'); e.replaceWith(c); return c; });
+    const out = [], Wp = Math.round(pw*px), Hp = Math.round(ph*px);
+    for(let i = 0; i < els.length; i++){
+      if(signal.stop) return null;
+      onStep && onStep(i + 1, els.length);
+      const el = els[i]; d.body.append(el);
+      const r = el.getBoundingClientRect(), cs = w.getComputedStyle(el), segs = pdfCuts(el, r, ph*cssMm, parseFloat(cs.paddingTop) || 0, parseFloat(cs.paddingBottom) || 0);
+      let scale = PDF_DPI/96; const area = r.width*r.height*scale*scale;
+      if(area > PDF_MAXPX) scale *= Math.sqrt(PDF_MAXPX/area);
+      let cv = await w.html2canvas(el, {scale, backgroundColor:'#ffffff', logging:false, useCORS:false, onclone: pdfFixClone});
+      el.remove(); marks[i].replaceWith(el);
+      const sc = Wp/(pw*cssMm*scale);   /* Bild-Pixel → Seiten-Pixel */
+      for(const [a, b, off] of segs){
+        const pc = document.createElement('canvas'); pc.width = Wp; pc.height = Hp;
+        const g = pc.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, Wp, Hp);
+        const sy = a*scale, sw = Math.min(Wp/sc, cv.width), sh = Math.min((b - a)*scale, cv.height - sy, (Hp - off*scale*sc)/sc);
+        if(sw > 0 && sh > 0) g.drawImage(cv, 0, sy, sw, sh, 0, off*scale*sc, sw*sc, sh*sc);   /* Quellrechteck nie über den Rand (Safari zeichnet sonst nichts) */
+        const blob = await new Promise(r => pc.toBlob(r, 'image/jpeg', PDF_Q));
+        out.push({jpg: new Uint8Array(await blob.arrayBuffer()), w: Wp, h: Hp, mm: [pw, ph]});
+        pc.width = pc.height = 0;
+      }
+      cv.width = cv.height = 0; cv = null;
+      await new Promise(r => setTimeout(r, 0));
+    }
+    return out.length ? pdfWrite(out) : null;
+  } finally { f.remove(); }
+}
+/* Knopf → PDF bauen mit Fortschritt und Abbrechen; auf iPad/iPhone danach Teilen (braucht einen neuen Tipp), am Computer Download */
+async function pdfMake(name, getHtml){
+  if(pdfRun) return;
+  const dl = $('#dlg-pdf'), body = $('#pdf-body'), fn = name.replace(/[\\/:*?"<>|]/g, '') + '.pdf', sig = {stop:false};
+  pdfRun = sig;
+  body.innerHTML = `<p id="pdf-st">PDF wird vorbereitet …</p><progress id="pdf-pr" max="1" value="0" style="width:100%"></progress><div class="row" style="justify-content:flex-start;gap:8px;margin-top:12px"><button class="icon-btn" id="pdf-stop">Abbrechen</button></div>`;
+  if(!dl.open) dl.showModal();
+  let blob = null;
+  try {
+    const html = getHtml();
+    blob = await pdfFromHtml(html, (i, n) => { $('#pdf-st').textContent = `PDF wird gebaut – Seite ${i} von ${n}`; const p = $('#pdf-pr'); p.max = n; p.value = i - 1; }, sig);
+  } catch(err){
+    pdfRun = null; if(sig.stop) return;
+    body.innerHTML = `<p>Das PDF ließ sich nicht bauen${navigator.onLine === false ? ' (der Baustein dafür wird beim ersten Mal aus dem Internet geladen)' : ''}. Bitte „Als Datei speichern“ verwenden.</p><div class="row"><button class="icon-btn" data-close>Schließen</button></div>`;
+    return;
+  }
+  pdfRun = null;
+  if(!blob){ if(dl.open) dl.close(); return; }
+  const file = new File([blob], fn, {type:'application/pdf'}), mb = (blob.size/1048576).toLocaleString('de-DE', {maximumFractionDigits:1});
+  app.pdfFile = file;
+  const share = iosDevice() && navigator.canShare && navigator.canShare({files:[file]});
+  body.innerHTML = `<p><b>PDF fertig</b> (${mb} MB).${share ? ' Im Teilen-Menü auf „Drucken“ tippen (oder „In Dateien sichern“). Die Skalierung bei 100 % lassen.' : ''}</p><div class="row" style="justify-content:flex-start;gap:8px;flex-wrap:wrap">${share ? `<button class="icon-btn primary" id="pdf-share">${icon('print')}<span style="display:inline">Teilen und drucken</span></button>` : ''}<button class="icon-btn${share ? '' : ' primary'}" id="pdf-dl">${icon('check')}<span style="display:inline">PDF speichern</span></button><button class="icon-btn" data-close>Schließen</button></div>`;
+  if(!share){ pdfDownload(file); }
+}
+function pdfDownload(file){
+  try { const a = document.createElement('a'); a.href = URL.createObjectURL(file); a.download = file.name; document.body.append(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 4000); } catch {}
+}
+async function pdfShare(){
+  const file = app.pdfFile; if(!file) return;
+  try { await navigator.share({files:[file]}); } catch(err){ if(err?.name !== 'AbortError') pdfDownload(file); }   /* nur die Datei, kein title/text (0.44.1) */
 }
 function safariNoteHtml(home){
   if(!safariTab()) return '';
@@ -10693,7 +10931,7 @@ function renderSamml(){
   sheetBodySet(`<div class="sheet-form">${sheetModeSwitch()}
     ${L.length ? `<ol class="hf-list sm-list">${L.map((it, i) => `<li><span>${escHtml(it.title)}${it.sol ? '' : ' <small>(ohne Lösung)</small>'}</span><button class="icon-btn" data-sm-up="${i}" ${i ? '' : 'disabled'} aria-label="nach oben">↑</button><button class="icon-btn" data-sm-down="${i}" ${i < L.length - 1 ? '' : 'disabled'} aria-label="nach unten">↓</button><button class="icon-btn" data-sm-del="${i}" aria-label="Blatt entfernen">✕</button></li>`).join('')}</ol>`
       : `<p class="note"><b>Noch leer.</b> Stell unter „Einzelblatt“ ein Blatt zusammen und tippe auf „Zur Blattsammlung“. Das geht mit beliebig vielen Blättern, auch für verschiedene Kinder.</p>`}
-    <div class="row" style="justify-content:flex-start;gap:8px;flex-wrap:wrap"><button class="icon-btn primary" id="sm-print" ${L.length ? '' : 'disabled'}>${icon('print')}${prLabel('Alle drucken')}</button><button class="icon-btn" id="sm-save" ${L.length ? '' : 'disabled'}>${icon('check')}<span style="display:inline">Als Datei speichern</span></button>${L.length ? `<button class="icon-btn" id="sm-clear">Sammlung leeren</button>` : ''}</div>${printHint()}
+    <div class="row" style="justify-content:flex-start;gap:8px;flex-wrap:wrap"><button class="icon-btn primary" id="sm-print" ${L.length ? '' : 'disabled'}>${icon('print')}${prLabel('Alle drucken', 1)}</button>${pdfBtn('sm', !L.length)}<button class="icon-btn" id="sm-save" ${L.length ? '' : 'disabled'}>${icon('check')}<span style="display:inline">Als Datei speichern</span></button>${L.length ? `<button class="icon-btn" id="sm-clear">Sammlung leeren</button>` : ''}</div>${printHint(1)}
     <p class="note">Die Blätter werden so gedruckt, wie du sie gesammelt hast: mit Name und Datum, jedes mit seinem Lösungsblatt direkt dahinter (wenn beim Blatt „Lösungsblatt anhängen“ an war). Kein Deckblatt, keine Seitenzahlen – ein Heft mit Kapiteln stellt der Heft-Assistent unter „Arbeitsheft“ zusammen. Die Sammlung wird auf diesem Gerät gemerkt, bis du sie leerst.</p></div>
     <iframe id="sh-frame" title="Vorschau Blattsammlung"></iframe>`);
   app.sammlDoc = buildSamml();
@@ -11239,8 +11477,8 @@ function renderHeft(){
       <p class="note">Übungsseiten lassen sich austauschen: neue Aufgaben oder ein anderes Blatt an dieselbe Stelle. Die Seitenzahl bleibt.</p></details>` : ''}
     <label class="row">Drucken als <select id="hf-druck">${Object.entries(HEFT_DRUCK).map(([k, d]) => `<option value="${k}" ${k === (H.druck || 'a4') ? 'selected' : ''}>${d.name}</option>`).join('')}</select></label>
     ${H.druck && H.druck !== 'a4' && H.items.length ? `<p class="note hf-bk-note"><b>Als Heft drucken:</b> beidseitig, an der kurzen Kante wenden${H.druck === 'a3' ? ', Papier A3' : ', Papier A4'}. Dann die Bögen zusammen in der Mitte falten und heften. ${(() => { const n = heftTotal(H), b = Math.ceil(n/4); return `${b} ${b === 1 ? 'Bogen' : 'Bögen'}${n % 4 ? `, ${4 - n % 4} Seite${4 - n % 4 === 1 ? '' : 'n'} bleib${4 - n % 4 === 1 ? 't' : 'en'} leer` : ''}.`; })()}</p>` : ''}
-    <div class="row" style="justify-content:flex-start;gap:8px;flex-wrap:wrap"><button class="icon-btn primary" id="hf-print" ${H.items.length ? '' : 'disabled'}>${icon('print')}${prLabel('Heft drucken')}</button><button class="icon-btn" id="hf-save" ${H.items.length ? '' : 'disabled'}>${icon('check')}<span style="display:inline">Als Datei speichern</span></button>${H.items.length ? `<button class="icon-btn" id="hf-clear">Heft leeren</button>` : ''}</div>${printHint()}
-    ${H.items.some(it => it.sol?.length) ? `<div class="row" style="justify-content:flex-start;gap:8px;flex-wrap:wrap"><button class="icon-btn" id="hf-sol-print">${icon('print')}${prLabel('Lösungsheft drucken')}</button><button class="icon-btn" id="hf-sol-save">${icon('check')}<span style="display:inline">Lösungsheft speichern</span></button></div>` : ''}
+    <div class="row" style="justify-content:flex-start;gap:8px;flex-wrap:wrap"><button class="icon-btn primary" id="hf-print" ${H.items.length ? '' : 'disabled'}>${icon('print')}${prLabel('Heft drucken', 1)}</button>${pdfBtn('hf', !H.items.length)}<button class="icon-btn" id="hf-save" ${H.items.length ? '' : 'disabled'}>${icon('check')}<span style="display:inline">Als Datei speichern</span></button>${H.items.length ? `<button class="icon-btn" id="hf-clear">Heft leeren</button>` : ''}</div>${printHint(1)}
+    ${H.items.some(it => it.sol?.length) ? `<div class="row" style="justify-content:flex-start;gap:8px;flex-wrap:wrap"><button class="icon-btn" id="hf-sol-print">${icon('print')}${prLabel('Lösungsheft drucken', 1)}</button>${pdfBtn('hf-sol')}<button class="icon-btn" id="hf-sol-save">${icon('check')}<span style="display:inline">Lösungsheft speichern</span></button></div>` : ''}
     <p class="note">Das Heft hat ein Titelblatt (mit dem Namen des Kindes oder einer leeren Namenszeile). Auf den Seiten stehen keine Namenszeilen und keine Lösungen, dafür Seitenzahlen. Die Lösungen gibt es als eigenes Lösungsheft für dich. Einzelne Blätter sammelst du unter „Blattsammlung“. Das Heft wird auf diesem Gerät gemerkt, bis du es leerst. Stehen beim Drucken oben und unten Datum und Internetadresse: im Druckdialog „Kopf- und Fußzeilen“ ausschalten.</p></div>
     <iframe id="sh-frame" title="Vorschau Arbeitsheft"></iframe>`);
   app.heftDoc = buildHeft();
@@ -11284,7 +11522,7 @@ function renderSheets(keep){
     ${sheetHasLines(S.topic) ? `<label class="row">Lineatur ${linSelect('sh-lin', S.lin, S.pid)}</label>` : ''}
     <label class="row cb"><input type="checkbox" id="sh-bw" ${S.bw ? 'checked' : ''}> Schwarz-Weiß-Drucker (Muster statt Farben)</label>${S.topic.startsWith('B:') && B_SHEETS[key] ? `<label class="row">Aufgabe ${sel('sh-bart', B_SHEETS[key].arts.map(([n], i) => [i, `${i + 1}. ${escHtml(n)}`]), bArt(S, key))}</label>` : ''}${S.topic.startsWith('B:') && bDef(key, S)?.sim ? `<label class="row">Ähnlichkeit <select id="sh-bsim">${BZ_SIM.map((t, i) => `<option value="${i}" ${(S.bsim || 0) === i ? 'selected' : ''}>${['deutlich (andere Gruppe)', 'ähnlich (gleiche Gruppe)', 'fein (Varianten)'][i]}</option>`).join('')}</select></label>` : ''}${S.topic.startsWith('B:') ? `<p class="note">Jedes Blatt hat nur eine Aufgabenart, unter „Aufgabe“ von leicht nach schwer. Die erste Aufgabe ist grau gestrichelt ganz vorgemacht. Erkläre den Auftrag daran.${bDef(key, S)?.bastel ? ' Zu diesem Blatt gehört eine Bastelseite zum Ausschneiden; ihre Rückseite bleibt leer, deshalb liegt vor und hinter ihr je eine leere Seite.' : ''}</p>` : ''}
     <label class="row cb"><input type="checkbox" id="sh-sol" ${S.sol ? 'checked' : ''}> Lösungsblatt anhängen</label>`}
-    <div class="row" style="justify-content:flex-start;gap:8px;flex-wrap:wrap"><button class="icon-btn" id="sh-new">${icon('random')}<span style="display:inline">Neue Aufgaben</span></button><button class="icon-btn primary" id="sh-print">${icon('print')}${prLabel('Drucken')}</button><button class="icon-btn" id="sh-save">${icon('check')}<span style="display:inline">Als Datei speichern</span></button><button class="icon-btn" id="sh-samml">${icon('plus')}<span style="display:inline">Zur Blattsammlung</span></button></div>${printHint()}
+    <div class="row" style="justify-content:flex-start;gap:8px;flex-wrap:wrap"><button class="icon-btn" id="sh-new">${icon('random')}<span style="display:inline">Neue Aufgaben</span></button><button class="icon-btn primary" id="sh-print">${icon('print')}${prLabel('Drucken', 1)}</button>${pdfBtn('sh')}<button class="icon-btn" id="sh-save">${icon('check')}<span style="display:inline">Als Datei speichern</span></button><button class="icon-btn" id="sh-samml">${icon('plus')}<span style="display:inline">Zur Blattsammlung</span></button></div>${printHint(1)}
     ${LD ? `<p class="note"><b>Legeblatt:</b> Auf dieses Blatt legen die Kinder echtes Material – Wendeplättchen, Einerwürfel, Zehnerstangen, Buchstabenkarten. Damit alles passt, in Originalgröße drucken (100 %, nicht „An Seite anpassen“). Unten auf dem Blatt ist ein 5-cm-Strich zur Kontrolle.${LD.name.includes('quer') ? ' Dieses Blatt ist im Querformat.' : ''}</p>` : ''}<p class="note">Jedes Mal entstehen neue Aufgaben. Die Symbole oben auf dem Blatt erklären die Arbeitsaufträge.</p><details class="note sh-help"><summary>Probleme beim Drucken?</summary>Falls „Drucken“ hier nichts tut: „Als Datei speichern“, die Datei im Browser öffnen und dort drucken (Strg+P). Stehen beim Drucken oben und unten Datum und Internetadresse: im Druckdialog „Kopf- und Fußzeilen“ ausschalten.</details></div>
     <iframe id="sh-frame" title="Vorschau Arbeitsblatt"></iframe>`);
   if(!keep || !app.sheetDoc) app.sheetDoc = buildSheet();
@@ -11306,12 +11544,13 @@ function sheetEvents(e){
   if(smx){ L.splice(+smx.dataset.smDel, 1); saveSamml(); return renderSamml(); }
   if(e.target.closest('#sm-clear')){ const b = e.target.closest('#sm-clear'); if(!b.dataset.sure){ b.dataset.sure = '1'; b.textContent = 'Wirklich leeren?'; return; } app.samml.items = []; saveSamml(); return renderSamml(); }
   /* Home-Bildschirm-App auf iPad/iPhone: Teilen statt Drucken (Backlog V) */
-  const shareId = iosApp() && ['sh-print', 'sm-print', 'hf-print', 'hf-sol-print'].find(id => e.target.closest('#' + id));
-  if(shareId){
-    if(shareId === 'sh-print'){ sheetUsed(); return shareDoc(`Arbeitsblatt ${app.sheetDoc.title}`, app.sheetDoc.html); }
-    if(shareId === 'sm-print') return shareDoc('Blattsammlung', (app.sammlDoc || buildSamml()).html);
-    if(shareId === 'hf-print'){ const doc = app.heftDoc || buildHeft(); return shareDoc(`Arbeitsheft ${doc.title}`, doc.html); }
-    const doc = buildLoesung(); return shareDoc(doc.title, doc.html);
+  /* Backlog W: auf iPad/iPhone bauen die Druck-Knöpfe ein PDF, am Computer der Zusatzknopf „Als PDF“ */
+  const pdfId = ['sh', 'sm', 'hf', 'hf-sol'].find(id => e.target.closest('#' + id + '-pdf') || (iosDevice() && e.target.closest('#' + id + '-print')));
+  if(pdfId){
+    if(pdfId === 'sh'){ sheetUsed(); const doc = app.sheetDoc; return pdfMake(`Arbeitsblatt ${doc.title}`, () => doc.html); }
+    if(pdfId === 'sm') return pdfMake('Blattsammlung', () => (app.sammlDoc || buildSamml()).html);
+    if(pdfId === 'hf'){ const doc = app.heftDoc || buildHeft(); return pdfMake(`Arbeitsheft ${doc.title}`, () => doc.html); }
+    const doc = buildLoesung(); return pdfMake(doc.title, () => doc.html);
   }
   if(e.target.closest('#sm-print')){ let ok = false; try{ const w = $('#sh-frame').contentWindow; w.focus(); w.print(); ok = true; }catch{} if(!ok) toast('Drucken geht hier nicht direkt – bitte „Als Datei speichern“ und die Datei im Browser drucken.'); return; }
   if(e.target.closest('#sm-save')){ const doc = app.sammlDoc || buildSamml(); return saveFile('Blattsammlung.html', doc.html); }
@@ -11843,7 +12082,7 @@ document.addEventListener('change', e => { const c = e.target.closest('[data-sub
 document.addEventListener('change', e => { const s = e.target.closest('[data-guide-pid]'); if(!s) return; const p = data.profiles.find(x => x.id === s.dataset.guidePid); if(p){ p.guide = s.value || undefined; saveData(); render(); } });
 
 /* ---------- Rückmeldung (Testphase): Art, Schwere, Text + automatischer Kontext → E-Mail ---------- */
-const APP_VERSION = '0.45.0.2611282033 · Testversion 57b9900 · 28.11.2026';
+const APP_VERSION = '0.45.0.2611282131 · Testversion 8e63828 · 28.11.2026';
 /* Danke-Seite: Namen nur mit Einverständnis eintragen, z. B. 'Vorname Nachname (Schule)' */
 const THANKS = [];
 const FB_REPO = 'https://github.com/Steffinuss/stufenweise';
@@ -11959,6 +12198,13 @@ $('#btn-stats').innerHTML = icon('chart') + '<span>Lernstand</span>';
 $('#btn-stats').addEventListener('click', () => requireTeacher(openStats));
 $('#btn-sheet').innerHTML = icon('print') + '<span>Material drucken</span>';   /* Stefan, 26.11.2026: statt „Arbeitsblätter“ (Blätter, Legeblätter, Hefte) */
 $('#btn-sheet').addEventListener('click', () => requireTeacher(() => openSheets()));
+$('#dlg-pdf').addEventListener('click', e => {   /* Backlog W */
+  if(e.target.closest('#pdf-stop')){ if(pdfRun) pdfRun.stop = true; pdfRun = null; return $('#dlg-pdf').close(); }
+  if(e.target.closest('#pdf-share')) return pdfShare();
+  if(e.target.closest('#pdf-dl')) return app.pdfFile && pdfDownload(app.pdfFile);
+  if(e.target.closest('[data-close]')) return $('#dlg-pdf').close();
+});
+$('#dlg-pdf').addEventListener('cancel', () => { if(pdfRun){ pdfRun.stop = true; pdfRun = null; } });
 $('#dlg-sheet').addEventListener('click', e => { if(e.target.closest('[data-close]') || e.target === $('#dlg-sheet')) return $('#dlg-sheet').close(); sheetEvents(e); });
 $('#dlg-sheet').addEventListener('change', sheetChange);
 $('#dlg-report').addEventListener('click', e => { if(e.target.closest('[data-close]') || e.target === $('#dlg-report')) return $('#dlg-report').close(); const k = e.target.closest('[data-rk]'); if(k){ app.report.kind = k.dataset.rk; return renderReport(); }

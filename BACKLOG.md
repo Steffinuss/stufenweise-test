@@ -4,7 +4,7 @@ Geplante Entwicklungsaufgaben für Stufenweise. Begonnenes steht in `IN_PROGRESS
 
 Regeln (Stand 17.11.2026): Der Funktionsumfang von `main` ist eingefroren, weil die App an Schulen genutzt wird. Neues entsteht nur im Zweig `entwicklung`, wird in der Testversion gezeigt und erst nach Stefans OK freigegeben (`docs/entwicklung.md`). Didaktische Entscheidungen trifft Stefan.
 
-Stand: 28.11.2026 (0.44.0 freigegeben mit V Drucken auf iPad/iPhone)
+Stand: 28.11.2026 (0.44.1 freigegeben; W geplant)
 
 ## Vorgeschlagene Reihenfolge
 
@@ -27,6 +27,7 @@ Stand: 28.11.2026 (0.44.0 freigegeben mit V Drucken auf iPad/iPhone)
 | 14 | ~~**U** Arbeitshefte stringenter (U1–U3)~~ | mittel | freigegeben in 0.42.0 (27.11.2026) |
 | 15 | **T** Basis-Arbeitsblätter überarbeiten | mittel | **erledigt** in 0.43.0 (28.11.2026) |
 | 16 | **V** Drucken auf iPad und iPhone | klein | **erledigt** in 0.44.0 (28.11.2026) |
+| 17 | **W** PDF auf iPad und iPhone selbst bauen | mittel | gebaut in `entwicklung` (28.11.2026), Testversion; wartet auf Stefans Test am iPad |
 
 Alternative: B zuerst als schneller Gewinn, während Stefan den Basis-Test ausprobiert.
 
@@ -455,3 +456,20 @@ Beobachtung (Stefan, 08:50): Am Computer mit Chrome druckt alles sauber. Auf iPa
 
 **Status:** **Erledigt in 0.44.0** (freigegeben 28.11.2026 nach Stefans Prüfung der Testversion).
 
+## W: PDF auf iPad und iPhone selbst bauen (Stefan, 28.11.2026 abends)
+
+Ausgangslage: Safari auf iPad/iPhone hängt beim Drucken immer Kopf- und Fußzeile an, Seiten rutschen auf zwei Blätter; aus der Home-Bildschirm-App ist Drucken gesperrt (0.44.0 teilt deshalb eine HTML-Datei). Stefans Test mit dem Kurzbefehl „PDF erstellen“: Hochformat sieht gut aus, aber `@page`-Formate werden ignoriert → Broschüren (A4 quer, A3) kommen falsch heraus. Deshalb baut die App das PDF selbst.
+
+Ziel (Stefan): Jede Druckseite (`.page` bzw. `.bk-side`) wird mit html2canvas zu einem Bild und mit einem PDF-Baustein zu einem PDF in genau dem Seitenformat der App (A4 hoch, A4 quer, A3 quer; Broschüre wie `bcss`), ohne Rand und Fußzeile. Teilen über `navigator.share({files:[pdf]})` ohne title/text, sonst Download. Reihenfolge: Einzelblatt, Blattsammlung, Arbeitsheft (A4), Broschüren (A5 auf A4 quer, A4 aus A3), Lösungsheft; Lernstandsbericht erst nach Rückfrage. Bausteine als eigene Dateien im Repository (MIT-Lizenztexte), erst beim ersten PDF nachladen, offline im Cache. Speicher (Seiten nacheinander, Canvas freigeben, iOS ≤ 16,7 Mio. Pixel je Canvas), Größe (Ziel 0,2–0,3 MB je Seite, 48 Seiten unter ca. 15 MB), Fortschritt „Seite 12 von 48“ mit Abbrechen, vor dem Rendern `document.fonts.ready`, `PAGE_FIT_JS`, `text-size-adjust`, `.gross`, SVG, Farben. Am Computer bleibt Drucken über den Browser.
+
+**Probe (28.11.2026, Chrome):** html2canvas 1.4.1 kann CSS-`zoom` nicht – Broschürenseiten (`zoom:.7071`), `.gross`, `.fitz` (PAGE_FIT_JS), `.bb-match`, `.bb-stairs` kamen mit übereinanderliegender Schrift heraus. Abhilfe in der Kopie, die html2canvas zeichnet (`onclone`): jedes Element mit `zoom` ≠ 1 bekommt `zoom:1`, die ungezoomte Breite/Höhe, `transform:scale(z)` und ausgleichende Ränder → Ergebnis deckungsgleich mit Chrome. Unverkleinerte Blätter und Basis-SVGs stimmen ohne Abhilfe. A4 bei 200 dpi: 0,1–0,2 MB je Seite (JPEG 0,8), 1–3 s je Seite (im Container, parallel zu Tests).
+
+**Entscheidungen (Stefan, 28.11.2026, per Auswahl):**
+1. **Wo:** Auf iPad/iPhone (Safari und Home-Bildschirm-App) ersetzt das PDF den bisherigen Weg. Am Computer bleibt „Drucken“, daneben ein **Zusatzknopf „Als PDF“**.
+2. **Knopftext auf iPad/iPhone:** **„Drucken (PDF)“** – Heft „Heft drucken (PDF)“, Blattsammlung „Alle drucken (PDF)“, Lösungsheft „Lösungsheft drucken (PDF)“.
+3. **Auflösung:** **200 dpi** (Heft mit 48 Seiten ca. 6–10 MB).
+4. **Hinweiskasten:** **kürzen auf das PDF** (ein Satz: PDF ohne Kopf- und Fußzeile, im Teilen-Menü „Drucken“, nicht verkleinern).
+
+Danach Stefan: „Ja, so bauen“ (28.11.2026, 20:38).
+
+**Status:** Gebaut in `entwicklung` (Einzelheiten in `CHANGELOG.md` unter „Unveröffentlicht“), in der Testversion. **Wartet auf Stefans Test am iPad** (auch altes 9,7-Zoll-iPad). Offen: Lernstandsbericht als PDF? (fließender Text mit Rand; erst nach Rückfrage).

@@ -1,4 +1,5 @@
-"""Backlog V (Stefan, 28.11.2026): Drucken auf iPad und iPhone.
+"""Backlog V (Stefan, 28.11.2026): Drucken auf iPad und iPhone. Seit Backlog W bauen Einzelblatt, Blattsammlung, Heft und Lösungsheft
+auf iPad/iPhone ein PDF (Test pdf_ios.py); hier bleibt: Hinweise, Knopftexte, Bericht teilt weiter eine HTML-Datei.
 - Am Computer: kein Hinweiskasten, Knöpfe heißen „Drucken“ usw.
 - iPad/iPhone in Safari: Hinweiskasten am Druck-Knopf („Erlauben“, Kopf-/Fußzeile, Skalierung, Computer); Knöpfe bleiben „Drucken“.
 - App vom Home-Bildschirm: Knöpfe heißen „Teilen und drucken“, „Heft teilen und drucken“ …; ein Tipp gibt das Dokument als HTML-Datei
@@ -41,35 +42,26 @@ async def main():
         ctx, pg = await page(br, 'safari')
         await sheet(pg, 'single')
         t = await pg.inner_text('.print-ios') if await pg.locator('.print-ios').count() else ''
-        check('Safari: Hinweis mit „Erlauben“, Kopf-/Fußzeile, Skalierung, Computer', all(w in t for w in ['Erlauben', 'Kopf- und Fußzeile', 'Skalierung', 'Computer']), t[:120])
-        check('Safari: Knopf bleibt „Drucken“', (await pg.inner_text('#sh-print')).strip() == 'Drucken')
+        check('Safari: kurzer PDF-Hinweis am Blatt', 'PDF' in t and 'Kopf- und Fußzeile' in t and '100 %' in t, t[:160])
+        check('Safari: Knopf „Drucken (PDF)“', (await pg.inner_text('#sh-print')).strip() == 'Drucken (PDF)')
         await ctx.close()
         # App vom Home-Bildschirm
         ctx, pg = await page(br, 'app')
         await pg.evaluate(SEED)
         await sheet(pg, 'single')
-        t = await pg.inner_text('.print-ios')
-        check('App: Hinweis zum Teilen-Menü', 'Teilen und drucken' in t and 'Als Datei speichern' in t and 'Erlauben' not in t, t[:120])
-        check('App: Knopf „Teilen und drucken“', (await pg.inner_text('#sh-print')).strip() == 'Teilen und drucken')
-        await pg.click('#sh-print'); await pg.wait_for_timeout(400)
-        sh = await pg.evaluate("window.__shared")
-        check('App: Blatt als HTML-Datei geteilt', len(sh) == 1 and sh[0]['type'] == 'text/html' and sh[0]['name'].startswith('Arbeitsblatt') and sh[0]['name'].endswith('.html') and sh[0]['size'] > 5000 and sh[0]['head'].lower().startswith('<!doctype html'), sh)
-        check('App: nur Datei geteilt, kein Titel/Text (sonst legt iOS eine „Text.txt“ dazu)', sh[0]['keys'] == 'files', sh[0]['keys'])
+        check('App: Knopf „Drucken (PDF)“', (await pg.inner_text('#sh-print')).strip() == 'Drucken (PDF)')
         await pg.click('#sh-samml'); await pg.wait_for_timeout(300)
         await sheet(pg, 'samml')
-        check('App: „Alle teilen und drucken“', (await pg.inner_text('#sm-print')).strip() == 'Alle teilen und drucken')
-        await pg.click('#sm-print'); await pg.wait_for_timeout(400)
-        check('App: Blattsammlung geteilt', (await pg.evaluate("window.__shared.at(-1).name")) == 'Blattsammlung.html')
-        await pg.evaluate("window.__canShare = false")
-        await pg.click('#sm-print'); await pg.wait_for_timeout(400)
-        toast = await pg.evaluate("document.querySelector('.toast')?.textContent || document.body.innerText.match(/Teilen geht hier nicht[^\\n]*/)?.[0] || ''")
-        check('App: ohne Teilen Hinweis auf „Als Datei speichern“', 'Als Datei speichern' in toast, toast[:100])
+        check('App: „Alle drucken (PDF)“', (await pg.inner_text('#sm-print')).strip() == 'Alle drucken (PDF)')
+        await pg.evaluate("app.sheetMode = 'heft'; renderSheets()"); await pg.wait_for_timeout(400)
+        check('App: „Heft drucken (PDF)“', (await pg.inner_text('#hf-print')).strip() == 'Heft drucken (PDF)')
         # Bericht
         await pg.evaluate("window.__canShare = true; document.querySelectorAll('dialog[open]').forEach(d => d.close()); openReport('k1')"); await pg.wait_for_timeout(500)
-        check('App: Bericht „Teilen und drucken“ mit Hinweis', (await pg.inner_text('#rp-print')).strip() == 'Teilen und drucken' and await pg.locator('#dlg-report .print-ios').count() == 1)
-        n = await pg.evaluate("window.__shared.length")
+        t = await pg.inner_text('#dlg-report .print-ios')
+        check('App: Bericht weiter „Teilen und drucken“ mit bisherigem Hinweis', (await pg.inner_text('#rp-print')).strip() == 'Teilen und drucken' and 'Als Datei speichern' in t, t[:100])
         await pg.click('#rp-print'); await pg.wait_for_timeout(400)
-        check('App: Bericht geteilt', await pg.evaluate("window.__shared.length") == n + 1)
+        sh = await pg.evaluate("window.__shared")
+        check('App: Bericht als HTML-Datei geteilt, nur die Datei', len(sh) == 1 and sh[0]['type'] == 'text/html' and sh[0]['keys'] == 'files', sh)
         await ctx.close(); await br.close()
     print('FEHLER' if ERR else 'alles ok', ERR)
 

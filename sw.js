@@ -3,7 +3,7 @@
    kommt die zuletzt gespeicherte Fassung aus dem Zwischenspeicher. Es werden keine Kinderdaten gespeichert:
    Die liegen weiter nur im Browser (localStorage). Lizenz: EUPL-1.2 */
 const CACHE = 'stufenweise-v1';
-const SHELL = ['./', './index.html', './manifest.webmanifest', './version.json', './icon-192.png', './icon-512.png', './apple-touch-icon.png'];
+const SHELL = ['./', './index.html', './manifest.webmanifest', './version.json', './icon-192.png', './icon-512.png', './apple-touch-icon.png', './vendor/html2canvas.min.js'];   /* html2canvas: PDF auf iPad/iPhone auch offline (Backlog W) */
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => Promise.all(SHELL.map(u => c.add(new Request(u, {cache: 'reload'})).catch(() => null)))));

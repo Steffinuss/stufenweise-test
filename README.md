@@ -1,4 +1,4 @@
-> **Testversion von Stufenweise** – Stand aus [Steffinuss/stufenweise](https://github.com/Steffinuss/stufenweise), Zweig `entwicklung` (57b9900). Nicht für den Unterricht. Hier nicht direkt arbeiten.
+> **Testversion von Stufenweise** – Stand aus [Steffinuss/stufenweise](https://github.com/Steffinuss/stufenweise), Zweig `entwicklung` (8e63828). Nicht für den Unterricht. Hier nicht direkt arbeiten.
 
 # Stufenweise
 
@@ -66,6 +66,7 @@ Stefan Hackl, c/o Gustav-Werner-Schule, Böfinger Weg 28, 89075 Ulm. Stufenweise
 | Programmcode | [EUPL-1.2](https://interoperable-europe.ec.europa.eu/collection/eupl/eupl-text-eupl-12) (European Union Public Licence), siehe `LICENSE` |
 | Texte, Aufgaben, Lesetexte, Wortlisten, Formulierungsvorschläge, Arbeitsblätter, Anleitung | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.de), siehe `LIZENZ-INHALTE.md` |
 | Schrift „Stufenfibel“ (abgeleitet von Andika, © SIL International; kleines l mit Bogen, auf Deutsch reduziert) | [SIL Open Font License 1.1](https://openfontlicense.org), siehe `fonts/OFL.txt` |
+| html2canvas 1.4.1 (© Niklas von Hertzen; macht auf iPad/iPhone aus jeder Druckseite ein Bild für das PDF), unverändert in `vendor/html2canvas.min.js` | MIT, siehe `vendor/LICENSE-html2canvas.txt` |
 
 © 2026 Stefan Hackl. Namensnennung für Inhalte: **„Stufenweise, Stefan Hackl, CC BY-SA 4.0“**.
 

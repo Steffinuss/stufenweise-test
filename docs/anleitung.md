@@ -313,11 +313,17 @@ Alle Materialbilder auf einem Blatt haben dieselbe Größe, Hunderter liegen in 
 
 ### Drucken auf iPad und iPhone
 
-Am Computer (zum Beispiel mit Chrome) drucken Blätter, Blattsammlung und Hefte am saubersten. Auf iPad und iPhone steht unter den Druck-Knöpfen ein Hinweiskasten:
+Auf iPad und iPhone druckt Safari immer eine Kopf- und Fußzeile mit, und als App vom Home-Bildschirm öffnet sich gar kein Druckdialog. Deshalb baut Stufenweise dort selbst ein **PDF** – genau im Seitenformat des Blatts oder Hefts, ohne Rand und ohne Kopf- und Fußzeile. Das gilt für Einzelblatt, Blattsammlung, Arbeitsheft (auch die Broschüren A5 und A4 aus A3) und Lösungsheft.
 
-- **In Safari** meldet Safari beim ersten Drucken „Diese Website wurde für das automatische Drucken gesperrt“. Dann auf **Erlauben** tippen.
-- **Kopf- und Fußzeile:** Safari druckt oben und unten immer Datum und Adresse; auf iPad und iPhone lässt sich das nicht abschalten. Rutscht dadurch eine Seite auf zwei Blätter, im Druckdialog die Skalierung verkleinern (etwa 90 %). Legeblätter für echtes Material nicht verkleinern, sondern am Computer drucken.
-- **Als App vom Home-Bildschirm** kann Stufenweise den Druckdialog nicht selbst öffnen. Deshalb heißen die Knöpfe dort **Teilen und drucken**: Das Blatt oder Heft geht als Datei an das Teilen-Menü, dort auf **Drucken** tippen. Fehlt „Drucken“, „Als Datei speichern“ wählen, die Datei in „Dateien“ öffnen und dort Teilen → Drucken.
+1. Auf **Drucken (PDF)** tippen (beim Heft „Heft drucken (PDF)“, bei der Blattsammlung „Alle drucken (PDF)“).
+2. Stufenweise baut das PDF Seite für Seite („Seite 12 von 48“). Bei einem dicken Heft dauert das eine Weile, auf älteren Geräten auch einige Minuten. **Abbrechen** hört sofort auf.
+3. Ist das PDF fertig, auf **Teilen und drucken** tippen und im Teilen-Menü **Drucken** wählen (oder „In Dateien sichern“). Die Skalierung bei 100 % lassen, dann stimmen auch Legeblätter für echtes Material.
+
+Broschüren beidseitig drucken und an der kurzen Kante wenden, wie am Computer.
+
+Der **Lernstandsbericht** geht noch den bisherigen Weg: in Safari über den Druckdialog (beim ersten Mal „Erlauben“ tippen; Kopf- und Fußzeile lassen sich dort nicht abschalten), in der App vom Home-Bildschirm über **Teilen und drucken** als Datei.
+
+**Am Computer** druckt „Drucken“ wie bisher über den Browser. Daneben steht **Als PDF**: Damit lädt Stufenweise dasselbe PDF herunter, zum Beispiel zum Weitergeben oder zum Drucken an einem anderen Gerät.
 
 ### Basis: Grundlagen vor dem Zählen
 
