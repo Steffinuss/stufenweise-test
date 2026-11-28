@@ -5,6 +5,12 @@ Versionen: Hauptversion.Nebenversion.Korrektur (Korrektur = Fehlerbehebung, Nebe
 
 ## Unveröffentlicht (Zweig `entwicklung`, Testversion)
 
+## 0.44.1 – 28.11.2026
+
+Fehlerbehebung (Rückmeldung Stefan 28.11.2026 abends).
+
+- **Teilen auf iPad/iPhone legte eine zusätzliche „Text.txt“ ab:** `shareDoc` gab dem Teilen-Menü neben der Datei auch einen Titel mit (`navigator.share({files, title})`); iOS speicherte den Titel beim „Als Datei sichern“ als eigene Textdatei. Jetzt wird nur die Datei übergeben (`navigator.share({files})`). Test: `drucken_ios.py` prüft, dass nur `files` übergeben wird.
+
 ## 0.44.0 – 28.11.2026
 
 Freigegeben von Stefan am 28.11.2026 nach Prüfung der Testversion („Super. Du kannst erst mal alles freigeben.“): Drucken auf iPad und iPhone (Backlog V). Anleitung ergänzt (Abschnitt „Drucken auf iPad und iPhone“), Anleitungsbilder neu aufgenommen.

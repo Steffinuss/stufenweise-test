@@ -3754,7 +3754,7 @@ async function shareDoc(name, html){
   const fn = name.replace(/[\\/:*?"<>|]/g, '') + '.html';
   try {
     const file = new File([html], fn, {type:'text/html'});
-    if(navigator.canShare && navigator.canShare({files:[file]})){ await navigator.share({files:[file], title:name}); return true; }
+    if(navigator.canShare && navigator.canShare({files:[file]})){ await navigator.share({files:[file]}); return true; }   /* 0.44.1: ohne title – iOS legte ihn sonst als „Text.txt“ dazu */
   } catch(err){ if(err?.name === 'AbortError') return true; }
   toast('Teilen geht hier nicht – bitte „Als Datei speichern“, die Datei in „Dateien“ öffnen und dort Teilen → Drucken.');
   return false;
@@ -11843,7 +11843,7 @@ document.addEventListener('change', e => { const c = e.target.closest('[data-sub
 document.addEventListener('change', e => { const s = e.target.closest('[data-guide-pid]'); if(!s) return; const p = data.profiles.find(x => x.id === s.dataset.guidePid); if(p){ p.guide = s.value || undefined; saveData(); render(); } });
 
 /* ---------- Rückmeldung (Testphase): Art, Schwere, Text + automatischer Kontext → E-Mail ---------- */
-const APP_VERSION = '0.45.0.2611281649 · Testversion 809def8 · 28.11.2026';
+const APP_VERSION = '0.45.0.2611282033 · Testversion 57b9900 · 28.11.2026';
 /* Danke-Seite: Namen nur mit Einverständnis eintragen, z. B. 'Vorname Nachname (Schule)' */
 const THANKS = [];
 const FB_REPO = 'https://github.com/Steffinuss/stufenweise';

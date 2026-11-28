@@ -15,7 +15,7 @@ def check(name, ok, info=''):
 
 SHARE = """window.__shared = []; window.__canShare = true;
 navigator.canShare = (d) => window.__canShare && !!d.files;
-navigator.share = async (d) => { const f = d.files[0]; window.__shared.push({name: f.name, type: f.type, size: f.size, head: (await f.text()).slice(0, 15)}); };"""
+navigator.share = async (d) => { const f = d.files[0]; window.__shared.push({keys: Object.keys(d).sort().join(','), name: f.name, type: f.type, size: f.size, head: (await f.text()).slice(0, 15)}); };"""
 SEED = "data.profiles.push({id:'k1',name:'Mia'}); data.current='k1'; saveData();"
 
 async def page(br, mode):
@@ -54,6 +54,7 @@ async def main():
         await pg.click('#sh-print'); await pg.wait_for_timeout(400)
         sh = await pg.evaluate("window.__shared")
         check('App: Blatt als HTML-Datei geteilt', len(sh) == 1 and sh[0]['type'] == 'text/html' and sh[0]['name'].startswith('Arbeitsblatt') and sh[0]['name'].endswith('.html') and sh[0]['size'] > 5000 and sh[0]['head'].lower().startswith('<!doctype html'), sh)
+        check('App: nur Datei geteilt, kein Titel/Text (sonst legt iOS eine „Text.txt“ dazu)', sh[0]['keys'] == 'files', sh[0]['keys'])
         await pg.click('#sh-samml'); await pg.wait_for_timeout(300)
         await sheet(pg, 'samml')
         check('App: „Alle teilen und drucken“', (await pg.inner_text('#sm-print')).strip() == 'Alle teilen und drucken')
